@@ -1,0 +1,25 @@
+parameters:
+  level: 9
+  paths:
+    - src/Bundles/JsonFetcher
+    - src/Bundles/Jwt
+    - src/Bundles/JwtFetcher
+    - src/Bundles/Redis
+    - src/Bundles/Singlea
+    - src/Contracts
+  bootstrapFiles:
+    - vendor/bin/.phpunit/phpunit/vendor/autoload.php
+
+  excludePaths:
+    - src/*/Tests/*
+
+  checkGenericClassInNonGenericObjectType: false
+  checkMissingIterableValueType: false
+
+  ignoreErrors:
+    -
+      message: '#Cannot call method ask\(\) on mixed#'
+      path: src/Bundles/Singlea/Command/*
+    -
+      message: '#Call to an undefined method Predis#'
+      path: src/Bundles/Redis/*

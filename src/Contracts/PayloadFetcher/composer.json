@@ -1,0 +1,37 @@
+{
+    "name": "nbgrp/singlea-payload-fetcher-contracts",
+    "description": "The SingleA extra payload fetcher contracts",
+    "license": "BSD-3-Clause",
+    "type": "library",
+    "keywords": [
+        "abstractions",
+        "contracts",
+        "decoupling",
+        "interfaces",
+        "interoperability"
+    ],
+    "authors": [
+        {
+            "name": "Alexander Menshchikov",
+            "email": "alexander.menshchikov@yandex.ru"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "nbgrp/singlea-feature-config-contracts": "^0.1"
+    },
+    "suggest": {
+        "nbgrp/singlea-payload-fetcher-implementation": ""
+    },
+    "autoload": {
+        "psr-4": {
+            "SingleA\\Contracts\\PayloadFetcher\\": ""
+        }
+    },
+    "extra": {
+        "thanks": {
+            "name": "nbgrp/singlea",
+            "url": "https://github.com/nbgrp/singlea"
+        }
+    }
+}

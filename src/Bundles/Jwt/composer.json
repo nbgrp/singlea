@@ -1,0 +1,48 @@
+{
+    "name": "nbgrp/singlea-jwt-bundle",
+    "description": "The SingleA tokenizer JWT implementation",
+    "license": "BSD-3-Clause",
+    "type": "symfony-bundle",
+    "authors": [
+        {
+            "name": "Alexander Menshchikov",
+            "email": "alexander.menshchikov@yandex.ru"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "ext-json": "*",
+        "nbgrp/singlea-tokenization-contracts": "^0.1",
+        "symfony/config": "^6",
+        "symfony/dependency-injection": "^6",
+        "symfony/error-handler": "^6",
+        "symfony/http-kernel": "^6",
+        "web-token/jwt-framework": "^3"
+    },
+    "require-dev": {
+        "psr/event-dispatcher": "^1",
+        "psr/event-dispatcher-implementation": "1.0"
+    },
+    "provide": {
+        "nbgrp/singlea-tokenization-implementation": "1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "SingleA\\Bundles\\Jwt\\": ""
+        },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "symfony": {
+            "endpoint": [
+                "https://api.github.com/repos/nbgrp/singlea-recipes/contents/index.json",
+                "flex://defaults"
+            ]
+        }
+    }
+}

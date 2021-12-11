@@ -1,0 +1,37 @@
+{
+    "name": "nbgrp/singlea-tokenization-contracts",
+    "description": "The SingleA tokenization contracts",
+    "license": "BSD-3-Clause",
+    "type": "library",
+    "keywords": [
+        "abstractions",
+        "contracts",
+        "decoupling",
+        "interfaces",
+        "interoperability"
+    ],
+    "authors": [
+        {
+            "name": "Alexander Menshchikov",
+            "email": "alexander.menshchikov@yandex.ru"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "nbgrp/singlea-feature-config-contracts": "^0.1"
+    },
+    "suggest": {
+        "nbgrp/singlea-tokenization-implementation": ""
+    },
+    "autoload": {
+        "psr-4": {
+            "SingleA\\Contracts\\Tokenization\\": ""
+        }
+    },
+    "extra": {
+        "thanks": {
+            "name": "nbgrp/singlea",
+            "url": "https://github.com/nbgrp/singlea"
+        }
+    }
+}
