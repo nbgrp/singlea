@@ -1,0 +1,96 @@
+parameters:
+  analyser:
+    count_use_statements: false
+    types:
+      - class
+
+  paths:
+    - src
+
+  layers:
+    - name: FeatureConfig Contracts
+      collectors:
+        - { type: className, regex: ^SingleA\\Contracts\\FeatureConfig\\ }
+
+    - name: Marshaller Contracts
+      collectors:
+        - { type: className, regex: ^SingleA\\Contracts\\Marshaller\\ }
+
+    - name: PayloadFetcher Contracts
+      collectors:
+        - { type: className, regex: ^SingleA\\Contracts\\PayloadFetcher\\ }
+
+    - name: Persistence Contracts
+      collectors:
+        - { type: className, regex: ^SingleA\\Contracts\\Persistence\\ }
+
+    - name: Tokenization Contracts
+      collectors:
+        - { type: className, regex: ^SingleA\\Contracts\\Tokenization\\ }
+
+
+    - name: JsonFetcher Bundle
+      collectors:
+        - { type: className, regex: ^SingleA\\Bundles\\JsonFetcher\\ }
+
+    - name: Jwt Bundle
+      collectors:
+        - { type: className, regex: ^SingleA\\Bundles\\Jwt\\ }
+
+    - name: JwtFetcher Bundle
+      collectors:
+        - { type: className, regex: ^SingleA\\Bundles\\JwtFetcher\\ }
+
+    - name: Redis Bundle
+      collectors:
+        - { type: className, regex: ^SingleA\\Bundles\\Redis\\ }
+
+    - name: Singlea Bundle
+      collectors:
+        - { type: className, regex: ^SingleA\\Bundles\\Singlea\\ }
+
+
+  ruleset:
+    JsonFetcher Bundle:
+      - +PayloadFetcher Contracts
+
+    Jwt Bundle:
+      - +Tokenization Contracts
+
+    JwtFetcher Bundle:
+      - +PayloadFetcher Contracts
+
+    Redis Bundle:
+      - +FeatureConfig Contracts
+      - +Marshaller Contracts
+      - +Persistence Contracts
+
+    Singlea Bundle:
+      - +FeatureConfig Contracts
+      - +Marshaller Contracts
+      - +PayloadFetcher Contracts
+      - +Persistence Contracts
+      - +Tokenization Contracts
+
+    Marshaller Contracts:
+      - FeatureConfig Contracts
+
+    PayloadFetcher Contracts:
+      - FeatureConfig Contracts
+
+    Persistence Contracts:
+      - FeatureConfig Contracts
+
+    Tokenization Contracts:
+      - FeatureConfig Contracts
+
+
+  formatters:
+    graphviz:
+      groups:
+        Contracts:
+          - FeatureConfig Contracts
+          - Marshaller Contracts
+          - PayloadFetcher Contracts
+          - Persistence Contracts
+          - Tokenization Contracts

@@ -1,0 +1,8 @@
+php_version: 8.0
+
+rules:
+  php.dynamically_change_configuration:
+    enabled: false
+
+  php.duplicated_code:
+    enabled: false

@@ -1,0 +1,41 @@
+{
+    "name": "nbgrp/singlea-jwt-fetcher-bundle",
+    "description": "SingleA external payload fetcher JWT implementation",
+    "license": "BSD-3-Clause",
+    "type": "symfony-bundle",
+    "authors": [
+        {
+            "name": "Alexander Menshchikov",
+            "email": "amenshchikov@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8",
+        "ext-json": "*",
+        "nbgrp/singlea-payload-fetcher-contracts": "^0.1",
+        "symfony/config": "^6",
+        "symfony/dependency-injection": "^6",
+        "symfony/http-client-contracts": "^3",
+        "symfony/http-client-implementation": "^3",
+        "symfony/http-kernel": "^6",
+        "web-token/jwt-framework": "^3@dev"
+    },
+    "require-dev": {
+        "psr/event-dispatcher": "^1",
+        "psr/event-dispatcher-implementation": "1.0"
+    },
+    "provide": {
+        "nbgrp/singlea-payload-fetcher-implementation": "1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "SingleA\\Bundles\\JwtFetcher\\": ""
+        },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
