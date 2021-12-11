@@ -1,0 +1,45 @@
+grumphp:
+  ignore_unstaged_changes: true
+  hide_circumvention_tip: true
+  ascii: ~
+
+  fixer:
+    enabled: false
+
+  tasks:
+    composer_normalize:
+      indent_size: 4
+      indent_style: 'space'
+      no_update_lock: true
+      verbose: false
+
+    deptrac: ~
+
+    phan: ~
+
+    phpcs: ~
+
+    phpcsfixer:
+      config: '.php-cs-fixer.php'
+
+    phpmd:
+      ruleset: [ 'phpmd-ruleset' ]
+      whitelist_patterns: [ '/^src\/(.*)/' ]
+      exclude:
+        - 'src/Bundles/*/Tests'
+
+    phpmnd:
+      directory: 'src'
+      exclude_name:
+        - 'Configuration.php'
+        - 'JwtFetcherConfigFactory.php'
+        - 'JwtTokenizerConfigFactory.php'
+      exclude:
+        - 'Bundles/*/Tests'
+
+    phpstan:
+      use_grumphp_paths: false
+
+    psalm: ~
+
+    securitychecker_local: ~

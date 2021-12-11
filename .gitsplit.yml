@@ -1,0 +1,29 @@
+cache_url: "/cache/gitsplit"
+
+splits:
+  - prefix: "src/Bundles/JsonFetcher"
+    target: "https://${GH_TOKEN}@github.com/nbgrp/singlea-json-fetcher-bundle.git"
+  - prefix: "src/Bundles/Jwt"
+    target: "https://${GH_TOKEN}@github.com/nbgrp/singlea-jwt-bundle.git"
+  - prefix: "src/Bundles/JwtFetcher"
+    target: "https://${GH_TOKEN}@github.com/nbgrp/singlea-jwt-fetcher-bundle.git"
+  - prefix: "src/Bundles/Redis"
+    target: "https://${GH_TOKEN}@github.com/nbgrp/singlea-redis-bundle.git"
+  - prefix: "src/Bundles/Singlea"
+    target: "https://${GH_TOKEN}@github.com/nbgrp/singlea-bundle.git"
+
+  - prefix: "src/Contracts/FeatureConfig"
+    target: "https://${GH_TOKEN}@github.com/nbgrp/singlea-feature-config-contracts.git"
+  - prefix: "src/Contracts/Marshaller"
+    target: "https://${GH_TOKEN}@github.com/nbgrp/singlea-marshaller-contracts.git"
+  - prefix: "src/Contracts/PayloadFetcher"
+    target: "https://${GH_TOKEN}@github.com/nbgrp/singlea-payload-fetcher-contracts.git"
+  - prefix: "src/Contracts/Persistence"
+    target: "https://${GH_TOKEN}@github.com/nbgrp/singlea-persistence-contracts.git"
+  - prefix: "src/Contracts/Tokenization"
+    target: "https://${GH_TOKEN}@github.com/nbgrp/singlea-tokenization-contracts.git"
+
+origins:
+  - ^main$
+  - ^\d+\.x$
+  - ^\d+\.\d+$

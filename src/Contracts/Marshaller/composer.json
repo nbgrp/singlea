@@ -1,0 +1,37 @@
+{
+    "name": "nbgrp/singlea-marshaller-contracts",
+    "description": "The SingleA marshaller contracts",
+    "license": "BSD-3-Clause",
+    "type": "library",
+    "keywords": [
+        "abstractions",
+        "contracts",
+        "decoupling",
+        "interfaces",
+        "interoperability"
+    ],
+    "authors": [
+        {
+            "name": "Alexander Menshchikov",
+            "email": "amenshchikov@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8",
+        "nbgrp/singlea-feature-config-contracts": "^0.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "SingleA\\Contracts\\Marshaller\\": ""
+        }
+    },
+    "suggest": {
+        "nbgrp/singlea-marshaller-implementation": ""
+    },
+    "extra": {
+        "thanks": {
+            "name": "nbgrp/singlea",
+            "url": "https://github.com/nbgrp/singlea"
+        }
+    }
+}
