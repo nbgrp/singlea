@@ -1,0 +1,20 @@
+.s-header {
+  display: flex;
+  justify-content: center;
+}
+
+.md-content {
+  max-width: 810px;
+}
+
+@media screen and (max-width: 100em) {
+  .md-content {
+    max-width: 735px;
+  }
+}
+
+@media screen and (max-width: 76.1875em) {
+  .md-grid {
+    justify-content: center;
+  }
+}

@@ -1,0 +1,24 @@
+name: MkDocs
+
+on:
+  push:
+    paths:
+      - 'docs/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.x
+
+      - name: Install mkdocks
+        run: pip install mkdocs-material mkdocs-mermaid2-plugin
+
+      - name: Deploy docs
+        run: mkdocs gh-deploy --force

@@ -1,0 +1,81 @@
+{
+    "name": "nbgrp/singlea",
+    "description": "The SingleA authentication service",
+    "license": "BSD-3-Clause",
+    "type": "library",
+    "keywords": [
+        "SingleAuth",
+        "SSO"
+    ],
+    "authors": [
+        {
+            "name": "Alexander Menshchikov",
+            "email": "alexander.menshchikov@yandex.ru"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "ext-filter": "*",
+        "ext-hash": "*",
+        "ext-json": "*",
+        "ext-openssl": "*",
+        "ext-sodium": "*",
+        "nbgrp/singlea-contracts": "^1",
+        "psr/cache": "^3",
+        "psr/log": "^3",
+        "snc/redis-bundle": "^3.6 || ^4",
+        "symfony/cache": "^6",
+        "symfony/cache-contracts": "^3",
+        "symfony/config": "^6",
+        "symfony/console": "^6",
+        "symfony/dependency-injection": "^6",
+        "symfony/error-handler": "^6",
+        "symfony/event-dispatcher": "^6",
+        "symfony/event-dispatcher-contracts": "^3",
+        "symfony/expression-language": "^6",
+        "symfony/framework-bundle": "^6",
+        "symfony/http-client": "^6",
+        "symfony/http-client-contracts": "^3",
+        "symfony/http-foundation": "^6",
+        "symfony/http-kernel": "^6",
+        "symfony/routing": "^6",
+        "symfony/security-bundle": "^6",
+        "symfony/security-core": "^6",
+        "symfony/security-http": "^6",
+        "symfony/uid": "^6",
+        "web-token/jwt-framework": "^3"
+    },
+    "require-dev": {
+        "predis/predis": "^1",
+        "psr/event-dispatcher": "^1",
+        "psr/event-dispatcher-implementation": "1.0",
+        "roave/security-advisories": "dev-latest",
+        "symfony/phpunit-bridge": "^6"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "src/Contracts",
+            "options": {
+                "versions": {
+                    "nbgrp/singlea-contracts": "1.x-dev"
+                }
+            }
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "SingleA\\Bundles\\": "src/Bundles/"
+        },
+        "exclude-from-classmap": [
+            "**/Tests/"
+        ]
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "scripts": {
+        "nba": "docker run -it --rm -v $PWD:/app --workdir /app nbgrp/auditor:latest"
+    }
+}

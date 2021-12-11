@@ -1,0 +1,33 @@
+{
+    "name": "nbgrp/singlea-feature-config-contracts",
+    "description": "The SingleA feature config contracts",
+    "license": "BSD-3-Clause",
+    "type": "library",
+    "keywords": [
+        "abstractions",
+        "contracts",
+        "decoupling",
+        "interfaces",
+        "interoperability"
+    ],
+    "authors": [
+        {
+            "name": "Alexander Menshchikov",
+            "email": "alexander.menshchikov@yandex.ru"
+        }
+    ],
+    "require": {
+        "php": "^8.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "SingleA\\Contracts\\FeatureConfig\\": ""
+        }
+    },
+    "extra": {
+        "thanks": {
+            "name": "nbgrp/singlea",
+            "url": "https://github.com/nbgrp/singlea"
+        }
+    }
+}

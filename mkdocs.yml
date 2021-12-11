@@ -1,0 +1,100 @@
+site_name: SingleA
+site_description: 'Symfony bundle based authentication service providing truly Single Sign-On'
+site_url: https://nbgrp.github.io/singlea
+
+repo_name: nbgrp/singlea
+repo_url: https://github.com/nbgrp/singlea
+edit_uri: ''
+
+copyright: Copyright &copy; 2021-2022 nb:group
+
+docs_dir: docs
+
+nav:
+  - Home: index.md
+  - How It Works: how-it-works.md
+  - Features:
+      - About: features/about.md
+      - Contracts: features/contracts.md
+      - Request Signature: features/signature.md
+      - User Tokens: features/tokenization.md
+      - Payload Fetcher: features/payload-fetcher.md
+  - Bundles:
+    - SingleA: bundles/singlea.md
+    - JWT: bundles/jwt.md
+    - JSON Fetcher: bundles/json-fetcher.md
+    - JWT Fetcher: bundles/jwt-fetcher.md
+    - Redis: bundles/redis.md
+  - Client:
+    - Concept: client/concept.md
+    - Nginx: client/nginx.md
+  - Security: security.md
+  - SingleAuth: singleauth.md
+
+theme:
+  name: material
+
+  logo: assets/singlea_logo.png
+  favicon: assets/favicon.png
+
+  font:
+    text: PT Sans
+    code: JetBrains Mono
+
+  icon:
+    repo: fontawesome/brands/github
+
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: white
+      accent: blue
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: blue
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+
+  features:
+    - content.code.annotate
+    - search.share
+    - search.highlight
+    - navigation.instant
+    - navigation.sections
+    - navigation.tabs
+    - navigation.top
+    - toc.integrate
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/nbgrp
+
+    - icon: fontawesome/brands/gitter
+      link: https://gitter.im/nbgrp/singlea
+
+  generator: false
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - attr_list
+  - admonition
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format

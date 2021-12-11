@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="1"
+    strictBinaryOperands="true"
+    findUnusedPsalmSuppress="true"
+    sealAllMethods="true"
+    autoloader="vendor/autoload.php"
+    xmlns="https://getpsalm.org/schema/config"
+>
+    <projectFiles>
+        <directory name="src/Bundles/JsonFetcher" />
+        <directory name="src/Bundles/Jwt" />
+        <directory name="src/Bundles/JwtFetcher" />
+        <directory name="src/Bundles/Redis" />
+        <directory name="src/Bundles/Singlea" />
+        <ignoreFiles>
+            <file name="src/Bundles/JsonFetcher/DependencyInjection/Configuration.php" />
+            <file name="src/Bundles/Jwt/DependencyInjection/Configuration.php" />
+            <file name="src/Bundles/JwtFetcher/DependencyInjection/Configuration.php" />
+            <file name="src/Bundles/Redis/DependencyInjection/Configuration.php" />
+            <file name="src/Bundles/Singlea/DependencyInjection/Configuration.php" />
+            <directory name="src/Bundles/*/Tests" />
+        </ignoreFiles>
+    </projectFiles>
+
+    <extraFiles>
+        <directory name="vendor" />
+    </extraFiles>
+
+    <issueHandlers>
+        <MixedMethodCall>
+            <errorLevel type="suppress">
+                <directory name="src/Bundles/Singlea/Command" />
+            </errorLevel>
+        </MixedMethodCall>
+    </issueHandlers>
+
+    <stubs>
+        <file name=".psalm/stubs/igbinary.phpstub" />
+        <file name=".psalm/stubs/php81.phpstub" />
+    </stubs>
+
+    <plugins>
+        <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin" />
+    </plugins>
+</psalm>
