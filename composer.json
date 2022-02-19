@@ -23,7 +23,7 @@
         "nbgrp/singlea-contracts": "^1",
         "psr/cache": "^3",
         "psr/log": "^3",
-        "snc/redis-bundle": "^3.6",
+        "snc/redis-bundle": "^3.6 || ^4.0",
         "symfony/cache": "^6",
         "symfony/cache-contracts": "^3",
         "symfony/config": "^6",
