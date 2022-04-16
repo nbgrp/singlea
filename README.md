@@ -1,4 +1,4 @@
-# SingleA
+<h1 align="center"><img alt="SingleA" src="docs/assets/singlea.png"></h1>
 
 [![Latest Stable Version](http://poser.pugx.org/nbgrp/singlea/v)](https://packagist.org/packages/nbgrp/singlea)
 [![Latest Unstable Version](http://poser.pugx.org/nbgrp/singlea/v/unstable)](https://packagist.org/packages/nbgrp/singlea)

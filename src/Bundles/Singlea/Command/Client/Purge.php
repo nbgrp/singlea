@@ -45,7 +45,7 @@ final class Purge extends Command
     {
         /** @var string|null $days */
         $days = $input->getArgument('days');
-        if ($days !== null) {
+        if (isset($days)) {
             return;
         }
 

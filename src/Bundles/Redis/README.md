@@ -11,6 +11,6 @@ To submit Pull Request use the [main repository](https://github.com/nbgrp/single
 
 ## Documentation
 
-You can find documentation of this bundle in
+You can find documentation for this bundle in
 the ["Bundles > Redis"](https://nbgrp.github.io/singlea/bundles/redis/) section of the SingleA
 project documentation on https://nbgrp.github.io/singlea/.

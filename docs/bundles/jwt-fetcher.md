@@ -4,19 +4,50 @@
 
 > Implements `nbgrp/singlea-payload-fetcher-contracts`.
 
-JWT Fetcher Bundle implements receiving an additional user token payload from an external endpoint
-via an HTTP request containing JWT with a payload composed of user attributes. Due to Spomky's
-[JWT Framework](https://github.com/web-token/jwt-framework/), in addition to a mandatory signature
-of the JWT, it can be encrypted (according to JOSE).
+The JWT Fetcher bundle implements receiving an additional user token payload from an external
+endpoint via an HTTP request containing a JWT with a payload composed of user attributes. Due to
+Spomky's [JWT Framework](https://github.com/web-token/jwt-framework/), in addition to a mandatory
+signature of the JWT, it can be encrypted (according to JOSE).
 
 ## Installation
+
+### Symfony Flex
+
+If you use Symfony Flex, you can add an endpoint for access nb:group's recipes, which makes it
+possible to apply the default bundle configuration automatically when install the bundle:
+
+```
+composer config --json extra.symfony.endpoint '["https://api.github.com/repos/nbgrp/recipes/contents/index.json", "flex://defaults"]'
+```
+
+If you wish (or you already have some value of the `extra.symfony.endpoint` option), you can do the
+same by updating your `composer.json` directly:
+
+``` json title="composer.json"
+{
+    "name": "acme/singlea",
+    "description": "ACME SingleA",
+    "extra": {
+        "symfony": {
+            "endpoint": [
+                "https://api.github.com/repos/nbgrp/recipes/contents/index.json",
+                "flex://defaults"
+            ]
+        }
+    }
+}
+```
+
+Then you can install the bundle using Composer:
 
 ```
 composer require nbgrp/singlea-jwt-fetcher-bundle
 ```
 
-If you use Symfony Flex it enables the bundle automatically. Otherwise, to enable the bundle add the
-following code:
+### Enable the Bundle
+
+If you use Symfony Flex, it enables the bundle automatically. Otherwise, to enable the bundle add
+the following code:
 
 ``` php title="config/bundles.php"
 return [
@@ -48,29 +79,29 @@ services:
 
 ```
 
-## Client registration
+## Client Registration
 
-### Request parameters
+### Request Parameters
 
-JWT Fetcher Bundle use `jwt` as hash value to determine own parameters in client registration
-request. Besides the hash value, it has parameters:
+The JWT Fetcher bundle uses `payload` as the name (key) and `jwt` as the hash value to determine own
+parameters in the client registration data. Besides the hash value, the bundle has the following
+registration request parameters:
 
-* `endpoint` (required) — a URL where must be sent a POST request which contains an array of user
-  attributes according `claims` parameter (it may be an empty array).
-* `claims` (optional) — an array of user attributes names which should be included in the sending
-  JWT payload (if they exist for the user). If a claim ends with `[]` (square braces), user
-  attribute named without braces will be included in the JWT payload as an array; if the attribute
-  was not an array, it will be present as a one-element array. If claim does not end with `[]`, the
-  JWT payload will contain a scalar value; if user attribute is an array, only the first element
-  will be included.
-* `request` (required) — a JSON data structure with the following nested objects which configure
+* `endpoint` (required) — a URL to which the POST request should be sent, that contains an array of
+  user attributes according the `claims` parameter (it may be an empty array).
+* `claims` (optional) — a list of user attribute names to be included in the sending JWT payload (if
+  they exist for the user). If a claim ends with `[]` (square braces), user attribute named without
+  braces will be included in the JWT payload as an array; if the attribute was not an array, it will
+  be present as a one-element list. If claim does not end with `[]`, the JWT payload will contain a
+  scalar value; if user attribute is an array, only the first element will be included.
+* `request` (required) — a JSON data structure with the following nested objects, which configure
   parameters for generating a JWT that will be sent to the endpoint:
     * `jws` (required) — JWT signature parameters:
         * `alg` (required) — a signature algorithm which should be used for a JWT sending to the
           endpoint according [RFC 7518](https://www.rfc-editor.org/rfc/rfc7518.html#section-3.1)
           (except "none").
-        * `bits` (optional) — a number of bits for generating OpenSSL private key (applicable for
-          all algorithms except ECC).
+        * `bits` (optional) — a number of bits for generating an OpenSSL private key (applicable for
+          RSA and octet algorithms).
     * `jwe` (optional) — JWT encryption parameters:
         * `alg` (required) — a key encryption algorithm according RFC 7518:
           [4. Cryptographic Algorithms for Key Management](https://www.rfc-editor.org/rfc/rfc7518.html#section-4).
@@ -95,8 +126,8 @@ request. Besides the hash value, it has parameters:
         * `alg` (required) — a key encryption algorithm according RFC 7518:
           [4. Cryptographic Algorithms for Key Management](https://www.rfc-editor.org/rfc/rfc7518.html#section-4)
           according which will be generated a recipient JWK.
-        * `bits` (optional) — a number of bits for generating OpenSSL private key (applicable for
-          all algorithms except ECC).
+        * `bits` (optional) — a number of bits for generating an OpenSSL private key (applicable for
+          RSA and octet algorithms).
         * `enc` (required) — a content encryption algorithm according RFC 7518:
           [5. Cryptographic Algorithms for Content Encryption](https://www.rfc-editor.org/rfc/rfc7518.html#section-5).
         * `zip` (optional) — a JWE compression algorithm according RFC 7518:
@@ -152,11 +183,11 @@ Example:
 
 ### Output
 
-JWT Fetcher Bundle adds to the client registration output the following data:
+The JWT Fetcher bundle adds the following data to the client registration output:
 
-* `payload.request.jwk` (required) — a public JWK for a request (sent) JWT signature check.
-* `payload.response.jwk` (optional) — a recipient public JWK for which a response JWT must be
-  encrypted (if `payload.response.jwe` specified in registration data).
+* `payload.request.jwk` (required) — the public JWK for the request (sent) JWT signature check.
+* `payload.response.jwk` (optional) — the recipient public JWK, which the JWT from the response
+  should be encrypted for (if `payload.response.jwe` specified in registration data).
 
 ``` yaml
 {

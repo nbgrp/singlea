@@ -4,8 +4,8 @@
 namespace SingleA\Bundles\Singlea\Service\Client;
 
 /**
- * An optional service which allows using the "is_valid_registration_ticket" expression function
- * in the "allow_if" field of an access map record.
+ * An optional service which allows using the "is_valid_registration_ticket()" expression function
+ * in the "allow_if" option of an access map element.
  */
 interface RegistrationTicketManagerInterface
 {

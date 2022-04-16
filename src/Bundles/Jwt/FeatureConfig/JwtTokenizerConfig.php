@@ -17,7 +17,7 @@ final class JwtTokenizerConfig implements TokenizerConfigInterface
         private ?JweConfig $jweConfig,
         private ?string $audience,
     ) {
-        if ($this->ttl && $this->ttl < 0) {
+        if (isset($this->ttl) && $this->ttl < 0) {
             throw new \DomainException('Negative token TTL.');
         }
     }

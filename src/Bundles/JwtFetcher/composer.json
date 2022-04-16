@@ -37,13 +37,5 @@
     },
     "config": {
         "sort-packages": true
-    },
-    "extra": {
-        "symfony": {
-            "endpoint": [
-                "https://api.github.com/repos/nbgrp/singlea-recipes/contents/index.json",
-                "flex://defaults"
-            ]
-        }
     }
 }

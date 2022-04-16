@@ -4,19 +4,50 @@
 
 > Implements `nbgrp/singlea-persistence-contracts`.
 
-Redis Bundle makes able to store clients metadata and their feature configs in a Redis instance with
-help of the [SncRedisBundle](https://github.com/snc/SncRedisBundle). The bundle configuration allows
-declaring certain features as required to prevent client registration without specify parameters for
-these features.
+The Redis bundle makes able to store clients metadata and their feature configs in a Redis instance
+using the [SncRedisBundle](https://github.com/snc/SncRedisBundle). The bundle configuration allows
+declaring certain [SingleA features](../features/about.md) as required to prevent client
+registration without specify parameters for these features.
 
 ## Installation
+
+### Symfony Flex
+
+If you use Symfony Flex, you can add an endpoint for access nb:group's recipes, which makes it
+possible to apply the default bundle configuration automatically when install the bundle:
+
+```
+composer config --json extra.symfony.endpoint '["https://api.github.com/repos/nbgrp/recipes/contents/index.json", "flex://defaults"]'
+```
+
+If you wish (or you already have some value of the `extra.symfony.endpoint` option), you can do the
+same by updating your `composer.json` directly:
+
+``` json title="composer.json"
+{
+    "name": "acme/singlea",
+    "description": "ACME SingleA",
+    "extra": {
+        "symfony": {
+            "endpoint": [
+                "https://api.github.com/repos/nbgrp/recipes/contents/index.json",
+                "flex://defaults"
+            ]
+        }
+    }
+}
+```
+
+Then you can install the bundle using Composer:
 
 ```
 composer require nbgrp/singlea-redis-bundle
 ```
 
-If you use Symfony Flex it enables the bundle automatically. Otherwise, to enable the bundle add the
-following code:
+### Enable the Bundle
+
+If you use Symfony Flex, it enables the bundle automatically. Otherwise, to enable the bundle add
+the following code:
 
 ``` php title="config/bundles.php"
 return [
@@ -29,24 +60,24 @@ return [
 
 The bundle configuration includes the following settings:
 
-* `client_last_access_key` (default value "singlea:last-access") — the Redis hash table name which
+* `client_last_access_key` (default value "singlea:last-access") — the Redis hash table name, which
   will be used to store last access timestamps for each client.
 * `snc_redis_client` (default value "default") — the SncRedisBundle client alias name to be used to
   access the Redis instance.
   See [SncRedisBundle documentation](https://github.com/snc/SncRedisBundle/tree/master/docs#usage)
   for more details.
-* `config_managers` (required) — a data structure which defines configuration for every feature
-  config manager. Each feature config manager configuration present as a key-value pair where the
-  key value has no specific meaning, but must be unique; the value should be a data structure with
-  the following keys:
-    * `key` (required) — the Redis hash table name which the config manager will use to store
+* `config_managers` (required) — a data structure which defines the configuration for every feature
+  config manager. The configuration of each feature config manager is presented as a key-value pair
+  where the key value has no specific meaning, but must be unique; the value should be a data
+  structure with the following keys:
+    * `key` (required) — the name of the Redis hash table that the config manager will use to store
       appropriate clients configs.
     * `config_marshaller` (required) — the feature config marshaller service id (see configuration
       example below).
     * `required` (boolean, default `false`) — defines is this feature mandatory for clients or not
-      (during a registration).
+      (at registration).
 
-1. Configure the SncRedisBundle and define client alias:
+1. Configure the SncRedisBundle and define the client alias:
 
 ``` yaml title="config/packages/snc_redis.yaml"
 snc_redis:
@@ -103,13 +134,14 @@ singlea_redis:
 
 ## Add new feature
 
-To add some custom feature in your SingleA instance, you must:
+To add some custom feature in your SingleA instance, you should:
 
 * create and implement your own feature config interface (which must
-  extend `SingleA\Contracts\FeatureConfig\FeatureConfigInterface`), define new feature config
+  extend `SingleA\Contracts\FeatureConfig\FeatureConfigInterface`), define a new feature config
   marshaller in `services.yaml` with passing created interface FQCN as an argument to the marshaller
   factory;
 * implement `SingleA\Contracts\FeatureConfig\FeatureConfigFactoryInterface` for processing
   registration data and creating client feature config instances.
 
-Read [more details](../features/about.md#new-features) about creating new features.
+Read more details about [SingleA Features](../features/about.md)
+and [SingleA Contracts](../features/contracts.md).

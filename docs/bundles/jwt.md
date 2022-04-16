@@ -4,19 +4,50 @@
 
 > Implements `nbgrp/singlea-tokenization-contracts`.
 
-JWT Bundle makes able to generate user token as
-a [JWT](https://datatracker.ietf.org/doc/html/rfc7519). Due to Spomky's
+The JWT bundle makes able to generate user token as
+a [JWT](https://datatracker.ietf.org/doc/html/rfc7519). Due to the Spomky's
 [JWT Framework](https://github.com/web-token/jwt-framework/), in addition
-to mandatory signature, generated JWT can be also encrypted.
+to mandatory signature, the generated JWT can be also encrypted.
 
 ## Installation
+
+### Symfony Flex
+
+If you use Symfony Flex, you can add an endpoint for access nb:group's recipes, which makes it
+possible to apply the default bundle configuration automatically when install the bundle:
+
+```
+composer config --json extra.symfony.endpoint '["https://api.github.com/repos/nbgrp/recipes/contents/index.json", "flex://defaults"]'
+```
+
+If you wish (or you already have some value of the `extra.symfony.endpoint` option), you can do the
+same by updating your `composer.json` directly:
+
+``` json title="composer.json"
+{
+    "name": "acme/singlea",
+    "description": "ACME SingleA",
+    "extra": {
+        "symfony": {
+            "endpoint": [
+                "https://api.github.com/repos/nbgrp/recipes/contents/index.json",
+                "flex://defaults"
+            ]
+        }
+    }
+}
+```
+
+Then you can install the bundle using Composer:
 
 ```
 composer require nbgrp/singlea-jwt-bundle
 ```
 
-If you use Symfony Flex it enables the bundle automatically. Otherwise, to enable the bundle add the
-following code:
+### Enable the Bundle
+
+If you use Symfony Flex, it enables the bundle automatically. Otherwise, to enable the bundle add
+the following code:
 
 ``` php title="config/bundles.php"
 return [
@@ -27,7 +58,7 @@ return [
 
 ## Configuration
 
-It is possible to configure a default JWT lifetime value for new clients who do not specified
+It is possible to configure a default JWT lifetime value for new clients who did not specify
 `token.ttl` registration parameter explicitly. For this purpose use
 the `singlea_jwt.config_default_ttl` parameter.
 
@@ -40,26 +71,26 @@ singlea_jwt:
     issuer: 'SingleA'
 ```
 
-## Client registration
+## Client Registration
 
-JWT Bundle use `jwt` as hash value to determine own parameters in client registration request.
-Besides the hash value, it has parameters:
+### Request Parameters
 
-### Request parameters
+The JWT bundle uses `token` as the name (key) and `jwt` as the hash value to determine own
+parameters in client registration request. Besides the hash value, the bundle has the following
+registration request parameters:
 
 * `ttl` (optional) — a JWT lifetime in seconds.
-* `claims` (optional) — an array of user attributes names which should be included in the JWT
-  payload (if they exist for the user). If a claim ends with `[]` (square braces), user attribute
-  named without braces will be included in the JWT payload as an array; if the attribute was not an
-  array, it will be present as a one-element array. If claim does not end with `[]`, the JWT payload
-  will contain a scalar value; if user attribute is an array, only the first element will be
-  included.
+* `claims` (optional) — a list of user attribute names to be included in the JWT payload (if they
+  exist for the user). If a claim ends with `[]` (square braces), user attribute named without
+  braces will be included in the JWT payload as an array; if the attribute was not an array, it will
+  be present as a one-element list. If claim does not end with `[]`, the JWT payload will contain a
+  scalar value; if user attribute is an array, only the first element will be included.
 * `jws` (required) — JWT signature parameters:
     * `alg` (required) — a signature algorithm which should be used for a JWT sending to the
       endpoint according [RFC 7518](https://www.rfc-editor.org/rfc/rfc7518.html#section-3.1) (except
       "none").
-    * `bits` (optional) — a number of bits for generating OpenSSL private key (applicable for
-      all algorithms except ECC).
+    * `bits` (optional) — a number of bits for generating an OpenSSL private key (applicable for
+      RSA and octet algorithms).
 * `jwe` (optional) — JWT encryption parameters:
     * `alg` (required) — a key encryption algorithm according RFC 7518:
       [4. Cryptographic Algorithms for Key Management](https://www.rfc-editor.org/rfc/rfc7518.html#section-4).
@@ -103,8 +134,8 @@ Besides the hash value, it has parameters:
 
 ### Output
 
-JWT Bundle adds to the client registration output a public JWK which can be used further to check a
-user JWT signature.
+The JWT bundle adds to the client registration output the public JWK, which can be used further to
+verify the signature of the user's JWT.
 
 ``` yaml
 {
