@@ -9,9 +9,9 @@ use SingleA\Contracts\Persistence\ClientManagerInterface;
 final class ClientManager implements ClientManagerInterface
 {
     public function __construct(
-        private string $key,
-        private \Redis|\RedisCluster|\Predis\ClientInterface $redis,
-        private ?LoggerInterface $logger = null,
+        private readonly string $key,
+        private readonly \Redis|\RedisCluster|\Predis\ClientInterface $redis,
+        private readonly ?LoggerInterface $logger = null,
     ) {}
 
     public function exists(string $id, bool $touch = true): bool

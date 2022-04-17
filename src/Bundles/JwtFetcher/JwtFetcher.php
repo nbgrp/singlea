@@ -20,11 +20,11 @@ final class JwtFetcher implements FetcherInterface
     private Signature\Serializer\CompactSerializer $jwsSerializer;
 
     public function __construct(
-        private HttpClientInterface $httpClient,
-        private JWSBuilderFactory $jwsBuilderFactory,
-        private NestedTokenBuilderFactory $nestedTokenBuilderFactory,
-        private JWSLoaderFactory $jwsLoaderFactory,
-        private NestedTokenLoaderFactory $nestedTokenLoaderFactory,
+        private readonly HttpClientInterface $httpClient,
+        private readonly JWSBuilderFactory $jwsBuilderFactory,
+        private readonly NestedTokenBuilderFactory $nestedTokenBuilderFactory,
+        private readonly JWSLoaderFactory $jwsLoaderFactory,
+        private readonly NestedTokenLoaderFactory $nestedTokenLoaderFactory,
     ) {
         $this->jwsSerializer = new Signature\Serializer\CompactSerializer();
     }

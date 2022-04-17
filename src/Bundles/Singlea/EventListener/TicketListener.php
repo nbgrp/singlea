@@ -14,8 +14,8 @@ final class TicketListener
     public const TICKET_ATTRIBUTE = '__ticket';
 
     public function __construct(
-        private string $ticketHeader,
-        private ?LoggerInterface $logger = null,
+        private readonly string $ticketHeader,
+        private readonly ?LoggerInterface $logger = null,
     ) {}
 
     #[AsEventListener(KernelEvents::REQUEST, priority: 30)]

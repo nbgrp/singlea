@@ -16,11 +16,11 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 final class SuccessfulLoginListener
 {
     public function __construct(
-        private string $ticketCookieName,
-        private RealmResolverInterface $realmResolver,
-        private UserAttributesManagerInterface $userAttributesManager,
-        private EventDispatcherInterface $eventDispatcher,
-        private ?LoggerInterface $logger = null,
+        private readonly string $ticketCookieName,
+        private readonly RealmResolverInterface $realmResolver,
+        private readonly UserAttributesManagerInterface $userAttributesManager,
+        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly ?LoggerInterface $logger = null,
     ) {}
 
     #[AsEventListener(LoginSuccessEvent::class)]

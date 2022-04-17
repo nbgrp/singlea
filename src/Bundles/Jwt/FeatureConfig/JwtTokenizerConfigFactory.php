@@ -20,7 +20,7 @@ final class JwtTokenizerConfigFactory implements TokenizerConfigFactoryInterface
     private array $availableCompressionMethods;
 
     public function __construct(
-        private ?int $configDefaultTtl,
+        private readonly ?int $configDefaultTtl,
         AlgorithmManagerFactory $algorithmManagerFactory,
         CompressionMethodManagerFactory $compressionMethodManagerFactory,
     ) {

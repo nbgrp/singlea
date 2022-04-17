@@ -34,12 +34,12 @@ final class GrantedVoter extends Voter
     public function __construct(
         ?string $trustedClients,
         ?string $trustedRegistrars,
-        private string $registrationTicketHeader,
-        private RequestStack $requestStack,
-        private ConfigRetrieverInterface $configRetriever,
-        private SignatureServiceInterface $signatureService,
-        private ?RegistrationTicketManagerInterface $registrationTicketManager = null,
-        private ?LoggerInterface $logger = null,
+        private readonly string $registrationTicketHeader,
+        private readonly RequestStack $requestStack,
+        private readonly ConfigRetrieverInterface $configRetriever,
+        private readonly SignatureServiceInterface $signatureService,
+        private readonly ?RegistrationTicketManagerInterface $registrationTicketManager = null,
+        private readonly ?LoggerInterface $logger = null,
     ) {
         $trustedClients = array_filter(array_map('trim', explode(',', $trustedClients ?? '')));
         if ($trustedClients && !\in_array('REMOTE_ADDR', $trustedClients, true)) {

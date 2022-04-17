@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\RequestMatcherInterface;
 final class RealmRequestMatcher implements RequestMatcherInterface
 {
     public function __construct(
-        private string $realm,
+        private readonly string $realm,
     ) {}
 
     /**

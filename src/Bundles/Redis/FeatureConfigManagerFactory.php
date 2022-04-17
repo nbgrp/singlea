@@ -21,12 +21,12 @@ final class FeatureConfigManagerFactory
     ): FeatureConfigManagerInterface {
         return new class($key, $redis, $marshaller, $encryptor, $required, $logger) implements FeatureConfigManagerInterface {
             public function __construct(
-                private string $key,
-                private \Redis|\RedisCluster|\Predis\ClientInterface $redis,
-                private FeatureConfigMarshallerInterface $marshaller,
-                private FeatureConfigEncryptorInterface $encryptor,
-                private bool $required,
-                private ?LoggerInterface $logger,
+                private readonly string $key,
+                private readonly \Redis|\RedisCluster|\Predis\ClientInterface $redis,
+                private readonly FeatureConfigMarshallerInterface $marshaller,
+                private readonly FeatureConfigEncryptorInterface $encryptor,
+                private readonly bool $required,
+                private readonly ?LoggerInterface $logger,
             ) {}
 
             public function supports(FeatureConfigInterface|string $config): bool

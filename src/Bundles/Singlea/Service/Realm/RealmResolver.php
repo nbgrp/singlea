@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 final class RealmResolver implements RealmResolverInterface
 {
     public function __construct(
-        private FirewallMap $firewallMap,
+        private readonly FirewallMap $firewallMap,
     ) {}
 
     public function resolve(Request $request): string

@@ -16,10 +16,10 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 final class AuthenticationService implements AuthenticationServiceInterface
 {
     public function __construct(
-        private string $redirectUriQueryParameter,
-        private RealmResolverInterface $realmResolver,
-        private UserAttributesManagerInterface $userAttributesManager,
-        private EventDispatcherInterface $eventDispatcher,
+        private readonly string $redirectUriQueryParameter,
+        private readonly RealmResolverInterface $realmResolver,
+        private readonly UserAttributesManagerInterface $userAttributesManager,
+        private readonly EventDispatcherInterface $eventDispatcher,
     ) {}
 
     public function needLogout(TokenInterface $token, Request $request): bool

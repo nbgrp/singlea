@@ -19,11 +19,11 @@ final class SignatureService implements SignatureServiceInterface
      * @param array<string> $extraExcludeParameters
      */
     public function __construct(
-        private int $requestTtl,
-        private string $timestampQueryParameter,
-        private string $signatureQueryParameter,
-        private array $extraExcludeParameters = [],
-        private ?LoggerInterface $logger = null,
+        private readonly int $requestTtl,
+        private readonly string $timestampQueryParameter,
+        private readonly string $signatureQueryParameter,
+        private readonly array $extraExcludeParameters = [],
+        private readonly ?LoggerInterface $logger = null,
     ) {}
 
     public function check(Request $request, SignatureConfigInterface $config): void

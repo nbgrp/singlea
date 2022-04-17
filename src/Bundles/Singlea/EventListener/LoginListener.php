@@ -13,14 +13,14 @@ use Symfony\Component\HttpFoundation\Cookie;
 final class LoginListener
 {
     public function __construct(
-        private string $ticketCookieName,
-        private int $ticketTtl,
-        private string $ticketDomain,
-        private string $ticketSameSite,
-        private bool $stickySession,
-        private RealmResolverInterface $realmResolver,
-        private UserAttributesManagerInterface $userAttributesManager,
-        private ?LoggerInterface $logger = null,
+        private readonly string $ticketCookieName,
+        private readonly int $ticketTtl,
+        private readonly string $ticketDomain,
+        private readonly string $ticketSameSite,
+        private readonly bool $stickySession,
+        private readonly RealmResolverInterface $realmResolver,
+        private readonly UserAttributesManagerInterface $userAttributesManager,
+        private readonly ?LoggerInterface $logger = null,
     ) {}
 
     #[AsEventListener(LoginEvent::class)]

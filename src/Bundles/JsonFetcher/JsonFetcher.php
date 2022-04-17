@@ -11,7 +11,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 final class JsonFetcher implements FetcherInterface
 {
     public function __construct(
-        private HttpClientInterface $httpClient,
+        private readonly HttpClientInterface $httpClient,
     ) {}
 
     public function supports(FetcherConfigInterface|string $config): bool

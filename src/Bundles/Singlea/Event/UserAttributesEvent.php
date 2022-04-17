@@ -18,9 +18,9 @@ final class UserAttributesEvent extends Event
     private array $userAttributes = [];
 
     public function __construct(
-        private Passport $passport,
-        private TokenInterface $authenticatedToken,
-        private Request $request,
+        private readonly Passport $passport,
+        private readonly TokenInterface $authenticatedToken,
+        private readonly Request $request,
     ) {}
 
     public function getPassport(): Passport

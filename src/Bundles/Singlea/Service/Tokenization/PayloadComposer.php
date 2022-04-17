@@ -16,9 +16,9 @@ final class PayloadComposer implements PayloadComposerInterface
      * @param iterable<FetcherInterface> $payloadFetchers
      */
     public function __construct(
-        private iterable $payloadFetchers,
-        private EventDispatcherInterface $eventDispatcher,
-        private ?LoggerInterface $logger = null,
+        private readonly iterable $payloadFetchers,
+        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly ?LoggerInterface $logger = null,
     ) {}
 
     public function compose(

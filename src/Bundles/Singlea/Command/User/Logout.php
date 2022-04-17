@@ -19,7 +19,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 final class Logout extends Command
 {
     public function __construct(
-        private UserAttributesManagerInterface $userAttributesManager,
+        private readonly UserAttributesManagerInterface $userAttributesManager,
     ) {
         parent::__construct();
     }

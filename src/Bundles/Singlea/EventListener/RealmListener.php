@@ -12,8 +12,8 @@ final class RealmListener
     public const REALM_ATTRIBUTE = '_singlea_realm';
 
     public function __construct(
-        private string $realmQueryParameter,
-        private string $defaultRealm,
+        private readonly string $realmQueryParameter,
+        private readonly string $defaultRealm,
     ) {}
 
     #[AsEventListener(KernelEvents::REQUEST, priority: 65)]

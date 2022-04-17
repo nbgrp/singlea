@@ -63,6 +63,7 @@ return static function (ContainerConfigurator $container): void {
         ->set(Singlea\EventListener\ExceptionListener::class)
             ->args([
                 param('kernel.debug'),
+                service(\Symfony\Component\HttpFoundation\RequestStack::class),
             ])
 
         ->set(Singlea\EventListener\LoginListener::class)

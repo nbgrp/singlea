@@ -14,9 +14,9 @@ final class UserAttributesManager implements UserAttributesManagerInterface
      * @param array<string, CacheItemPoolInterface&TagAwareCacheInterface> $pools
      */
     public function __construct(
-        private array $pools,
-        private UserAttributesMarshallerInterface $marshaller,
-        private ?LoggerInterface $logger = null,
+        private readonly array $pools,
+        private readonly UserAttributesMarshallerInterface $marshaller,
+        private readonly ?LoggerInterface $logger = null,
     ) {}
 
     public function exists(string $realm, string $ticket): bool

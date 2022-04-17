@@ -20,7 +20,7 @@ final class JwtFetcherConfigFactory implements FetcherConfigFactoryInterface
     private array $availableCompressionMethods;
 
     public function __construct(
-        private bool $httpsOnly,
+        private readonly bool $httpsOnly,
         AlgorithmManagerFactory $algorithmManagerFactory,
         CompressionMethodManagerFactory $compressionMethodManagerFactory,
     ) {

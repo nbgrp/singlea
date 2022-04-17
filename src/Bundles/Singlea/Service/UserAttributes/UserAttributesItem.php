@@ -6,9 +6,9 @@ namespace SingleA\Bundles\Singlea\Service\UserAttributes;
 final class UserAttributesItem implements UserAttributesItemInterface
 {
     public function __construct(
-        private string $identifier,
-        private array $attributes,
-        private ?int $ttl,
+        private readonly string $identifier,
+        private readonly array $attributes,
+        private readonly ?int $ttl,
     ) {}
 
     public function getIdentifier(): string

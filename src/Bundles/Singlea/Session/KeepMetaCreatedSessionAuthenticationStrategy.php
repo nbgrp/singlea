@@ -12,7 +12,7 @@ final class KeepMetaCreatedSessionAuthenticationStrategy implements SessionAuthe
     public const INITIAL_META_CREATED = '_imc';
 
     public function __construct(
-        private SessionAuthenticationStrategyInterface $sessionAuthenticationStrategy,
+        private readonly SessionAuthenticationStrategyInterface $sessionAuthenticationStrategy,
     ) {}
 
     public function onAuthentication(Request $request, TokenInterface $token): void

@@ -15,9 +15,9 @@ use Symfony\Contracts\EventDispatcher\Event;
 final class LoginEvent extends Event
 {
     public function __construct(
-        private Request $request,
+        private readonly Request $request,
         private Response $response,
-        private string $ticket,
+        private readonly string $ticket,
     ) {}
 
     public function getRequest(): Request

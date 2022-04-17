@@ -37,7 +37,6 @@
 
     <stubs>
         <file name=".psalm/stubs/igbinary.phpstub" />
-        <file name=".psalm/stubs/php81.phpstub" />
     </stubs>
 
     <plugins>

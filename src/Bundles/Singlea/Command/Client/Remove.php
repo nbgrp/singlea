@@ -27,8 +27,8 @@ final class Remove extends Command
      * @param iterable<FeatureConfigManagerInterface> $configManagers
      */
     public function __construct(
-        private iterable $configManagers,
-        private ClientManagerInterface $clientManager,
+        private readonly iterable $configManagers,
+        private readonly ClientManagerInterface $clientManager,
     ) {
         parent::__construct();
     }

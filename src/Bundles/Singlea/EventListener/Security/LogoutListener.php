@@ -14,13 +14,13 @@ use Symfony\Component\Security\Http\Event\LogoutEvent;
 final class LogoutListener
 {
     public function __construct(
-        private string $ticketCookieName,
-        private string $ticketDomain,
-        private string $ticketSameSite,
-        private AuthenticationServiceInterface $authenticationService,
-        private RealmResolverInterface $realmResolver,
-        private UserAttributesManagerInterface $userAttributesManager,
-        private ?LoggerInterface $logger = null,
+        private readonly string $ticketCookieName,
+        private readonly string $ticketDomain,
+        private readonly string $ticketSameSite,
+        private readonly AuthenticationServiceInterface $authenticationService,
+        private readonly RealmResolverInterface $realmResolver,
+        private readonly UserAttributesManagerInterface $userAttributesManager,
+        private readonly ?LoggerInterface $logger = null,
     ) {}
 
     #[AsEventListener(LogoutEvent::class, priority: 65)]

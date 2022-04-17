@@ -12,7 +12,7 @@ final class ConfigRetriever implements ConfigRetrieverInterface
      * @param iterable<FeatureConfigManagerInterface> $configManagers
      */
     public function __construct(
-        private iterable $configManagers,
+        private readonly iterable $configManagers,
     ) {}
 
     public function exists(string $configInterface, string $clientId): bool

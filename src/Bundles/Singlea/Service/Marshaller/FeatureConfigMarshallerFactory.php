@@ -38,9 +38,9 @@ final class FeatureConfigMarshallerFactory
              * @param callable-string                      $unserializeCallbackHandler
              */
             public function __construct(
-                private string $interface,
-                private bool $useIgbinarySerialize,
-                private string $unserializeCallbackHandler,
+                private readonly string $interface,
+                private readonly bool $useIgbinarySerialize,
+                private readonly string $unserializeCallbackHandler,
             ) {}
 
             public function supports(FeatureConfigInterface|string $config): bool

@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 final class FeatureConfigResolver implements ArgumentValueResolverInterface
 {
     public function __construct(
-        private ConfigRetrieverInterface $configRetriever,
+        private readonly ConfigRetrieverInterface $configRetriever,
     ) {}
 
     public function supports(Request $request, ArgumentMetadata $argument): bool

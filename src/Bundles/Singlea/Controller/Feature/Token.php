@@ -24,7 +24,7 @@ final class Token
      * @param iterable<TokenizerInterface> $tokenizers
      */
     public function __construct(
-        private iterable $tokenizers,
+        private readonly iterable $tokenizers,
     ) {}
 
     public function __invoke(

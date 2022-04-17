@@ -19,7 +19,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 final class Register extends Command
 {
     public function __construct(
-        private RegistrationServiceInterface $registerService,
+        private readonly RegistrationServiceInterface $registerService,
     ) {
         parent::__construct();
     }

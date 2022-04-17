@@ -5,18 +5,38 @@ namespace SingleA\Bundles\Singlea\EventListener;
 
 use Symfony\Component\ErrorHandler\Exception\FlattenException;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
+use Symfony\Component\HttpFoundation\Exception\SessionNotFoundException;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 final class ExceptionListener
 {
     public function __construct(
-        private bool $debug,
+        private readonly bool $debug,
+        private readonly RequestStack $requestStack,
     ) {}
 
+    #[AsEventListener(KernelEvents::EXCEPTION, priority: 10)]
+    public function invalidateSession(ExceptionEvent $event): void
+    {
+        $exception = $event->getThrowable();
+        if (!$exception instanceof AuthenticationException && !$exception instanceof AccessDeniedException) {
+            return;
+        }
+
+        try {
+            $this->requestStack->getSession()->invalidate();
+        } catch (SessionNotFoundException) {
+            // no-op
+        }
+    }
+
     #[AsEventListener(KernelEvents::EXCEPTION, priority: -10)]
-    public function onKernelException(ExceptionEvent $event): void
+    public function convertExceptionToJsonResponse(ExceptionEvent $event): void
     {
         $exception = FlattenException::createFromThrowable($event->getThrowable());
 

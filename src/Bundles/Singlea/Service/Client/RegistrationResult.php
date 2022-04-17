@@ -8,9 +8,9 @@ use Symfony\Component\Uid\UuidV6;
 final class RegistrationResult
 {
     public function __construct(
-        private UuidV6 $clientId,
-        private string $secret,
-        private array $output,
+        private readonly UuidV6 $clientId,
+        private readonly string $secret,
+        private readonly array $output,
     ) {}
 
     public function getClientId(): UuidV6

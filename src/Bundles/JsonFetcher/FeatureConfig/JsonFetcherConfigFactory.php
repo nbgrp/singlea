@@ -8,7 +8,7 @@ use SingleA\Contracts\PayloadFetcher\FetcherConfigFactoryInterface;
 final class JsonFetcherConfigFactory implements FetcherConfigFactoryInterface
 {
     public function __construct(
-        private bool $httpsOnly,
+        private readonly bool $httpsOnly,
     ) {}
 
     public function getConfigClass(): string

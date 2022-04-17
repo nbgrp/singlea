@@ -19,7 +19,7 @@ use Symfony\Component\Uid\UuidV6;
 final class Oldest extends Command
 {
     public function __construct(
-        private ClientManagerInterface $clientManager,
+        private readonly ClientManagerInterface $clientManager,
     ) {
         parent::__construct();
     }

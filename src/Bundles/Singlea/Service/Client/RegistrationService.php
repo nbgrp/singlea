@@ -19,10 +19,10 @@ final class RegistrationService implements RegistrationServiceInterface
      * @param iterable<FeatureConfigManagerInterface> $configManagers
      */
     public function __construct(
-        private iterable $configFactories,
-        private iterable $configManagers,
-        private ClientManagerInterface $clientManager,
-        private ?LoggerInterface $logger = null,
+        private readonly iterable $configFactories,
+        private readonly iterable $configManagers,
+        private readonly ClientManagerInterface $clientManager,
+        private readonly ?LoggerInterface $logger = null,
     ) {
         $this->requiredConfigManagers = new \SplObjectStorage();
     }
