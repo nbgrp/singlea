@@ -24,7 +24,6 @@ splits:
     target: "https://${GH_TOKEN}@github.com/nbgrp/singlea-tokenization-contracts.git"
 
 origins:
-  - ^main$
   - ^\d+\.x$
   - ^\d+\.\d+$
   - ^v\d+\.\d+.\d+$

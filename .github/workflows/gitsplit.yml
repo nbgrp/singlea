@@ -3,7 +3,6 @@ name: GitSplit
 on:
   push:
     branches:
-      - 'main'
       - '[0-9]+.[0-9]+'
       - '[0-9]+.[0-9]+-**'
   release:
