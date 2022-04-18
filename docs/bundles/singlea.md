@@ -9,6 +9,12 @@ increase security of the SingleA usage and make it reliable authentication servi
 The common overview of the SingleA workflow you can find on the [How It Works](../how-it-works.md)
 page.
 
+## Prerequisites
+
+You need to configure at least one tag aware cache pool with name "singlea.cache" to avoid an error
+at auto-scripts running after the bundle install. You can configure all necessary cache pools at
+once. See for details on the [Cache Pool Management](#cache-pool-management) section below.
+
 ## Installation
 
 ### Symfony Flex
@@ -123,8 +129,14 @@ Configuration of the SingleA bundle consists of the following groups of paramete
   extension is available and the extension version is greater than 3.2.2, the igbinary functions
   will be used for serialization.
 
-Also, you need to configure the Symfony Cache component.
-See the [Cache Pool Management](#cache-pool-management) section below.
+### Routes
+
+Update your routes configuration:
+
+``` yaml title="config/routes.yaml"
+singlea:
+    resource: '@SingleaBundle/Resources/config/routes.php'
+```
 
 ### Trusted IP addresses / subnets
 

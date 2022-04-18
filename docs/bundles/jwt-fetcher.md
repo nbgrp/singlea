@@ -9,6 +9,13 @@ endpoint via an HTTP request containing a JWT with a payload composed of user at
 Spomky's [JWT Framework](https://github.com/web-token/jwt-framework/), in addition to a mandatory
 signature of the JWT, it can be encrypted (according to JOSE).
 
+## Prerequisites
+
+You need to install the Spomky's [JWT Framework](https://github.com/web-token/jwt-framework) (which
+include JoseFrameworkBundle) before install the SingleA JWT bundle (or simultaneously). This is
+because the Spomky's bundle, like this one, use dedicated repository for Symfony Flex recipes, and
+you need to add it in your `composer.json` or enable the bundle manually.
+
 ## Installation
 
 ### Symfony Flex

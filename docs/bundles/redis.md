@@ -9,6 +9,12 @@ using the [SncRedisBundle](https://github.com/snc/SncRedisBundle). The bundle co
 declaring certain [SingleA features](../features/about.md) as required to prevent client
 registration without specify parameters for these features.
 
+## Prerequisites
+
+This bundle use the [SncRedisBundle](https://github.com/snc/SncRedisBundle) to operate with a Redis
+instance. You need to install it yourself and configure a client with alias "default" before install
+the SingleA Redis bundle. The name "default" can be changed later.
+
 ## Installation
 
 ### Symfony Flex

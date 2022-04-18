@@ -9,6 +9,13 @@ a [JWT](https://datatracker.ietf.org/doc/html/rfc7519). Due to the Spomky's
 [JWT Framework](https://github.com/web-token/jwt-framework/), in addition
 to mandatory signature, the generated JWT can be also encrypted.
 
+## Prerequisites
+
+You need to install the Spomky's [JWT Framework](https://github.com/web-token/jwt-framework) (which
+include JoseFrameworkBundle) before install the SingleA JWT bundle (or simultaneously). This is
+because the Spomky's bundle, like this one, use dedicated repository for Symfony Flex recipes, and
+you need to add it in your `composer.json` or enable the bundle manually.
+
 ## Installation
 
 ### Symfony Flex
@@ -94,11 +101,14 @@ registration request parameters:
       RSA and octet algorithms).
 * `jwe` (optional) — JWT encryption parameters:
     * `alg` (required) — a key encryption algorithm according RFC 7518:
-      [4. Cryptographic Algorithms for Key Management](https://www.rfc-editor.org/rfc/rfc7518.html#section-4).
+      [4. Cryptographic Algorithms for Key Management](https://www.rfc-editor.org/rfc/rfc7518.html#section-4)
+      .
     * `enc` (required) — a content encryption algorithm according RFC 7518:
-      [5. Cryptographic Algorithms for Content Encryption](https://www.rfc-editor.org/rfc/rfc7518.html#section-5).
+      [5. Cryptographic Algorithms for Content Encryption](https://www.rfc-editor.org/rfc/rfc7518.html#section-5)
+      .
     * `zip` (optional) — a JWE compression algorithm according RFC 7518:
-      [7.3. JSON Web Encryption Compression Algorithms Registry](https://www.rfc-editor.org/rfc/rfc7518.html#section-7.3).
+      [7.3. JSON Web Encryption Compression Algorithms Registry](https://www.rfc-editor.org/rfc/rfc7518.html#section-7.3)
+      .
     * `jwk` (required) — a JSON data structure which represent a recipient public JWK
       according RFC 7518:
       [6. Cryptographic Algorithms for Keys](https://www.rfc-editor.org/rfc/rfc7518.html#section-6).
