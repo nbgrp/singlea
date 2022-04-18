@@ -26,7 +26,6 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->booleanNode('https_only')
                     ->defaultTrue()
-                    ->treatNullLike(true)
                 ->end()
             ->end()
         ;
