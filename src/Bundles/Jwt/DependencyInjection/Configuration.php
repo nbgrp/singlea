@@ -32,7 +32,8 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
                 ->scalarNode('issuer')
-                    ->defaultNull()
+                    ->isRequired()
+                    ->cannotBeEmpty()
                 ->end()
             ->end()
         ;

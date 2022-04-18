@@ -15,7 +15,7 @@ final class JwtTokenizer implements TokenizerInterface
     private Signature\Serializer\CompactSerializer $jwsSerializer;
 
     public function __construct(
-        private readonly ?string $issuer,
+        private readonly string $issuer,
         private readonly JWSBuilderFactory $jwsBuilderFactory,
         private readonly NestedTokenBuilderFactory $nestedTokenBuilderFactory,
     ) {
@@ -42,10 +42,7 @@ final class JwtTokenizer implements TokenizerInterface
         $payload['iat'] ??= time();
         $payload['nbf'] ??= time();
         $payload['exp'] ??= time() + ($config->getTtl() ?? 0);
-
-        if ($this->issuer) {
-            $payload['iss'] ??= $this->issuer;
-        }
+        $payload['iss'] ??= $this->issuer;
 
         if ($config->getAudience()) {
             $payload['aud'] ??= $config->getAudience();

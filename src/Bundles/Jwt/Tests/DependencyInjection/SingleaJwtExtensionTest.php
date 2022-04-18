@@ -22,7 +22,11 @@ final class SingleaJwtExtensionTest extends TestCase
         $container = new ContainerBuilder();
         $extension = new SingleaJwtExtension();
 
-        $extension->load([], $container);
+        $extension->load([
+            'singlea_jwt' => [
+                'issuer' => 'https://sso.domain.org/',
+            ],
+        ], $container);
 
         self::assertTrue($container->hasDefinition(JwtTokenizer::class));
         self::assertTrue($container->hasDefinition(JwtTokenizerConfigFactory::class));

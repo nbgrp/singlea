@@ -64,7 +64,7 @@ final class JwtTokenizerTest extends TestCase
      */
     public function testSupports(TokenizerConfigInterface|string $config, bool $expected): void
     {
-        $tokenizer = new JwtTokenizer(null, self::$jwsBuilderFactory, self::$nestedTokenBuilderFactory);
+        $tokenizer = new JwtTokenizer('iss-value', self::$jwsBuilderFactory, self::$nestedTokenBuilderFactory);
 
         self::assertSame($expected, $tokenizer->supports($config));
     }
@@ -89,7 +89,7 @@ final class JwtTokenizerTest extends TestCase
 
     public function testWrongConfigTokenize(): void
     {
-        $tokenizer = new JwtTokenizer(null, self::$jwsBuilderFactory, self::$nestedTokenBuilderFactory);
+        $tokenizer = new JwtTokenizer('iss-value', self::$jwsBuilderFactory, self::$nestedTokenBuilderFactory);
         $config = $this->createStub(TokenizerConfigInterface::class);
 
         $this->expectException(\InvalidArgumentException::class);
@@ -101,7 +101,7 @@ final class JwtTokenizerTest extends TestCase
     /**
      * @dataProvider successTokenizeProvider
      */
-    public function testSuccessTokenize(?string $issuer, string $subject, array $payload, JwtTokenizerConfig $config, string $expected): void
+    public function testSuccessTokenize(string $issuer, string $subject, array $payload, JwtTokenizerConfig $config, string $expected): void
     {
         $tokenizer = new JwtTokenizer($issuer, self::$jwsBuilderFactory, self::$nestedTokenBuilderFactory);
 
@@ -141,11 +141,11 @@ final class JwtTokenizerTest extends TestCase
         );
 
         yield 'TTL, no issuer, audience, no JWE' => [
-            'issuer' => null,
+            'issuer' => 'singlea',
             'subject' => 'tester',
             'payload' => $payload,
             'config' => new JwtTokenizerConfig(120, null, $jwsConfig, null, 'test-app'),
-            'expected' => 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDM0OTA3NTEsIm5iZiI6MTY0MzQ5MDc1MSwiZXhwIjoxNjQzNDkwMTcxLCJlbWFpbCI6ImV4QG1wbGUubWUiLCJhZGRyZXNzIjoiU3QuIFBldGVyc2J1cmcsIFJ1c3NpYSIsInN1YiI6InRlc3RlciIsImF1ZCI6InRlc3QtYXBwIn0.jKSRVbUTPTVe_hmN9aj_VbjsabJI1GVPd3hVYGWd6Qk',
+            'expected' => 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDM0OTA3NTEsIm5iZiI6MTY0MzQ5MDc1MSwiZXhwIjoxNjQzNDkwMTcxLCJlbWFpbCI6ImV4QG1wbGUubWUiLCJhZGRyZXNzIjoiU3QuIFBldGVyc2J1cmcsIFJ1c3NpYSIsInN1YiI6InRlc3RlciIsImlzcyI6InNpbmdsZWEiLCJhdWQiOiJ0ZXN0LWFwcCJ9.vwAr8I5AFwL2zyclS5JBXHLfZZpnSRvcpndFZHwbab4',
         ];
 
         yield 'No TTL, issuer, no audience, JWE (weak expected value)' => [

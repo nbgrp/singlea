@@ -58,17 +58,18 @@ return [
 
 ## Configuration
 
-It is possible to configure a default JWT lifetime value for new clients who did not specify
-`token.ttl` registration parameter explicitly. For this purpose use
-the `singlea_jwt.config_default_ttl` parameter.
+The bundle configuration includes the following settings:
 
-With `singlea_jwt.issuer` it is possible to configure
-the [`iss` JWT claim](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.1) value.
+* `config_default_ttl` (default: 600) — a default JWT lifetime value for new clients who did not
+  specify the `token.ttl` registration parameter explicitly.
+* `issuer` (**required**) —
+  the [`iss` JWT claim](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.1) value, unless
+  another value is explicitly specified in the payload.
 
 ``` yaml title="config/packages/singlea_jwt.yaml"
 singlea_jwt:
     config_default_ttl: 1200
-    issuer: 'SingleA'
+    issuer: 'https://sso.domain.org/'
 ```
 
 ## Client Registration

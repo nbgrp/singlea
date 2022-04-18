@@ -29,7 +29,7 @@ final class SingleaExtensionTest extends TestCase
         $container->registerExtension($extension);
         $extension->load([
             'singlea' => [
-                'ticket' => ['domain' => '.example.test'],
+                'ticket' => ['domain' => 'example.test'],
             ],
         ], $container);
 
