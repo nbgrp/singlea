@@ -5,12 +5,13 @@ namespace SingleA\Bundles\Singlea\Service\Signature;
 
 use Psr\Log\LoggerInterface;
 use SingleA\Bundles\Singlea\FeatureConfig\Signature\SignatureConfigInterface;
-use SingleA\Bundles\Singlea\Session\KeepMetaCreatedSessionAuthenticationStrategy;
 use Symfony\Component\ErrorHandler\ErrorHandler;
 use Symfony\Component\HttpFoundation\Request;
 
 final class SignatureService implements SignatureServiceInterface
 {
+    public const REQUEST_RECEIVED_AT = '_rra';
+
     private const VERIFY_CORRECT = 1;
     private const VERIFY_INCORRECT = 0;
     private const VERIFY_ERROR = -1;
@@ -64,9 +65,9 @@ final class SignatureService implements SignatureServiceInterface
 
         if ($request->hasSession()) {
             $session = $request->getSession();
-            if ($session->has(KeepMetaCreatedSessionAuthenticationStrategy::INITIAL_META_CREATED)) {
-                $serverTime = (int) $session->get(KeepMetaCreatedSessionAuthenticationStrategy::INITIAL_META_CREATED); // @phpstan-ignore-line
-                $session->remove(KeepMetaCreatedSessionAuthenticationStrategy::INITIAL_META_CREATED);
+            if ($session->has(self::REQUEST_RECEIVED_AT)) {
+                $serverTime = (int) $session->get(self::REQUEST_RECEIVED_AT); // @phpstan-ignore-line
+                $session->remove(self::REQUEST_RECEIVED_AT);
             }
         }
 

@@ -3,6 +3,7 @@
 
 namespace SingleA\Bundles\Singlea\EventListener;
 
+use SingleA\Bundles\Singlea\Service\Signature\SignatureService;
 use Symfony\Component\ErrorHandler\Exception\FlattenException;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpFoundation\Exception\SessionNotFoundException;
@@ -29,7 +30,8 @@ final class ExceptionListener
         }
 
         try {
-            $this->requestStack->getSession()->invalidate();
+            $session = $this->requestStack->getSession();
+            $session->set(SignatureService::REQUEST_RECEIVED_AT, time());
         } catch (SessionNotFoundException) {
             // no-op
         }

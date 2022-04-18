@@ -18,7 +18,7 @@
     ],
     "require": {
         "php": "^8.1",
-        "nbgrp/singlea-feature-config-contracts": "^0.1"
+        "nbgrp/singlea-feature-config-contracts": "^1"
     },
     "autoload": {
         "psr-4": {

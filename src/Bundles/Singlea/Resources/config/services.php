@@ -187,9 +187,5 @@ return static function (ContainerConfigurator $container): void {
                 service(Singlea\Service\UserAttributes\UserAttributesMarshallerInterface::class),
                 service(\Psr\Log\LoggerInterface::class)->nullOnInvalid(),
             ])
-
-        ->set(Singlea\Session\KeepMetaCreatedSessionAuthenticationStrategy::class)
-            ->decorate('security.authentication.session_strategy')
-            ->args([service('.inner')])
     ;
 };

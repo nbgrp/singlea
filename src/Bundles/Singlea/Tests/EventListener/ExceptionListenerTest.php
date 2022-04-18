@@ -24,12 +24,12 @@ final class ExceptionListenerTest extends TestCase
     /**
      * @dataProvider invalidateSessionProvider
      */
-    public function testInvalidateSession(ExceptionEvent $event, bool $expectedInvalidation): void
+    public function testInvalidateSession(ExceptionEvent $event, bool $expectedSet): void
     {
         $session = $this->createMock(Session::class);
         $session
-            ->expects($expectedInvalidation ? self::once() : self::never())
-            ->method('invalidate')
+            ->expects($expectedSet ? self::once() : self::never())
+            ->method('set')
         ;
         $request = Request::create('');
         $request->setSession($session);
@@ -50,7 +50,7 @@ final class ExceptionListenerTest extends TestCase
                 HttpKernelInterface::MAIN_REQUEST,
                 new BadRequestHttpException('Some internal error info.'),
             ),
-            'expectedInvalidation' => false,
+            'expectedSet' => false,
         ];
 
         yield 'Successful invalidation' => [
@@ -60,7 +60,7 @@ final class ExceptionListenerTest extends TestCase
                 HttpKernelInterface::MAIN_REQUEST,
                 new AccessDeniedException('AccessDenied.'),
             ),
-            'expectedInvalidation' => true,
+            'expectedSet' => true,
         ];
     }
 

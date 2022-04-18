@@ -18,7 +18,7 @@
     ],
     "require": {
         "php": "^8.1",
-        "nbgrp/singlea-feature-config-contracts": "^0.1"
+        "nbgrp/singlea-feature-config-contracts": "^1"
     },
     "suggest": {
         "nbgrp/singlea-payload-fetcher-implementation": ""

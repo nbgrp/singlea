@@ -11,9 +11,9 @@
     ],
     "require": {
         "php": "^8.1",
-        "nbgrp/singlea-feature-config-contracts": "^0.1",
-        "nbgrp/singlea-marshaller-contracts": "^0.1",
-        "nbgrp/singlea-persistence-contracts": "^0.1",
+        "nbgrp/singlea-feature-config-contracts": "^1",
+        "nbgrp/singlea-marshaller-contracts": "^1",
+        "nbgrp/singlea-persistence-contracts": "^1",
         "psr/log": "^3",
         "snc/redis-bundle": "^3.6 || ^4",
         "symfony/dependency-injection": "^6",

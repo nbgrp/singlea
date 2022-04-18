@@ -96,7 +96,7 @@ final class SignatureServiceTest extends TestCase
                     'sg' => '',
                 ]);
                 $request->setSession(new Session(new MockArraySessionStorage()));
-                $request->getSession()->set('_imc', time() - 150);
+                $request->getSession()->set('_rra', time() - 150);
 
                 return $request;
             })(),
