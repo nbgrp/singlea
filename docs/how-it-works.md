@@ -397,5 +397,5 @@ sequenceDiagram
 * How to set up and use multiple user providers and authenticators
   via [realms](bundles/singlea.md#realms).
 * About the [lifetime configuring](bundles/singlea.md#lifetimes-user-attributes-tickets-tokens).
-* [Achilles heel of SingleA security](security.md) (about the client registration).
+* How [SingleA Security](security.md) works (and what is the problem of client registration).
 * About the [SingleA client](client/concept.md).

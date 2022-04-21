@@ -1,4 +1,4 @@
-# Achilles Heel of SingleA Security
+# SingleA Security
 
 ## Strengths
 
