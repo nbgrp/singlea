@@ -398,6 +398,34 @@ multiple firewalls at the same time. Since user attributes store in a cache item
 the realm and ticket values, the user attributes received from different user providers are
 independent and can contain different values.
 
+To select the appropriate realm, the best way to use the `request_matcher` firewall field in the
+security settings and the special `SingleA\Bundles\Singlea\Request\RealmRequestMatcher` service in
+the following way:
+
+``` yaml title="config/packages/security.yaml"
+security:
+    # ...
+    firewalls:
+        main:
+            # Use the service FQCN and the firewall name separated by a dot
+            request_matcher: SingleA\Bundles\Singlea\Request\RealmRequestMatcher.main
+```
+
+If you prefer native PHP configuration format, you can do the same in the following way:
+
+``` php title="config/packages/security.php"
+<?php
+
+use SingleA\Bundles\Singlea\Request\RealmRequestMatcher;
+use Symfony\Config\SecurityConfig;
+
+return static function (SecurityConfig $config): void {
+    // ...
+    $mainFirewall = $config->firewall('main');
+    $mainFirewall->requestMatcher(RealmRequestMatcher::for('main'));
+}
+```
+
 !!! example
 
     Thanks to the realms it is possible to organize an access to your corporate application for
@@ -465,6 +493,9 @@ otherwise user attributes will be empty.
     (only for authentication and user session validation), or if you are going to fetch the whole
     token payload from an external service using the
     [Payload Fetcher](../features/payload-fetcher.md) without passing user attributes.
+
+You can use the `SingleA\Bundles\Singlea\Service\Realm\RealmResolver` service to determine the
+current realm (firewall name).
 
 ### PayloadComposeEvent
 
