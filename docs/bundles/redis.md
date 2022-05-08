@@ -83,70 +83,69 @@ The bundle configuration includes the following settings:
     * `required` (boolean, default `false`) — defines is this feature mandatory for clients or not
       (at registration).
 
-1. Configure the SncRedisBundle and define the client alias:
+### Example
 
-``` yaml title="config/packages/snc_redis.yaml"
-snc_redis:
-    clients:
-        default:
-            type: phpredis
-            alias: default
-            dsn: "%env(REDIS_URL)%"
-            logging: false
-```
+1. Configure the SncRedisBundle and define the client alias:
+  ``` yaml title="config/packages/snc_redis.yaml"
+  snc_redis:
+      clients:
+          default:
+              type: phpredis
+              alias: default
+              dsn: "%env(REDIS_URL)%"
+              logging: false
+  ```
 
 2. Configure feature config marshallers in the DI container:
+  ``` yaml title="config/services.yaml"
+  services:
+      # ...
+      singlea.signature_marshaller:
+          class: 'SingleA\Contracts\Marshaller\FeatureConfigMarshallerInterface'
+          factory: '@SingleA\Bundles\Singlea\Service\Marshaller\FeatureConfigMarshallerFactory'
+          arguments: [ 'SingleA\Bundles\Singlea\FeatureConfig\Signature\SignatureConfigInterface' ]
 
-``` yaml title="config/services.yaml"
-services:
-    # ...
-    singlea.signature_marshaller:
-        class: 'SingleA\Contracts\Marshaller\FeatureConfigMarshallerInterface'
-        factory: '@SingleA\Bundles\Singlea\Service\Marshaller\FeatureConfigMarshallerFactory'
-        arguments: [ 'SingleA\Bundles\Singlea\FeatureConfig\Signature\SignatureConfigInterface' ]
+      singlea.tokenizer_marshaller:
+          class: 'SingleA\Contracts\Marshaller\FeatureConfigMarshallerInterface'
+          factory: '@SingleA\Bundles\Singlea\Service\Marshaller\FeatureConfigMarshallerFactory'
+          arguments: [ 'SingleA\Contracts\Tokenization\TokenizerConfigInterface' ]
 
-    singlea.tokenizer_marshaller:
-        class: 'SingleA\Contracts\Marshaller\FeatureConfigMarshallerInterface'
-        factory: '@SingleA\Bundles\Singlea\Service\Marshaller\FeatureConfigMarshallerFactory'
-        arguments: [ 'SingleA\Contracts\Tokenization\TokenizerConfigInterface' ]
-
-    singlea.payload_fetcher_marshaller:
-        class: 'SingleA\Contracts\Marshaller\FeatureConfigMarshallerInterface'
-        factory: '@SingleA\Bundles\Singlea\Service\Marshaller\FeatureConfigMarshallerFactory'
-        arguments: [ 'SingleA\Contracts\PayloadFetcher\FetcherConfigInterface' ]
-```
+      singlea.payload_fetcher_marshaller:
+          class: 'SingleA\Contracts\Marshaller\FeatureConfigMarshallerInterface'
+          factory: '@SingleA\Bundles\Singlea\Service\Marshaller\FeatureConfigMarshallerFactory'
+          arguments: [ 'SingleA\Contracts\PayloadFetcher\FetcherConfigInterface' ]
+  ```
 
 3. Finally, configure the SingleA Redis Bundle:
+  ``` yaml title="config/packages/singlea_redis.yaml"
+  singlea_redis:
+      client_last_access_key: 'singlea:last-access'
+      snc_redis_client: 'default'
+      config_managers:
+          signature:
+              key: 'singlea:signature'
+              config_marshaller: 'singlea.signature_marshaller'
+              required: true
 
-``` yaml title="config/packages/singlea_redis.yaml"
-singlea_redis:
-    client_last_access_key: 'singlea:last-access'
-    snc_redis_client: 'default'
-    config_managers:
-        signature:
-            key: 'singlea:signature'
-            config_marshaller: 'singlea.signature_marshaller'
-            required: true
+          tokenizer:
+              key: 'singlea:token'
+              config_marshaller: 'singlea.tokenizer_marshaller'
+              required: true
 
-        tokenizer:
-            key: 'singlea:token'
-            config_marshaller: 'singlea.tokenizer_marshaller'
-            required: true
-
-        payload_fetcher:
-            key: 'singlea:payload'
-            config_marshaller: 'singlea.payload_fetcher_marshaller'
-```
+          payload_fetcher:
+              key: 'singlea:payload'
+              config_marshaller: 'singlea.payload_fetcher_marshaller'
+  ```
 
 ## Add new feature
 
 To add some custom feature in your SingleA instance, you should:
 
-* create and implement your own feature config interface (which must
+* Create and implement your own feature config interface (which must
   extend `SingleA\Contracts\FeatureConfig\FeatureConfigInterface`), define a new feature config
   marshaller in `services.yaml` with passing created interface FQCN as an argument to the marshaller
   factory;
-* implement `SingleA\Contracts\FeatureConfig\FeatureConfigFactoryInterface` for processing
+* Implement `SingleA\Contracts\FeatureConfig\FeatureConfigFactoryInterface` for processing
   registration data and creating client feature config instances.
 
 Read more details about [SingleA Features](../features/about.md)
