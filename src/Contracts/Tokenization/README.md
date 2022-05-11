@@ -10,3 +10,7 @@ tokens.
 See the ["Features > Contracts"](https://nbgrp.github.io/singlea/features/contracts/)
 and ["Features > Tokenization"](https://nbgrp.github.io/singlea/features/tokenization/) sections of
 the SingleA project documentation for more information on https://nbgrp.github.io/singlea/.
+
+## Licence
+
+This software is released under [BSD-3-Clause licence](LICENSE).

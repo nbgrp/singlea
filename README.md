@@ -20,3 +20,7 @@ you have sought for a true SSO service — you just found it.
 ## Documentation
 
 The official documentation of the SingleA project is available on https://nbgrp.github.io/singlea/.
+
+## Licence
+
+This software is released under [BSD-3-Clause licence](LICENSE).

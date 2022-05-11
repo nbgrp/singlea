@@ -14,3 +14,7 @@ To submit Pull Request use the [main repository](https://github.com/nbgrp/single
 You can find documentation for this bundle in
 the ["Bundles > JSON Fetcher"](https://nbgrp.github.io/singlea/bundles/json-fetcher/) section of the
 SingleA project documentation on https://nbgrp.github.io/singlea/.
+
+## Licence
+
+This software is released under [BSD-3-Clause licence](LICENSE).

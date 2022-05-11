@@ -11,3 +11,7 @@ See the ["Features > Contracts"](https://nbgrp.github.io/singlea/features/contra
 and ["Features > Payload Fetcher"](https://nbgrp.github.io/singlea/features/payload-fetcher/)
 sections of the SingleA project documentation for more information
 on https://nbgrp.github.io/singlea/.
+
+## Licence
+
+This software is released under [BSD-3-Clause licence](LICENSE).

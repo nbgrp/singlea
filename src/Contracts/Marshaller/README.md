@@ -8,3 +8,7 @@ A set of abstractions that allows to implement marshalling and encryption of cli
 
 See the ["Features > Contracts"](https://nbgrp.github.io/singlea/features/contracts/) section of the
 SingleA project documentation for more information on https://nbgrp.github.io/singlea/.
+
+## Licence
+
+This software is released under [BSD-3-Clause licence](LICENSE).
