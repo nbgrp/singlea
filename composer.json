@@ -46,7 +46,7 @@
         "web-token/jwt-framework": "^3"
     },
     "require-dev": {
-        "predis/predis": "^1",
+        "predis/predis": "^2",
         "psr/event-dispatcher": "^1",
         "psr/event-dispatcher-implementation": "1.0",
         "roave/security-advisories": "dev-latest",
