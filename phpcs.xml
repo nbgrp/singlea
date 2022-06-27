@@ -136,6 +136,7 @@
                 <element value="public, protected, private" />
                 <element value="static, readonly" />
             </property>
+            <property name="checkPromoted" value="true" />
         </properties>
     </rule>
     <rule ref="SlevomatCodingStandard.Commenting.DocCommentSpacing">
