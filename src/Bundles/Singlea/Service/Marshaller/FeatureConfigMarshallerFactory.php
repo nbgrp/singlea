@@ -20,6 +20,8 @@ final class FeatureConfigMarshallerFactory
 
     /**
      * @param class-string $interface Feature config interface FQCN
+     *
+     * phpcs:disable SlevomatCodingStandard.Complexity.Cognitive
      */
     public function __invoke(string $interface): FeatureConfigMarshallerInterface
     {
@@ -84,6 +86,7 @@ final class FeatureConfigMarshallerFactory
             }
         };
     }
+    // phpcs:enable
 
     /**
      * @internal

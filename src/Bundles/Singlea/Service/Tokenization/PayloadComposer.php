@@ -46,11 +46,9 @@ final class PayloadComposer implements PayloadComposerInterface
     private static function composeByClaims(array $userAttributes, array $claims): array
     {
         $payload = [];
-        foreach ($claims as $claim) {
-            if (!\is_string($claim)) {
-                continue;
-            }
 
+        $claims = array_filter($claims, 'is_string');
+        foreach ($claims as $claim) {
             $isArrayValue = str_ends_with($claim, '[]');
             $normalizedClaim = $isArrayValue ? substr($claim, 0, -2) : $claim;
 

@@ -112,4 +112,4 @@ return (new PhpCsFixer\Config())
         'simplified_null_return' => true,
         'static_lambda' => true,
     ])
-    ;
+;

@@ -10,9 +10,9 @@ use Jose\Component\KeyManagement\JWKFactory;
 use SingleA\Contracts\PayloadFetcher\FetcherConfigFactoryInterface;
 
 /**
- * @SuppressWarnings(PHPMD.CyclomaticComplexity)
- * @SuppressWarnings(PHPMD.NPathComplexity)
  * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
+ *
+ * phpcs:disable SlevomatCodingStandard.Complexity.Cognitive
  */
 final class JwtFetcherConfigFactory implements FetcherConfigFactoryInterface
 {

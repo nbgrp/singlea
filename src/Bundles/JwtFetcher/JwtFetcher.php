@@ -152,7 +152,7 @@ final class JwtFetcher implements FetcherInterface
                 ['jwe_compact'],
                 [$jweConfig->getKeyAlgorithm()],
                 [$jweConfig->getContentAlgorithm()],
-                ($jweConfig->getCompression() !== null ? [$jweConfig->getCompression()] : []),
+                $jweConfig->getCompression() !== null ? [$jweConfig->getCompression()] : [],
                 [],
                 ['jws_compact'],
                 [$jwsConfig->getAlgorithm()],

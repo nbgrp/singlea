@@ -86,6 +86,8 @@ final class JwtFetcherConfigFactoryTest extends TestCase
 
     /**
      * @dataProvider successfulCreateProvider
+     *
+     * phpcs:disable SlevomatCodingStandard.Complexity.Cognitive
      */
     public function testSuccessfulCreate(
         bool $httpsOnly,
@@ -166,6 +168,7 @@ final class JwtFetcherConfigFactoryTest extends TestCase
             self::assertArrayHasKey($key, $responseJwkValues);
         }
     }
+    // phpcs:enable
 
     public function successfulCreateProvider(): \Generator
     {
