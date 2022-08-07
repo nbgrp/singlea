@@ -3,6 +3,7 @@
 
 namespace SingleA\Bundles\Singlea\Command\User;
 
+use SingleA\Bundles\Singlea\Command\QuestionHelperTrait;
 use SingleA\Bundles\Singlea\Service\UserAttributes\UserAttributesManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -18,6 +19,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 final class Logout extends Command
 {
+    use QuestionHelperTrait;
+
     public function __construct(
         private readonly UserAttributesManagerInterface $userAttributesManager,
     ) {
@@ -39,7 +42,7 @@ final class Logout extends Command
 
         $input->setArgument(
             'identifier',
-            $this->getHelper('question')->ask($input, $output, new Question('The identifier of the user to be logged out: ')),
+            $this->getQuestionHelper()->ask($input, $output, new Question('The identifier of the user to be logged out: ')),
         );
     }
 

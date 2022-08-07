@@ -3,6 +3,7 @@
 
 namespace SingleA\Bundles\Singlea\Command\Client;
 
+use SingleA\Bundles\Singlea\Command\QuestionHelperTrait;
 use SingleA\Contracts\Persistence\ClientManagerInterface;
 use SingleA\Contracts\Persistence\FeatureConfigManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -23,6 +24,8 @@ use Symfony\Component\Uid\UuidV6;
 )]
 final class Remove extends Command
 {
+    use QuestionHelperTrait;
+
     /**
      * @param iterable<FeatureConfigManagerInterface> $configManagers
      */
@@ -49,7 +52,7 @@ final class Remove extends Command
 
         $input->setArgument(
             'client-id',
-            $this->getHelper('question')->ask($input, $output, new Question("Enter client ID:\n")),
+            $this->getQuestionHelper()->ask($input, $output, new Question("Enter client ID:\n")),
         );
     }
 
@@ -102,9 +105,6 @@ final class Remove extends Command
         return UuidV6::fromString($input->getArgument('client-id')); // @phpstan-ignore-line
     }
 
-    /**
-     * @psalm-suppress MixedInferredReturnType, MixedReturnStatement
-     */
     private function getConfirm(InputInterface $input, OutputInterface $output): bool
     {
         if ($input->getOption('yes')) {
@@ -113,7 +113,7 @@ final class Remove extends Command
 
         $confirmation = new ConfirmationQuestion('Remove client? (y/N) ', false);
 
-        return $this->getHelper('question')->ask($input, $output, $confirmation);
+        return (bool) $this->getQuestionHelper()->ask($input, $output, $confirmation);
     }
 
     private function remove(string $clientId): void

@@ -26,12 +26,14 @@ final class LoginListener
     #[AsEventListener(LoginEvent::class)]
     public function setTicketCookie(LoginEvent $event): void
     {
+        /** @psalm-suppress ArgumentTypeCoercion */
         $event->getResponse()->headers->setCookie(Cookie::create(
             name: $this->ticketCookieName,
             value: sodium_bin2base64($event->getTicket(), \SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING),
             expire: time() + $this->ticketTtl,
             domain: $this->ticketDomain,
             secure: $this->ticketSameSite === Cookie::SAMESITE_NONE,
+            /** @phpstan-ignore-next-line */
             sameSite: $this->ticketSameSite,
         ));
     }

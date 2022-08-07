@@ -3,6 +3,7 @@
 
 namespace SingleA\Bundles\Singlea\Command\Client;
 
+use SingleA\Bundles\Singlea\Command\QuestionHelperTrait;
 use SingleA\Bundles\Singlea\Service\Client\RegistrationServiceInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -18,6 +19,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 final class Register extends Command
 {
+    use QuestionHelperTrait;
+
     public function __construct(
         private readonly RegistrationServiceInterface $registerService,
     ) {
@@ -36,10 +39,11 @@ final class Register extends Command
         }
 
         $meta = stream_get_meta_data(\STDIN);
+
         /** @var string $json */
         $json = $meta['seekable']
             ? stream_get_contents(\STDIN)
-            : $this->getHelper('question')->ask(
+            : $this->getQuestionHelper()->ask(
                 $input,
                 $output,
                 (new Question("Enter the registration data JSON string (Ctrl+D for stop entering):\n"))

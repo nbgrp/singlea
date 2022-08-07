@@ -3,6 +3,7 @@
 
 namespace SingleA\Bundles\Singlea\Command\Client;
 
+use SingleA\Bundles\Singlea\Command\QuestionHelperTrait;
 use SingleA\Contracts\Persistence\ClientManagerInterface;
 use SingleA\Contracts\Persistence\FeatureConfigManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -23,6 +24,8 @@ use Symfony\Component\Uid\UuidV6;
 )]
 final class Purge extends Command
 {
+    use QuestionHelperTrait;
+
     /**
      * @param iterable<FeatureConfigManagerInterface> $configManagers
      */
@@ -51,7 +54,7 @@ final class Purge extends Command
 
         $input->setArgument(
             'days',
-            $this->getHelper('question')->ask($input, $output, new Question('Maximum allowed inactive period (days): ')),
+            $this->getQuestionHelper()->ask($input, $output, new Question('Maximum allowed inactive period (days): ')),
         );
     }
 
@@ -121,9 +124,6 @@ final class Purge extends Command
         return null;
     }
 
-    /**
-     * @psalm-suppress MixedInferredReturnType, MixedReturnStatement
-     */
     private function getConfirm(InputInterface $input, OutputInterface $output): bool
     {
         if ($input->getOption('yes')) {
@@ -132,7 +132,7 @@ final class Purge extends Command
 
         $confirmation = new ConfirmationQuestion('Remove clients? (y/N) ', false);
 
-        return $this->getHelper('question')->ask($input, $output, $confirmation);
+        return (bool) $this->getQuestionHelper()->ask($input, $output, $confirmation);
     }
 
     /**
