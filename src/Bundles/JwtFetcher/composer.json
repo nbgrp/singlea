@@ -18,7 +18,7 @@
         "symfony/http-client-contracts": "^3",
         "symfony/http-client-implementation": "^3",
         "symfony/http-kernel": "^6",
-        "web-token/jwt-framework": "^3"
+        "web-token/jwt-framework": "^3.0.7"
     },
     "require-dev": {
         "psr/event-dispatcher": "^1",

@@ -17,7 +17,7 @@
         "symfony/dependency-injection": "^6",
         "symfony/error-handler": "^6",
         "symfony/http-kernel": "^6",
-        "web-token/jwt-framework": "^3"
+        "web-token/jwt-framework": "^3.0.7"
     },
     "require-dev": {
         "psr/event-dispatcher": "^1",

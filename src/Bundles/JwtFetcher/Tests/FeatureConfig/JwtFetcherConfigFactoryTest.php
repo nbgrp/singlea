@@ -415,7 +415,7 @@ final class JwtFetcherConfigFactoryTest extends TestCase
             'expectedResponseJweContentAlgorithm' => 'A256CBC-HS512',
             'expectedResponseJweCompression' => 'DEF',
             'expectedResponseJweRecipientJwkKeys' => ['alg', 'use', 'kty', 'crv', 'd', 'x'],
-            'expectedResponseJweRecipientJwkLength' => 22,
+            'expectedResponseJweRecipientJwkLength' => 43,
             'expectedResponseJweRecipientJwkLengthKey' => 'd',
             'expectedOutputRequestJwkKeys' => ['alg', 'use', 'kty', 'crv', 'x', 'y'],
             'expectedOutputResponseRecipientJwkKeys' => ['alg', 'use', 'kty', 'crv', 'x'],
