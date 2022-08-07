@@ -6,3 +6,6 @@ rules:
 
   php.duplicated_code:
     enabled: false
+
+  symfony.configuration.yaml_syntax_error:
+    enabled: false
