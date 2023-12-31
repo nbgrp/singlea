@@ -10,7 +10,6 @@ use SingleA\Bundles\Singlea\ArgumentResolver\FeatureConfigResolver;
 use SingleA\Bundles\Singlea\EventListener\ClientListener;
 use SingleA\Bundles\Singlea\FeatureConfig\ConfigRetrieverInterface;
 use SingleA\Bundles\Singlea\Tests\TestConfigInterface;
-use SingleA\Contracts\FeatureConfig\FeatureConfigInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
@@ -21,39 +20,6 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
  */
 final class FeatureConfigResolverTest extends TestCase
 {
-    /**
-     * @dataProvider provideSupportsCases
-     */
-    public function testSupports(ArgumentMetadata $argument, bool $expected): void
-    {
-        $configResolver = new FeatureConfigResolver($this->createStub(ConfigRetrieverInterface::class));
-
-        self::assertSame($expected, $configResolver->supports(Request::create(''), $argument));
-    }
-
-    public function provideSupportsCases(): iterable
-    {
-        yield 'Valid type' => [
-            'argument' => new ArgumentMetadata('', TestConfigInterface::class, false, false, null),
-            'expected' => true,
-        ];
-
-        yield 'Not subclass' => [
-            'argument' => new ArgumentMetadata('', FeatureConfigInterface::class, false, false, null),
-            'expected' => false,
-        ];
-
-        yield 'Invalid type' => [
-            'argument' => new ArgumentMetadata('', 'string', false, false, null),
-            'expected' => false,
-        ];
-
-        yield 'No type' => [
-            'argument' => new ArgumentMetadata('', null, false, false, null),
-            'expected' => false,
-        ];
-    }
-
     public function testSuccessfulResolve(): void
     {
         $config = $this->createStub(TestConfigInterface::class);
@@ -80,10 +46,10 @@ final class FeatureConfigResolverTest extends TestCase
         $configResolver = new FeatureConfigResolver($configRetriever);
 
         $resolved = $configResolver->resolve($request, $argument);
-        self::assertSame($config, iterator_to_array($resolved)[0]);
+        self::assertSame($config, $resolved[0]);
 
         $resolved = $configResolver->resolve($request, $argument);
-        self::assertNull(iterator_to_array($resolved)[0]);
+        self::assertNull($resolved[0]);
     }
 
     public function testFailedResolve(): void

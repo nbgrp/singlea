@@ -19,6 +19,9 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
+/**
+ * @template-extends Voter<string, mixed>
+ */
 final class GrantedVoter extends Voter
 {
     public const SINGLEA_SIGNATURE = 'SINGLEA_SIGNATURE';
