@@ -32,21 +32,21 @@
         "psr/log": "^3",
         "symfony/cache-contracts": "^3",
         "symfony/cache-implementation": "^3",
-        "symfony/config": "^6",
-        "symfony/console": "^6",
-        "symfony/dependency-injection": "^6",
-        "symfony/error-handler": "^6",
-        "symfony/event-dispatcher": "^6",
+        "symfony/config": "^6.4",
+        "symfony/console": "^6.4",
+        "symfony/dependency-injection": "^6.4",
+        "symfony/error-handler": "^6.4",
+        "symfony/event-dispatcher": "^6.4",
         "symfony/event-dispatcher-contracts": "^3",
-        "symfony/http-foundation": "^6",
-        "symfony/http-kernel": "^6",
-        "symfony/security-bundle": "^6",
-        "symfony/security-core": "^6",
-        "symfony/security-http": "^6",
-        "symfony/uid": "^6"
+        "symfony/http-foundation": "^6.4",
+        "symfony/http-kernel": "^6.4",
+        "symfony/security-bundle": "^6.4",
+        "symfony/security-core": "^6.4",
+        "symfony/security-http": "^6.4",
+        "symfony/uid": "^6.4"
     },
     "require-dev": {
-        "symfony/expression-language": "^6"
+        "symfony/expression-language": "^6.4"
     },
     "autoload": {
         "psr-4": {

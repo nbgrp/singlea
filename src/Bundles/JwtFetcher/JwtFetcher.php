@@ -70,6 +70,7 @@ final class JwtFetcher implements FetcherInterface
     private function makeRequestJwt(array $payload, JwtFetcherConfig $config): string
     {
         $jwsConfig = $config->getRequestJwsConfig();
+        /** @psalm-suppress InvalidArgument */
         $jws = $this->jwsBuilderFactory->create([$jwsConfig->getAlgorithm()])
             ->withPayload(json_encode($payload, \JSON_THROW_ON_ERROR)) // @phan-suppress-current-line PhanPossiblyFalseTypeArgument
             ->addSignature($jwsConfig->getJwk(), [
@@ -100,6 +101,7 @@ final class JwtFetcher implements FetcherInterface
             [$jwsConfig->getAlgorithm()],
         );
 
+        /** @psalm-suppress InvalidArgument */
         return $builder->create(
             json_encode($payload, \JSON_THROW_ON_ERROR), // @phan-suppress-current-line PhanPossiblyFalseTypeArgument
             [[

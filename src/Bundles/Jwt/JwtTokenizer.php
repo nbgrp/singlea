@@ -54,6 +54,7 @@ final class JwtTokenizer implements TokenizerInterface
         $jweConfig = $config->getJweConfig();
 
         if ($jweConfig === null) {
+            /** @psalm-suppress InvalidArgument */
             $jws = $this->jwsBuilderFactory->create([$jwsConfig->getAlgorithm()])
                 ->withPayload(json_encode($payload, \JSON_THROW_ON_ERROR)) // @phan-suppress-current-line PhanPossiblyFalseTypeArgument
                 ->addSignature($jwsConfig->getJwk(), [
@@ -75,6 +76,7 @@ final class JwtTokenizer implements TokenizerInterface
             [$jwsConfig->getAlgorithm()],
         );
 
+        /** @psalm-suppress InvalidArgument */
         return $builder->create(
             json_encode($payload, \JSON_THROW_ON_ERROR), // @phan-suppress-current-line PhanPossiblyFalseTypeArgument
             [[

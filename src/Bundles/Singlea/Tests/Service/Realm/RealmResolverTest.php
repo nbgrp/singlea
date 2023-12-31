@@ -11,6 +11,7 @@ use Symfony\Bundle\SecurityBundle\Security\FirewallConfig;
 use Symfony\Bundle\SecurityBundle\Security\FirewallContext;
 use Symfony\Bundle\SecurityBundle\Security\FirewallMap;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpFoundation\ChainRequestMatcher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestMatcher;
 
@@ -47,7 +48,9 @@ final class RealmResolverTest extends TestCase
     public function testFailedResolve(): void
     {
         $resolver = new RealmResolver(new FirewallMap(self::$container, [
-            'main' => new RequestMatcher('/unreachable'),
+            'main' => new ChainRequestMatcher([
+                new RequestMatcher\PathRequestMatcher('^/unreachable$'),
+            ]),
         ]));
 
         $request = Request::create('');

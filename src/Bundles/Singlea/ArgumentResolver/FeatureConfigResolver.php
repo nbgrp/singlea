@@ -9,7 +9,7 @@ use SingleA\Bundles\Singlea\EventListener\ClientListener;
 use SingleA\Bundles\Singlea\FeatureConfig\ConfigRetrieverInterface;
 use SingleA\Contracts\FeatureConfig\FeatureConfigInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
+use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
 /**
@@ -18,22 +18,18 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
  *
  * @see ClientListener
  */
-final class FeatureConfigResolver implements ArgumentValueResolverInterface
+final class FeatureConfigResolver implements ValueResolverInterface
 {
     public function __construct(
         private readonly ConfigRetrieverInterface $configRetriever,
     ) {}
 
-    public function supports(Request $request, ArgumentMetadata $argument): bool
+    public function resolve(Request $request, ArgumentMetadata $argument): array
     {
-        return is_subclass_of($argument->getType() ?? '', FeatureConfigInterface::class);
-    }
+        if (!is_subclass_of($argument->getType() ?? '', FeatureConfigInterface::class)) {
+            return [];
+        }
 
-    /**
-     * @return iterable<?FeatureConfigInterface>
-     */
-    public function resolve(Request $request, ArgumentMetadata $argument): iterable
-    {
         /** @var class-string<FeatureConfigInterface> $configClass */
         $configClass = $argument->getType();
         /** @var string $clientId */
@@ -46,6 +42,6 @@ final class FeatureConfigResolver implements ArgumentValueResolverInterface
             throw new \RuntimeException('Argument "'.$argument->getName().'" cannot be resolved.');
         }
 
-        yield $config;
+        return [$config];
     }
 }

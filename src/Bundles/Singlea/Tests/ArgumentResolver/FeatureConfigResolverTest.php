@@ -22,22 +22,17 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 final class FeatureConfigResolverTest extends TestCase
 {
     /**
-     * @dataProvider provideSupportsCases
+     * @dataProvider provideUnsuitableArgumentCases
      */
-    public function testSupports(ArgumentMetadata $argument, bool $expected): void
+    public function testUnsuitableArgument(ArgumentMetadata $argument): void
     {
         $configResolver = new FeatureConfigResolver($this->createStub(ConfigRetrieverInterface::class));
 
-        self::assertSame($expected, $configResolver->supports(Request::create(''), $argument));
+        self::assertSame([], $configResolver->resolve(Request::create(''), $argument));
     }
 
-    public function provideSupportsCases(): iterable
+    public function provideUnsuitableArgumentCases(): iterable
     {
-        yield 'Valid type' => [
-            'argument' => new ArgumentMetadata('', TestConfigInterface::class, false, false, null),
-            'expected' => true,
-        ];
-
         yield 'Not subclass' => [
             'argument' => new ArgumentMetadata('', FeatureConfigInterface::class, false, false, null),
             'expected' => false,
@@ -80,10 +75,10 @@ final class FeatureConfigResolverTest extends TestCase
         $configResolver = new FeatureConfigResolver($configRetriever);
 
         $resolved = $configResolver->resolve($request, $argument);
-        self::assertSame($config, iterator_to_array($resolved)[0]);
+        self::assertSame($config, $resolved[0]);
 
         $resolved = $configResolver->resolve($request, $argument);
-        self::assertNull(iterator_to_array($resolved)[0]);
+        self::assertNull($resolved[0]);
     }
 
     public function testFailedResolve(): void
@@ -109,7 +104,6 @@ final class FeatureConfigResolverTest extends TestCase
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Argument "invalid" cannot be resolved.');
 
-        $resolved = $configResolver->resolve($request, $argument);
-        iterator_to_array($resolved);
+        $configResolver->resolve($request, $argument);
     }
 }

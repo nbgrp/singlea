@@ -143,12 +143,9 @@ final class AddFeatureConfigManagersPassTest extends TestCase
         ;
         $container->set(FeatureConfigEncryptorInterface::class, $encryptor);
 
-        $logger = $this->createMock(LoggerInterface::class);
-        $logger
-            ->expects(self::exactly(3))
-            ->method('debug')
-        ;
-        $container->set(LoggerInterface::class, $logger);
+        $loggerDefinition = new Definition(LoggerInterface::class);
+        $loggerDefinition->setSynthetic(true);
+        $container->setDefinition(LoggerInterface::class, $loggerDefinition);
 
         (new AddFeatureConfigManagersPass())->process($container);
 
@@ -159,6 +156,13 @@ final class AddFeatureConfigManagersPassTest extends TestCase
             ->setPublic(true)
         ;
         $container->compile();
+
+        $logger = $this->createMock(LoggerInterface::class);
+        $logger
+            ->expects(self::exactly(3))
+            ->method('debug')
+        ;
+        $container->set(LoggerInterface::class, $logger);
 
         $signatureConfigManager = $container->get('singlea.feature_config_manager.signature');
         $tokenizerConfigManager = $container->get('singlea.feature_config_manager.tokenizer');

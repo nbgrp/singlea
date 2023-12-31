@@ -17,6 +17,7 @@ final class Base64ArrayEnvVarProcessor implements EnvVarProcessorInterface
     public function getEnv(string $prefix, string $name, \Closure $getEnv): array
     {
         return array_map(
+            /** @phpstan-ignore-next-line */
             static fn (string $value): string => sodium_base642bin(
                 $value,
                 \strlen($value) % 4 === 0
