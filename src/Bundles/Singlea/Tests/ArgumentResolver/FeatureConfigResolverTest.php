@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\Singlea\Tests\ArgumentResolver;
 
@@ -20,7 +22,7 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 final class FeatureConfigResolverTest extends TestCase
 {
     /**
-     * @dataProvider supportsProvider
+     * @dataProvider provideSupportsCases
      */
     public function testSupports(ArgumentMetadata $argument, bool $expected): void
     {
@@ -29,7 +31,7 @@ final class FeatureConfigResolverTest extends TestCase
         self::assertSame($expected, $configResolver->supports(Request::create(''), $argument));
     }
 
-    public function supportsProvider(): \Generator
+    public function provideSupportsCases(): iterable
     {
         yield 'Valid type' => [
             'argument' => new ArgumentMetadata('', TestConfigInterface::class, false, false, null),

@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\Singlea\Tests\EventListener;
 
@@ -18,7 +20,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 final class RealmListenerTest extends TestCase
 {
     /**
-     * @dataProvider setRequestAttributeProvider
+     * @dataProvider provideSetRequestAttributeCases
      */
     public function testSetRequestAttribute(Request $request, string $expected): void
     {
@@ -30,7 +32,7 @@ final class RealmListenerTest extends TestCase
         self::assertSame($expected, $event->getRequest()->attributes->get('_singlea_realm'));
     }
 
-    public function setRequestAttributeProvider(): \Generator
+    public function provideSetRequestAttributeCases(): iterable
     {
         yield 'Main' => [
             'request' => Request::create('', parameters: ['realm' => 'main']),

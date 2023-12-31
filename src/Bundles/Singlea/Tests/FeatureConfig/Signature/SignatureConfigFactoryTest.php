@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\Singlea\Tests\FeatureConfig\Signature;
 
@@ -23,7 +25,7 @@ final class SignatureConfigFactoryTest extends TestCase
     }
 
     /**
-     * @dataProvider successfulCreateProvider
+     * @dataProvider provideSuccessfulCreateCases
      */
     public function testSuccessfulCreate(
         array $input,
@@ -39,7 +41,7 @@ final class SignatureConfigFactoryTest extends TestCase
         self::assertSame($expectedClientClockSkew, $config->getClientClockSkew());
     }
 
-    public function successfulCreateProvider(): \Generator
+    public function provideSuccessfulCreateCases(): iterable
     {
         yield 'With client clock skew' => [
             'input' => [
@@ -64,7 +66,7 @@ final class SignatureConfigFactoryTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidCreateProvider
+     * @dataProvider provideInvalidCreateCases
      */
     public function testInvalidCreate(array $input, string $expectedMessage): void
     {
@@ -76,7 +78,7 @@ final class SignatureConfigFactoryTest extends TestCase
         $factory->create($input);
     }
 
-    public function invalidCreateProvider(): \Generator
+    public function provideInvalidCreateCases(): iterable
     {
         yield 'Without "md-alg"' => [
             'input' => [

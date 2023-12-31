@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\Singlea\Service\UserAttributes;
 
@@ -79,6 +81,7 @@ final class UserAttributesManager implements UserAttributesManagerInterface
 
         $metadata = $item->getMetadata();
 
+        /** @psalm-suppress InvalidCast */
         return new UserAttributesItem(
             (string) (array_values($metadata[ItemInterface::METADATA_TAGS] ?? [])[0] ?? throw new \RuntimeException('Unknown user (user cache has no tag with user identifier).')),
             $this->marshaller->unmarshall((string) $item->get(), $ticket), // @phpstan-ignore-line

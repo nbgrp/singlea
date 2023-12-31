@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\Singlea\Security;
 
@@ -58,12 +60,12 @@ final class GrantedVoter extends Voter
             ? [self::ALL_ONES_NETWORK_MASK_V6, \FILTER_FLAG_IPV6]
             : [self::ALL_ONES_NETWORK_MASK_V4, \FILTER_FLAG_IPV4];
 
+        /** @psalm-suppress PossiblyUndefinedArrayOffset */
         [$address, $netmask] = str_contains($value, '/')
             ? explode('/', $value, 2)
             : [$value, (string) $allOnesNetworkMask];
 
         if ((int) $netmask < 1 || (int) $netmask > $allOnesNetworkMask) {
-            /** @psalm-suppress MixedArgument */
             throw new \InvalidArgumentException(sprintf('Invalid network mask "%s" for value "%s".', $netmask, $value));
         }
 

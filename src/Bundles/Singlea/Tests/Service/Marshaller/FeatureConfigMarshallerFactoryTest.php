@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\Singlea\Tests\Service\Marshaller;
 
@@ -21,7 +23,7 @@ use SingleA\Contracts\Tokenization\TokenizerConfigInterface;
 final class FeatureConfigMarshallerFactoryTest extends TestCase
 {
     /**
-     * @dataProvider invalidInvokeProvider
+     * @dataProvider provideInvalidInvokeCases
      */
     public function testInvalidInvoke(string $interface, string $expectedMessage): void
     {
@@ -33,7 +35,7 @@ final class FeatureConfigMarshallerFactoryTest extends TestCase
         $factory($interface);
     }
 
-    public function invalidInvokeProvider(): \Generator
+    public function provideInvalidInvokeCases(): iterable
     {
         yield 'Unknown' => [
             'interface' => 'Unknown\\ConfigInterface',
@@ -47,7 +49,7 @@ final class FeatureConfigMarshallerFactoryTest extends TestCase
     }
 
     /**
-     * @dataProvider supportsProvider
+     * @dataProvider provideSupportsCases
      */
     public function testSupports(string $interface, FeatureConfigInterface|string $config, bool $expected): void
     {
@@ -57,7 +59,7 @@ final class FeatureConfigMarshallerFactoryTest extends TestCase
         self::assertSame($expected, $marshaller->supports($config));
     }
 
-    public function supportsProvider(): \Generator
+    public function provideSupportsCases(): iterable
     {
         yield 'Supports (string)' => [
             'interface' => SignatureConfigInterface::class,
@@ -85,7 +87,7 @@ final class FeatureConfigMarshallerFactoryTest extends TestCase
     }
 
     /**
-     * @dataProvider successfulMarshallProvider
+     * @dataProvider provideSuccessfulMarshallCases
      */
     public function testSuccessfulMarshall(
         bool $useIgbinarySerialize,
@@ -99,7 +101,7 @@ final class FeatureConfigMarshallerFactoryTest extends TestCase
         self::assertSame($expected, base64_encode($marshaller->marshall($config)));
     }
 
-    public function successfulMarshallProvider(): \Generator
+    public function provideSuccessfulMarshallCases(): iterable
     {
         yield 'Basic' => [
             'useIgbinarySerialize' => false,
@@ -128,7 +130,7 @@ final class FeatureConfigMarshallerFactoryTest extends TestCase
     }
 
     /**
-     * @dataProvider successfulUnmarshallProvider
+     * @dataProvider provideSuccessfulUnmarshallCases
      */
     public function testSuccessfulUnmarshall(
         bool $useIgbinarySerialize,
@@ -149,7 +151,7 @@ final class FeatureConfigMarshallerFactoryTest extends TestCase
         self::assertSame($expectedRequestOptions, $config->getRequestOptions());
     }
 
-    public function successfulUnmarshallProvider(): \Generator
+    public function provideSuccessfulUnmarshallCases(): iterable
     {
         yield 'Basic' => [
             'useIgbinarySerialize' => false,

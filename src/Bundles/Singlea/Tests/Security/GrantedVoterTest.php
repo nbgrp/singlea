@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\Singlea\Tests\Security;
 
@@ -38,14 +40,14 @@ final class GrantedVoterTest extends TestCase
     }
 
     /**
-     * @dataProvider successfulValidateIpOrNetmaskProvider
+     * @dataProvider provideSuccessfulValidateIpOrNetmaskCases
      */
     public function testSuccessfulValidateIpOrNetmask(string $value, string $expected): void
     {
         self::assertSame($expected, GrantedVoter::validateIpOrNetmask($value));
     }
 
-    public function successfulValidateIpOrNetmaskProvider(): \Generator
+    public function provideSuccessfulValidateIpOrNetmaskCases(): iterable
     {
         yield 'IPv4 host' => [
             'value' => '127.0.0.1',
@@ -69,7 +71,7 @@ final class GrantedVoterTest extends TestCase
     }
 
     /**
-     * @dataProvider failedValidateIpOrNetmaskProvider
+     * @dataProvider provideFailedValidateIpOrNetmaskCases
      */
     public function testFailedValidateIpOrNetmask(string $value, string $expectedMessage): void
     {
@@ -79,7 +81,7 @@ final class GrantedVoterTest extends TestCase
         GrantedVoter::validateIpOrNetmask($value);
     }
 
-    public function failedValidateIpOrNetmaskProvider(): \Generator
+    public function provideFailedValidateIpOrNetmaskCases(): iterable
     {
         yield 'Zero mask' => [
             'value' => '127.0.0.1/0',
@@ -133,7 +135,7 @@ final class GrantedVoterTest extends TestCase
     }
 
     /**
-     * @dataProvider grantedVoteProvider
+     * @dataProvider provideGrantedVoteCases
      */
     public function testGrantedVote(
         ?string $trustedClients,
@@ -157,7 +159,7 @@ final class GrantedVoterTest extends TestCase
         self::assertSame(VoterInterface::ACCESS_GRANTED, $voter->vote(new NullToken(), null, $attributes));
     }
 
-    public function grantedVoteProvider(): \Generator
+    public function provideGrantedVoteCases(): iterable
     {
         $config = $this->createStub(SignatureConfigInterface::class);
 
@@ -312,7 +314,7 @@ final class GrantedVoterTest extends TestCase
     }
 
     /**
-     * @dataProvider abstainVoteProvider
+     * @dataProvider provideAbstainVoteCases
      */
     public function testAbstainVote(
         RequestStack $requestStack,
@@ -336,7 +338,7 @@ final class GrantedVoterTest extends TestCase
         self::assertSame(VoterInterface::ACCESS_ABSTAIN, $voter->vote(new NullToken(), $subject, $attributes));
     }
 
-    public function abstainVoteProvider(): \Generator
+    public function provideAbstainVoteCases(): iterable
     {
         yield 'Unsupported attribute' => [
             'requestStack' => new RequestStack(),
@@ -388,7 +390,7 @@ final class GrantedVoterTest extends TestCase
     }
 
     /**
-     * @dataProvider deniedVoteProvider
+     * @dataProvider provideDeniedVoteCases
      */
     public function testDeniedVote(
         RequestStack $requestStack,
@@ -411,7 +413,7 @@ final class GrantedVoterTest extends TestCase
         self::assertSame(VoterInterface::ACCESS_DENIED, $voter->vote(new NullToken(), null, $attributes));
     }
 
-    public function deniedVoteProvider(): \Generator
+    public function provideDeniedVoteCases(): iterable
     {
         $config = $this->createStub(SignatureConfigInterface::class);
 
@@ -641,7 +643,8 @@ final class GrantedVoterTest extends TestCase
         ];
     }
 
-    public function testDeniedVoteWithoutRegistrationTicketManager(): void {
+    public function testDeniedVoteWithoutRegistrationTicketManager(): void
+    {
         $requestStack = new RequestStack();
         $requestStack->push(Request::create(''));
 
@@ -660,9 +663,10 @@ final class GrantedVoterTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidVoteProvider
+     * @dataProvider provideInvalidVoteCases
      */
-    public function testInvalidVote(RequestStack $requestStack, string $expectedMessage): void {
+    public function testInvalidVote(RequestStack $requestStack, string $expectedMessage): void
+    {
         $voter = new GrantedVoter(
             null,
             null,
@@ -678,7 +682,7 @@ final class GrantedVoterTest extends TestCase
         $voter->vote(new NullToken(), null, ['SINGLEA_SIGNATURE']);
     }
 
-    public function invalidVoteProvider(): \Generator
+    public function provideInvalidVoteCases(): iterable
     {
         yield 'No client id' => [
             'requestStack' => (static function (): RequestStack {

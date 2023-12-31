@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\Singlea\Service\Marshaller;
 
@@ -19,7 +21,7 @@ final class FeatureConfigMarshallerFactory
     }
 
     /**
-     * @param class-string $interface Feature config interface FQCN
+     * @param class-string<FeatureConfigInterface> $interface Feature config interface FQCN
      *
      * phpcs:disable SlevomatCodingStandard.Complexity.Cognitive
      */

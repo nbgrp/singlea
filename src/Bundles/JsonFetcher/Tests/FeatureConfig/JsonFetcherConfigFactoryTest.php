@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\JsonFetcher\Tests\FeatureConfig;
 
@@ -23,7 +25,7 @@ final class JsonFetcherConfigFactoryTest extends TestCase
     }
 
     /**
-     * @dataProvider successfulCreateProvider
+     * @dataProvider provideSuccessfulCreateCases
      */
     public function testSuccessfulCreate(
         bool $httpsOnly,
@@ -40,7 +42,7 @@ final class JsonFetcherConfigFactoryTest extends TestCase
         self::assertSame($expectedRequestOptions, $config->getRequestOptions());
     }
 
-    public function successfulCreateProvider(): \Generator
+    public function provideSuccessfulCreateCases(): iterable
     {
         yield 'HTTP endpoint' => [
             'httpsOnly' => false,
@@ -77,7 +79,7 @@ final class JsonFetcherConfigFactoryTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidCreateProvider
+     * @dataProvider provideInvalidCreateCases
      */
     public function testInvalidCreate(array $input, bool $httpsOnly, string $expectedMessage): void
     {
@@ -89,7 +91,7 @@ final class JsonFetcherConfigFactoryTest extends TestCase
         $factory->create($input);
     }
 
-    public function invalidCreateProvider(): \Generator
+    public function provideInvalidCreateCases(): iterable
     {
         yield 'Without "endpoint"' => [
             'input' => [],

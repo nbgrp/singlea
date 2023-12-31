@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\Singlea\Tests\EventListener;
 
@@ -22,7 +24,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 final class ExceptionListenerTest extends TestCase
 {
     /**
-     * @dataProvider invalidateSessionProvider
+     * @dataProvider provideInvalidateSessionCases
      */
     public function testInvalidateSession(ExceptionEvent $event, bool $expectedSet): void
     {
@@ -41,7 +43,7 @@ final class ExceptionListenerTest extends TestCase
         $listener->invalidateSession($event);
     }
 
-    public function invalidateSessionProvider(): \Generator
+    public function provideInvalidateSessionCases(): iterable
     {
         yield 'Unsupported exception' => [
             'event' => new ExceptionEvent(
@@ -65,7 +67,7 @@ final class ExceptionListenerTest extends TestCase
     }
 
     /**
-     * @dataProvider convertExceptionToJsonResponseProvider
+     * @dataProvider provideConvertExceptionToJsonResponseCases
      */
     public function testConvertExceptionToJsonResponse(bool $debug, ExceptionEvent $event, string $expected): void
     {
@@ -75,7 +77,7 @@ final class ExceptionListenerTest extends TestCase
         self::assertStringStartsWith($expected, $event->getResponse()->getContent());
     }
 
-    public function convertExceptionToJsonResponseProvider(): \Generator
+    public function provideConvertExceptionToJsonResponseCases(): iterable
     {
         $event = new ExceptionEvent(
             $this->createStub(KernelInterface::class),

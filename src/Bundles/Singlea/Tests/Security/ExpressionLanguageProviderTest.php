@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\Singlea\Tests\Security;
 
@@ -24,14 +26,14 @@ final class ExpressionLanguageProviderTest extends TestCase
     private ExpressionLanguage $expressionLanguage;
 
     /**
-     * @dataProvider compileProvider
+     * @dataProvider provideCompileCases
      */
     public function testCompile(string $expression, string $expected): void
     {
         self::assertSame($expected, $this->expressionLanguage->compile($expression, ['request']));
     }
 
-    public function compileProvider(): \Generator
+    public function provideCompileCases(): iterable
     {
         yield 'is_valid_signature' => [
             'expression' => 'is_valid_signature()',
@@ -60,7 +62,7 @@ final class ExpressionLanguageProviderTest extends TestCase
     }
 
     /**
-     * @dataProvider evaluateProvider
+     * @dataProvider provideEvaluateCases
      */
     public function testEvaluate(string $expression, Voter $voter): void
     {
@@ -70,7 +72,7 @@ final class ExpressionLanguageProviderTest extends TestCase
         ]));
     }
 
-    public function evaluateProvider(): \Generator
+    public function provideEvaluateCases(): iterable
     {
         yield 'is_valid_signature' => [
             'expression' => 'is_valid_signature()',

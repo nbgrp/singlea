@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\Singlea\Tests\Service\Client;
 
@@ -224,7 +226,7 @@ final class RegistrationServiceTest extends TestCase
     }
 
     /**
-     * @dataProvider failedRegisterProvider
+     * @dataProvider provideFailedRegisterCases
      */
     public function testFailedRegister(
         array $input,
@@ -243,7 +245,7 @@ final class RegistrationServiceTest extends TestCase
         $service->register($input);
     }
 
-    public function failedRegisterProvider(): \Generator
+    public function provideFailedRegisterCases(): iterable
     {
         $clientManagerMocker = function (): ClientManagerInterface {
             $manager = $this->createMock(ClientManagerInterface::class);

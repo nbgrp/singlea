@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\JsonFetcher\Tests;
 
@@ -18,7 +20,7 @@ use Symfony\Component\HttpClient\Response\MockResponse;
 final class JsonFetcherTest extends TestCase
 {
     /**
-     * @dataProvider supportsProvider
+     * @dataProvider provideSupportsCases
      */
     public function testSupports(FetcherConfigInterface|string $config, bool $expected): void
     {
@@ -27,7 +29,7 @@ final class JsonFetcherTest extends TestCase
         self::assertSame($expected, $fetcher->supports($config));
     }
 
-    public function supportsProvider(): \Generator
+    public function provideSupportsCases(): iterable
     {
         yield 'Wrong config' => [
             'config' => 'SingleA\Contracts\PayloadFetcher\FetcherConfigInterface',
@@ -56,7 +58,7 @@ final class JsonFetcherTest extends TestCase
     }
 
     /**
-     * @dataProvider fetchProvider
+     * @dataProvider provideFetchCases
      */
     public function testFetch(array $requestData, string $responseBody, JsonFetcherConfig $config, array $expectedPayload, ?string $expectedRequestOptionsKey): void
     {
@@ -75,7 +77,7 @@ final class JsonFetcherTest extends TestCase
         }
     }
 
-    public function fetchProvider(): \Generator
+    public function provideFetchCases(): iterable
     {
         yield 'Without options' => [
             'requestData' => ['username' => 'tester'],

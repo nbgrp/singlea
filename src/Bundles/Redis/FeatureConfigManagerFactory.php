@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\Redis;
 
@@ -13,7 +15,7 @@ final class FeatureConfigManagerFactory
 {
     public function __invoke(
         string $key,
-        \Redis|\RedisCluster|\Predis\ClientInterface $redis,
+        \Predis\ClientInterface|\Redis|\RedisCluster $redis,
         FeatureConfigMarshallerInterface $marshaller,
         FeatureConfigEncryptorInterface $encryptor,
         bool $required,
@@ -22,7 +24,7 @@ final class FeatureConfigManagerFactory
         return new class($key, $redis, $marshaller, $encryptor, $required, $logger) implements FeatureConfigManagerInterface {
             public function __construct(
                 private readonly string $key,
-                private readonly \Redis|\RedisCluster|\Predis\ClientInterface $redis,
+                private readonly \Predis\ClientInterface|\Redis|\RedisCluster $redis,
                 private readonly FeatureConfigMarshallerInterface $marshaller,
                 private readonly FeatureConfigEncryptorInterface $encryptor,
                 private readonly bool $required,
@@ -41,7 +43,7 @@ final class FeatureConfigManagerFactory
 
             public function exists(string $id): bool
             {
-                return (bool) $this->redis->hExists($this->key, $id);
+                return (bool) $this->redis->hexists($this->key, $id);
             }
 
             public function persist(string $id, FeatureConfigInterface $config, string $secret): void
@@ -50,7 +52,7 @@ final class FeatureConfigManagerFactory
                 $value = $this->encryptor->encrypt($value, $secret);
 
                 try {
-                    $this->redis->hSet($this->key, $id, $value);
+                    $this->redis->hset($this->key, $id, $value);
                 } finally {
                     $this->logger?->debug('Key "'.$this->key.'": config '.$id.' persisted.');
                 }
@@ -59,7 +61,7 @@ final class FeatureConfigManagerFactory
             public function find(string $id, string $secret): ?FeatureConfigInterface
             {
                 /** @var string|false $value */
-                $value = $this->redis->hGet($this->key, $id);
+                $value = $this->redis->hget($this->key, $id);
                 if (\is_string($value)) {
                     return $this->marshaller->unmarshall(
                         $this->encryptor->decrypt($value, $secret),
@@ -76,8 +78,8 @@ final class FeatureConfigManagerFactory
                 }
 
                 try {
-                    /** @psalm-suppress InvalidArgument */
-                    return (int) $this->redis->hDel($this->key, ...$ids);
+                    /** @psalm-suppress InvalidArgument, InvalidCast */
+                    return (int) $this->redis->hdel($this->key, ...$ids); // @phan-suppress-current-line PhanParamTooManyUnpack, PhanTypeMismatchArgumentProbablyReal
                 } finally {
                     $this->logger?->debug('Key "'.$this->key.'": configs removed: '.implode(', ', $ids).'.');
                 }

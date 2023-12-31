@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\Singlea\Tests\Service\Marshaller;
 
@@ -14,7 +16,7 @@ use SingleA\Bundles\Singlea\Service\Marshaller\SodiumFeatureConfigEncryptor;
 final class SodiumEncryptorTest extends TestCase
 {
     /**
-     * @dataProvider invalidKeysProvider
+     * @dataProvider provideInvalidKeysCases
      */
     public function testInvalidKeys(mixed $keys, string $expectedMessage): void
     {
@@ -24,7 +26,7 @@ final class SodiumEncryptorTest extends TestCase
         new SodiumFeatureConfigEncryptor($keys);
     }
 
-    public function invalidKeysProvider(): \Generator
+    public function provideInvalidKeysCases(): iterable
     {
         yield 'Invalid keys type' => [
             'keys' => 'key',

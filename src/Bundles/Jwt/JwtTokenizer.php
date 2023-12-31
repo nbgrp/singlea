@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\Jwt;
 
@@ -22,7 +24,7 @@ final class JwtTokenizer implements TokenizerInterface
         $this->jwsSerializer = new Signature\Serializer\CompactSerializer();
     }
 
-    public function supports(TokenizerConfigInterface|string $config): bool
+    public function supports(string|TokenizerConfigInterface $config): bool
     {
         return is_a($config, JwtTokenizerConfig::class, true);
     }

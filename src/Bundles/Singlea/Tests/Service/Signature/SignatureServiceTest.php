@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\Singlea\Tests\Service\Signature;
 
@@ -21,7 +23,8 @@ final class SignatureServiceTest extends TestCase
     private static string $privateKey = "-----BEGIN RSA PRIVATE KEY-----\nMIIBOgIBAAJBAN6/X16pqe5ueT/XmBi/UpIhL348m5LLdi6CKTNk1jvCVbihs/xi\nG7GBrHeru6rkT30DcMKjXLOmxVEDF0GtvScCAwEAAQJBAM+DnBa1m3FcjCr08GaF\nvygSMIu7bPg6ApTbgAS4OXmbGbbJ6geA+TRWrXcIxqH/hM+wS39Pk90fmqZLlXl7\nhXkCIQD9++QqQcJ/6c5Q0KqPOgR4fDsVgfpKrx0ECMRS2zNE6wIhAOCEAdvJi8+I\nQOd1c470e1ToZnaM3vpxK8m4BQXhlUm1AiB+xOY6bT4uaD2xOqWW/YdTt/YpowmR\nk1vxMosDLCOn5wIgNHIBsSLCewccCjVgehtYF/x1uumrSJtZHDTVT4tjgSUCIGO/\nVulHsXVLXFWuU6nSGJ9ZnloXe/M7JCRG2MgfGges\n-----END RSA PRIVATE KEY-----";
     private static string $publicKey = "-----BEGIN PUBLIC KEY-----\nMFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAN6/X16pqe5ueT/XmBi/UpIhL348m5LL\ndi6CKTNk1jvCVbihs/xiG7GBrHeru6rkT30DcMKjXLOmxVEDF0GtvScCAwEAAQ==\n-----END PUBLIC KEY-----";
 
-    public function testValidCheck(): void {
+    public function testValidCheck(): void
+    {
         $timestamp = time() - 15;
         openssl_sign('4321.secret-value.'.$timestamp, $signature, self::$privateKey, \OPENSSL_ALGO_SHA224);
 
@@ -40,7 +43,7 @@ final class SignatureServiceTest extends TestCase
     }
 
     /**
-     * @dataProvider failedCheckProvider
+     * @dataProvider provideFailedCheckCases
      */
     public function testFailedCheck(
         Request $request,
@@ -55,7 +58,7 @@ final class SignatureServiceTest extends TestCase
         $service->check($request, $config);
     }
 
-    public function failedCheckProvider(): \Generator
+    public function provideFailedCheckCases(): iterable
     {
         yield 'No timestamp' => [
             'request' => Request::create(''),

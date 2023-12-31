@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\Singlea\Tests\DependencyInjection;
 
@@ -18,14 +20,14 @@ final class ConfigurationTest extends TestCase
     private Processor $processor;
 
     /**
-     * @dataProvider validConfigurationProvider
+     * @dataProvider provideValidConfigurationCases
      */
     public function testValidConfiguration(array $config, array $expected): void
     {
         self::assertSame($expected, $this->processor->processConfiguration(new Configuration(), [$config]));
     }
 
-    public function validConfigurationProvider(): \Generator
+    public function provideValidConfigurationCases(): iterable
     {
         yield 'Default configuration' => [
             'config' => [
@@ -158,7 +160,7 @@ final class ConfigurationTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidConfigurationProvider
+     * @dataProvider provideInvalidConfigurationCases
      */
     public function testInvalidConfiguration(array $config, string $expectedMessage): void
     {
@@ -168,7 +170,7 @@ final class ConfigurationTest extends TestCase
         $this->processor->processConfiguration(new Configuration(), [$config]);
     }
 
-    public function invalidConfigurationProvider(): \Generator
+    public function provideInvalidConfigurationCases(): iterable
     {
         yield 'Empty "client.id_query_parameter"' => [
             'config' => [

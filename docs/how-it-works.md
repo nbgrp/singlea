@@ -40,7 +40,7 @@ implementation of Payload Fetcher, assume the following list of bundles was inst
 ### Configure Bundles
 
 A detailed description of each bundle configuration can be found on separate pages in the
-[Bundles](bundles) section. Here only should be noted that the SingleA bundle includes the settings
+[Bundles](bundles/singlea.md) section. Here only should be noted that the SingleA bundle includes the settings
 for:
 
 * encryption keys for client features configs and user attributes,

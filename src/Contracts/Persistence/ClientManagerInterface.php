@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Contracts\Persistence;
 
@@ -25,7 +27,7 @@ interface ClientManagerInterface
     /**
      * Get ids of the clients inactive since the specified time.
      *
-     * @return iterable<string>
+     * @return iterable<array-key, string>
      */
     public function findInactiveSince(\DateTimeInterface $datetime): iterable;
 

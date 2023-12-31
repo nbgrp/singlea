@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\Singlea\ArgumentResolver;
 
@@ -24,7 +26,7 @@ final class FeatureConfigResolver implements ArgumentValueResolverInterface
 
     public function supports(Request $request, ArgumentMetadata $argument): bool
     {
-        return is_subclass_of($argument->getType() ?? '', FeatureConfigInterface::class, true);
+        return is_subclass_of($argument->getType() ?? '', FeatureConfigInterface::class);
     }
 
     /**

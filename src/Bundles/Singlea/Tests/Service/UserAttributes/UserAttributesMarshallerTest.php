@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\Singlea\Tests\Service\UserAttributes;
 
@@ -14,7 +16,7 @@ use SingleA\Bundles\Singlea\Service\UserAttributes\UserAttributesMarshaller;
 final class UserAttributesMarshallerTest extends TestCase
 {
     /**
-     * @dataProvider invalidKeysProvider
+     * @dataProvider provideInvalidKeysCases
      */
     public function testInvalidKeys(mixed $keys, string $expectedMessage): void
     {
@@ -24,7 +26,7 @@ final class UserAttributesMarshallerTest extends TestCase
         new UserAttributesMarshaller($keys);
     }
 
-    public function invalidKeysProvider(): \Generator
+    public function provideInvalidKeysCases(): iterable
     {
         yield 'Invalid keys type' => [
             'keys' => 'key',
@@ -38,7 +40,7 @@ final class UserAttributesMarshallerTest extends TestCase
     }
 
     /**
-     * @dataProvider marshallProvider
+     * @dataProvider provideMarshallCases
      */
     public function testMarshall(array $keys, bool $useIgbinarySerialize, string $ticket, string $expected): void
     {
@@ -48,7 +50,7 @@ final class UserAttributesMarshallerTest extends TestCase
         self::assertSame($expected, base64_encode($marshalled));
     }
 
-    public function marshallProvider(): \Generator
+    public function provideMarshallCases(): iterable
     {
         yield 'Basic' => [
             'keys' => [base64_decode('1O5/GLhgoNlJM9X16CVJR1K8hjI5TtWQz0Ubj3hIwtA=', true)],
@@ -66,7 +68,7 @@ final class UserAttributesMarshallerTest extends TestCase
     }
 
     /**
-     * @dataProvider unmarshallProvider
+     * @dataProvider provideUnmarshallCases
      */
     public function testUnmarshall(array $keys, bool $useIgbinarySerialize, string $marshalled, string $ticket, array $expected): void
     {
@@ -76,7 +78,7 @@ final class UserAttributesMarshallerTest extends TestCase
         self::assertSame($expected, $unmarshalled);
     }
 
-    public function unmarshallProvider(): \Generator
+    public function provideUnmarshallCases(): iterable
     {
         yield 'Basic' => [
             'keys' => [

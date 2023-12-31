@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\Redis\Tests\DependencyInjection\Compiler;
 
@@ -45,7 +47,7 @@ final class AddFeatureConfigManagersPassTest extends TestCase
         $redisClient = $this->createMock(\Redis::class);
         $redisClient
             ->expects(self::exactly(2))
-            ->method('hExists')
+            ->method('hexists')
             ->withConsecutive(
                 [self::equalTo('signature'), self::equalTo('id1')],
                 [self::equalTo('tokenizer'), self::equalTo('id2')],
@@ -57,7 +59,7 @@ final class AddFeatureConfigManagersPassTest extends TestCase
         ;
         $redisClient
             ->expects(self::exactly(2))
-            ->method('hSet')
+            ->method('hset')
             ->withConsecutive(
                 [self::equalTo('signature'), self::equalTo('id1'), self::equalTo('encrypted-signature-config-marshalled-with-signature-secret')],
                 [self::equalTo('tokenizer'), self::equalTo('id2'), self::equalTo('encrypted-tokenizer-config-marshalled-with-tokenizer-secret')],
@@ -65,7 +67,7 @@ final class AddFeatureConfigManagersPassTest extends TestCase
         ;
         $redisClient
             ->expects(self::exactly(2))
-            ->method('hGet')
+            ->method('hget')
             ->withConsecutive(
                 ['signature', 'id1'],
                 ['tokenizer', 'id2'],
@@ -77,7 +79,7 @@ final class AddFeatureConfigManagersPassTest extends TestCase
         ;
         $redisClient
             ->expects(self::once())
-            ->method('hDel')
+            ->method('hdel')
             ->with('signature', 'id1', 'id2')
             ->willReturn(1)
         ;

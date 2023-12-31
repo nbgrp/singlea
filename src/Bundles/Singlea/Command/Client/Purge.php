@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\Singlea\Command\Client;
 
@@ -89,7 +91,7 @@ final class Purge extends Command
             ]);
         });
 
-        if (empty($ids)) { // @phpstan-ignore-line
+        if (empty($ids)) {
             $io->info('There is no inactive clients since '.$since->format('d.m.Y H:i:s'));
 
             return self::SUCCESS;

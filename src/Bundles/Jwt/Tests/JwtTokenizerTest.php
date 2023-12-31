@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\Jwt\Tests;
 
@@ -60,16 +62,16 @@ final class JwtTokenizerTest extends TestCase
     }
 
     /**
-     * @dataProvider supportsProvider
+     * @dataProvider provideSupportsCases
      */
-    public function testSupports(TokenizerConfigInterface|string $config, bool $expected): void
+    public function testSupports(string|TokenizerConfigInterface $config, bool $expected): void
     {
         $tokenizer = new JwtTokenizer('iss-value', self::$jwsBuilderFactory, self::$nestedTokenBuilderFactory);
 
         self::assertSame($expected, $tokenizer->supports($config));
     }
 
-    public function supportsProvider(): \Generator
+    public function provideSupportsCases(): iterable
     {
         yield 'Wrong config' => [
             'config' => 'SingleA\Contracts\Tokenization\TokenizerConfigInterface',
@@ -99,7 +101,7 @@ final class JwtTokenizerTest extends TestCase
     }
 
     /**
-     * @dataProvider successTokenizeProvider
+     * @dataProvider provideSuccessTokenizeCases
      */
     public function testSuccessTokenize(string $issuer, string $subject, array $payload, JwtTokenizerConfig $config, string $expected): void
     {
@@ -108,7 +110,7 @@ final class JwtTokenizerTest extends TestCase
         self::assertStringStartsWith($expected, $tokenizer->tokenize($subject, $payload, $config));
     }
 
-    public function successTokenizeProvider(): \Generator
+    public function provideSuccessTokenizeCases(): iterable
     {
         $payload = [
             'iat' => 1643490751,

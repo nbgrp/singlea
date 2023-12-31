@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\JwtFetcher\Tests\FeatureConfig;
 
@@ -85,7 +87,7 @@ final class JwtFetcherConfigFactoryTest extends TestCase
     }
 
     /**
-     * @dataProvider successfulCreateProvider
+     * @dataProvider provideSuccessfulCreateCases
      *
      * phpcs:disable SlevomatCodingStandard.Complexity.Cognitive
      */
@@ -170,7 +172,7 @@ final class JwtFetcherConfigFactoryTest extends TestCase
     }
     // phpcs:enable
 
-    public function successfulCreateProvider(): \Generator
+    public function provideSuccessfulCreateCases(): iterable
     {
         yield 'HTTP endpoint, request: JWS with ES256 alg, JWE (no zip), options; response: JWS with HS256, no JWE' => [
             'httpsOnly' => false,
@@ -721,7 +723,7 @@ final class JwtFetcherConfigFactoryTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidCreateProvider
+     * @dataProvider provideInvalidCreateCases
      */
     public function testInvalidCreate(array $input, bool $httpsOnly, string $expectedMessage): void
     {
@@ -733,7 +735,7 @@ final class JwtFetcherConfigFactoryTest extends TestCase
         $factory->create($input);
     }
 
-    public function invalidCreateProvider(): \Generator
+    public function provideInvalidCreateCases(): iterable
     {
         yield 'Without "endpoint"' => [
             'input' => [

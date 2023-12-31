@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\Singlea\Tests\EventListener\Security;
 
@@ -28,7 +30,7 @@ use Symfony\Component\Security\Http\Event\LoginSuccessEvent;
 final class SuccessfulLoginListenerTest extends TestCase
 {
     /**
-     * @dataProvider successfulSetUserAttributesProvider
+     * @dataProvider provideSuccessfulSetUserAttributesCases
      */
     public function testSuccessfulSetUserAttributes(Request $request, ?string $ticketFromCookie): void
     {
@@ -97,7 +99,7 @@ final class SuccessfulLoginListenerTest extends TestCase
         self::assertSame('ticket-value', $event->getAuthenticatedToken()->getAttribute('ticket'));
     }
 
-    public function successfulSetUserAttributesProvider(): \Generator
+    public function provideSuccessfulSetUserAttributesCases(): iterable
     {
         yield 'Ticket in cookies' => [
             'request' => Request::create('', cookies: ['tkt' => 'Y29va2llLXRpY2tldA']),

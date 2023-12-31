@@ -4,7 +4,8 @@
     strictBinaryOperands="true"
     findUnusedPsalmSuppress="true"
     sealAllMethods="true"
-    phpVersion="8.1"
+    findUnusedBaselineEntry="false"
+    findUnusedCode="false"
     xmlns="https://getpsalm.org/schema/config"
 >
     <projectFiles>
@@ -22,10 +23,6 @@
             <directory name="src/Bundles/*/Tests" />
         </ignoreFiles>
     </projectFiles>
-
-    <extraFiles>
-        <directory name="vendor" />
-    </extraFiles>
 
     <issueHandlers>
         <MixedMethodCall>

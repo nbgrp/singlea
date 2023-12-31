@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\Singlea\Tests\Service\Tokenization;
 
@@ -22,7 +24,7 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 final class PayloadComposerTest extends TestCase
 {
     /**
-     * @dataProvider composeProvider
+     * @dataProvider provideComposeCases
      */
     public function testCompose(
         array $payloadFetchers,
@@ -37,7 +39,7 @@ final class PayloadComposerTest extends TestCase
         self::assertSame($expected, $composer->compose($userAttributes, $tokenizerConfig, $fetcherConfig));
     }
 
-    public function composeProvider(): \Generator
+    public function provideComposeCases(): iterable
     {
         yield 'No fetcher' => [
             'payloadFetchers' => [],

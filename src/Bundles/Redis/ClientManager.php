@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\Redis;
 
@@ -10,13 +12,13 @@ final class ClientManager implements ClientManagerInterface
 {
     public function __construct(
         private readonly string $key,
-        private readonly \Redis|\RedisCluster|\Predis\ClientInterface $redis,
+        private readonly \Predis\ClientInterface|\Redis|\RedisCluster $redis,
         private readonly ?LoggerInterface $logger = null,
     ) {}
 
     public function exists(string $id, bool $touch = true): bool
     {
-        $exists = (bool) $this->redis->hExists($this->key, $id);
+        $exists = (bool) $this->redis->hexists($this->key, $id);
         if ($exists && $touch) {
             $this->touch($id);
         }
@@ -27,7 +29,7 @@ final class ClientManager implements ClientManagerInterface
     public function touch(string $id): void
     {
         try {
-            $this->redis->hSet($this->key, $id, (string) time());
+            $this->redis->hset($this->key, $id, (string) time());
         } finally {
             $this->logger?->debug('Key "'.$this->key.'": client '.$id.' touched.');
         }
@@ -35,7 +37,7 @@ final class ClientManager implements ClientManagerInterface
 
     public function getLastAccess(string $id): \DateTimeImmutable
     {
-        $timestamp = $this->redis->hGet($this->key, $id);
+        $timestamp = $this->redis->hget($this->key, $id);
         if (!is_numeric($timestamp)) {
             throw new \InvalidArgumentException('Unknown id specified: '.$id);
         }
@@ -107,8 +109,8 @@ final class ClientManager implements ClientManagerInterface
         }
 
         try {
-            /** @psalm-suppress InvalidArgument */
-            return (int) $this->redis->hDel($this->key, ...$ids);
+            /** @psalm-suppress InvalidArgument, InvalidCast */
+            return (int) $this->redis->hdel($this->key, ...$ids); // @phan-suppress-current-line PhanParamTooManyUnpack, PhanTypeMismatchArgumentProbablyReal
         } finally {
             $this->logger?->debug('Key "'.$this->key.'": clients removed: '.implode(', ', $ids).'.');
         }

@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\Singlea\Command\Client;
 
@@ -48,8 +50,7 @@ final class Register extends Command
                 $output,
                 (new Question("Enter the registration data JSON string (Ctrl+D for stop entering):\n"))
                     ->setMultiline(true),
-            )
-        ;
+            );
 
         $input->setArgument('registration-json', $json);
     }

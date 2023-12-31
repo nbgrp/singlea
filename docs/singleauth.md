@@ -109,13 +109,13 @@ graph TB
     App([Client App])
 
     subgraph client [SingleAuth Client]
-        HT{Does request<br>has a Ticket?}
+        HT{Does the request<br>have a Ticket?}
         XHR{XHR?}
-        V[[Validate user session]]
-        VQ{Is user session valid?}
-        T[[Fetch user token]]
-        TR{Token received?}
-        AR[[Add user token to request]]
+        V[[Validate the user session]]
+        VQ{Is the user session valid?}
+        T[[Fetch the user token]]
+        TR{The token received?}
+        AR[[Add the user token to the request]]
     end
 
     subgraph server [SingleAuth Server]
@@ -125,20 +125,20 @@ graph TB
         TS[Tokenizer]
     end
 
-    U -->|Makes request to the Client Application| R
+    U -->|Makes a request to the Client Application| R
     R --> HT
     HT -->|Yes| V
     HT -->|No| XHR
     XHR -->|Yes| 401
-    V -.->|Provide client id, secret and user ticket| VS
+    V -.->|Provide the client id, the secret<br>and the user ticket| VS
     VS -.-> VQ
     VQ -->|Yes| T
     VQ -->|No| XHR
-    T -.->|Provide client id, secret and user ticket| TS
+    T -.->|Provide the client id, the secret<br>and the user ticket| TS
     TS -.-> TR
     TR -->|Yes| AR
     TR -->|No| 401
-    AR -->|Pass request to the Client Application| App
+    AR -->|Pass the request to the Client Application| App
 
     XHR -->|"No, redirect user to login<br>providing client id, secret<br>and initial request URI<br>as a return URL"| L
     L -->|Set ticket cookie| A

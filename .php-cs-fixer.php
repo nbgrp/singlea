@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 return (new PhpCsFixer\Config())
     ->setFinder(
@@ -22,27 +24,22 @@ return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setRules([
         // base presets
-        '@PSR12' => true,
+        '@PER-CS' => true,
         '@PhpCsFixer' => true,
         '@Symfony' => true,
-        '@PHP80Migration' => true,
+        '@PHP81Migration' => true,
 
         // risky presets
+        '@PER-CS:risky' => true,
         '@PhpCsFixer:risky' => true,
         '@Symfony:risky' => true,
         '@PHP80Migration:risky' => true,
 
         // presets tuning
-        'binary_operator_spaces' => [
-            'operators' => [
-                '|' => null,
-            ],
-        ],
         'blank_line_after_opening_tag' => false,
         'blank_line_before_statement' => [
             'statements' => ['case', 'default', 'declare', 'return', 'throw', 'try'],
         ],
-        'braces' => false,
         'comment_to_phpdoc' => [
             'ignored_tags' => [
                 'phan-suppress-current-line',
@@ -53,6 +50,7 @@ return (new PhpCsFixer\Config())
         ],
         'linebreak_after_opening_tag' => false,
         'method_argument_space' => [
+            'attribute_placement' => 'standalone',
             'on_multiline' => 'ignore',
         ],
         'multiline_whitespace_before_semicolons' => [
@@ -105,11 +103,13 @@ return (new PhpCsFixer\Config())
         'final_class' => true,
         'header_comment' => [
             'header' => 'SPDX-License-Identifier: BSD-3-Clause',
+            'location' => 'after_open',
             'separate' => 'bottom',
         ],
         'nullable_type_declaration_for_default_null_value' => true,
         'self_static_accessor' => true,
         'simplified_null_return' => true,
+        'single_line_empty_body' => true,
         'static_lambda' => true,
     ])
 ;

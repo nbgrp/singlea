@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Contracts\Tokenization;
 
@@ -11,7 +13,7 @@ interface TokenizerInterface
     /**
      * Does the tokenizer work with specified config.
      */
-    public function supports(TokenizerConfigInterface|string $config): bool;
+    public function supports(string|TokenizerConfigInterface $config): bool;
 
     /**
      * Generate user token with the specified payload according the specified config.

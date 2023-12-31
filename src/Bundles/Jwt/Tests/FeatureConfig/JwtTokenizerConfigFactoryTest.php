@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\Jwt\Tests\FeatureConfig;
 
@@ -58,7 +60,7 @@ final class JwtTokenizerConfigFactoryTest extends TestCase
     }
 
     /**
-     * @dataProvider successfulProvider
+     * @dataProvider provideSuccessfulCreateCases
      */
     public function testSuccessfulCreate(
         array $input,
@@ -97,7 +99,7 @@ final class JwtTokenizerConfigFactoryTest extends TestCase
         }
     }
 
-    public function successfulProvider(): \Generator
+    public function provideSuccessfulCreateCases(): iterable
     {
         yield 'TTL, no claims, JWS, JWE (no zip), no audience' => [
             'input' => [
@@ -352,7 +354,7 @@ final class JwtTokenizerConfigFactoryTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidCreateProvider
+     * @dataProvider provideInvalidCreateCases
      */
     public function testInvalidCreate(array $input, string $expectedMessage): void
     {
@@ -364,7 +366,7 @@ final class JwtTokenizerConfigFactoryTest extends TestCase
         $factory->create($input);
     }
 
-    public function invalidCreateProvider(): \Generator
+    public function provideInvalidCreateCases(): iterable
     {
         yield 'TTL not a number' => [
             'input' => [

@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\Singlea\Tests\Service\UserAttributes;
 
@@ -196,7 +198,7 @@ final class UserAttributesManagerTest extends TestCase
     }
 
     /**
-     * @dataProvider removeProvider
+     * @dataProvider provideRemoveCases
      */
     public function testRemove(bool $delete, bool $expected): void
     {
@@ -216,7 +218,7 @@ final class UserAttributesManagerTest extends TestCase
         self::assertSame($expected, $manager->remove('test', 'foo'));
     }
 
-    public function removeProvider(): \Generator
+    public function provideRemoveCases(): iterable
     {
         yield 'True' => [
             'delete' => true,

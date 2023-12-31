@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\JsonFetcher\Tests\DependencyInjection;
 
@@ -17,14 +19,14 @@ final class ConfigurationTest extends TestCase
     private Processor $processor;
 
     /**
-     * @dataProvider configurationProvider
+     * @dataProvider provideConfigurationCases
      */
     public function testConfiguration(array $config, array $expected): void
     {
         self::assertSame($expected, $this->processor->processConfiguration(new Configuration(), [$config]));
     }
 
-    public function configurationProvider(): \Generator
+    public function provideConfigurationCases(): iterable
     {
         yield 'Default configuration' => [
             'config' => [],

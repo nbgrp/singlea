@@ -1,5 +1,7 @@
-<?php declare(strict_types=1);
+<?php
 // SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SingleA\Bundles\Redis\Tests;
 
@@ -15,7 +17,7 @@ use SingleA\Bundles\Redis\ClientManager;
 final class ClientManagerTest extends TestCase
 {
     /**
-     * @dataProvider existsProvider
+     * @dataProvider provideExistsCases
      *
      * @SuppressWarnings(PHPMD.ElseExpression)
      */
@@ -27,7 +29,7 @@ final class ClientManagerTest extends TestCase
         $redis = $this->createMock(\Redis::class);
         $redis
             ->expects(self::once())
-            ->method('hExists')
+            ->method('hexists')
             ->with($key, $id)
             ->willReturn($exists)
         ;
@@ -37,7 +39,7 @@ final class ClientManagerTest extends TestCase
         if ($touch) {
             $redis
                 ->expects(self::once())
-                ->method('hSet')
+                ->method('hset')
                 ->with($key, $id, self::stringContains(substr((string) time(), 0, -2)))
             ;
 
@@ -48,7 +50,7 @@ final class ClientManagerTest extends TestCase
         } else {
             $redis
                 ->expects(self::never())
-                ->method('hSet')
+                ->method('hset')
             ;
 
             $logger
@@ -62,7 +64,7 @@ final class ClientManagerTest extends TestCase
         self::assertSame($expected, $clientManager->exists($id, $touch));
     }
 
-    public function existsProvider(): \Generator
+    public function provideExistsCases(): iterable
     {
         yield 'Not exists' => [
             'touch' => false,
@@ -91,7 +93,7 @@ final class ClientManagerTest extends TestCase
         $redis = $this->createMock(\Redis::class);
         $redis
             ->expects(self::once())
-            ->method('hGet')
+            ->method('hget')
             ->with($key, $id)
             ->willReturn(false)
         ;
@@ -112,7 +114,7 @@ final class ClientManagerTest extends TestCase
         $redis = $this->createMock(\Redis::class);
         $redis
             ->expects(self::once())
-            ->method('hGet')
+            ->method('hget')
             ->with($key, $id)
             ->willReturn('1609495200')
         ;
@@ -189,7 +191,7 @@ final class ClientManagerTest extends TestCase
     }
 
     /**
-     * @dataProvider removeProvider
+     * @dataProvider provideRemoveCases
      */
     public function testRemove(\Redis $redis, LoggerInterface $logger, array $ids, int $expected): void
     {
@@ -198,14 +200,14 @@ final class ClientManagerTest extends TestCase
         self::assertSame($expected, $clientManager->remove(...$ids));
     }
 
-    public function removeProvider(): \Generator
+    public function provideRemoveCases(): iterable
     {
         yield 'Removed 2 items' => [
             'redis' => (function (): \Redis {
                 $redis = $this->createMock(\Redis::class);
                 $redis
                     ->expects(self::once())
-                    ->method('hDel')
+                    ->method('hdel')
                     ->with('key', '1', '2')
                     ->willReturn(2)
                 ;
@@ -230,7 +232,7 @@ final class ClientManagerTest extends TestCase
                 $redis = $this->createMock(\Redis::class);
                 $redis
                     ->expects(self::once())
-                    ->method('hDel')
+                    ->method('hdel')
                     ->with('key', '1', '2')
                     ->willReturn(0)
                 ;
@@ -255,7 +257,7 @@ final class ClientManagerTest extends TestCase
                 $redis = $this->createMock(\Redis::class);
                 $redis
                     ->expects(self::never())
-                    ->method('hDel')
+                    ->method('hdel')
                 ;
 
                 return $redis;
