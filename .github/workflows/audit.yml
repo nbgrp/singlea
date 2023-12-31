@@ -7,12 +7,22 @@ jobs:
     name: Audit
     strategy:
       matrix:
-        php-version: [ '8.1' ]
+        php-version: [ '8.1', '8.2', '8.3' ]
       fail-fast: false
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout (Push)
         uses: actions/checkout@v4
+        if: github.event_name == 'push'
+        with:
+          fetch-depth: 0
+
+      - name: Checkout (PR)
+        uses: actions/checkout@v4
+        if: github.event_name == 'pull_request'
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -26,12 +36,12 @@ jobs:
 
       - name: Get composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "DIR=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
-          path: ${{ steps.composer-cache.outputs.dir }}
+          path: ${{ steps.composer-cache.outputs.DIR }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
           restore-keys: ${{ runner.os }}-composer-
 
@@ -55,4 +65,3 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./clover.xml
-
