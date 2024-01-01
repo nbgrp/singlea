@@ -42,13 +42,24 @@ final class PurgeTest extends TestCase
             ])
         ;
         $clientManager
-            ->expects(self::exactly(2))
+            ->expects($matcher = self::exactly(2))
             ->method('getLastAccess')
-            ->withConsecutive(
-                ['1ec7d443-a7bf-6112-89fe-3923cde81694'],
-                ['1ec7e256-14e9-6646-a3fa-37d3996cc17f'],
-            )
-            ->willReturn(new \DateTimeImmutable())
+            ->willReturnCallback(static function (string $id) use ($matcher): \DateTimeImmutable {
+                switch ($matcher->getInvocationCount()) {
+                    case 1:
+                        self::assertSame('1ec7d443-a7bf-6112-89fe-3923cde81694', $id);
+                        break;
+
+                    case 2:
+                        self::assertSame('1ec7e256-14e9-6646-a3fa-37d3996cc17f', $id);
+                        break;
+
+                    default:
+                        throw new \RuntimeException('Unexpected');
+                }
+
+                return new \DateTimeImmutable();
+            })
         ;
         $clientManager
             ->expects(self::once())

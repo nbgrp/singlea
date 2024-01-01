@@ -15,14 +15,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Event\LoginSuccessEvent;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-final class SuccessfulLoginListener
+final readonly class SuccessfulLoginListener
 {
     public function __construct(
-        private readonly string $ticketCookieName,
-        private readonly RealmResolverInterface $realmResolver,
-        private readonly UserAttributesManagerInterface $userAttributesManager,
-        private readonly EventDispatcherInterface $eventDispatcher,
-        private readonly ?LoggerInterface $logger = null,
+        private string $ticketCookieName,
+        private RealmResolverInterface $realmResolver,
+        private UserAttributesManagerInterface $userAttributesManager,
+        private EventDispatcherInterface $eventDispatcher,
+        private ?LoggerInterface $logger = null,
     ) {}
 
     #[AsEventListener(LoginSuccessEvent::class)]

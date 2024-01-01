@@ -5,12 +5,12 @@ declare(strict_types=1);
 
 namespace SingleA\Bundles\Singlea\Service\UserAttributes;
 
-final class UserAttributesItem implements UserAttributesItemInterface
+final readonly class UserAttributesItem implements UserAttributesItemInterface
 {
     public function __construct(
-        private readonly string $identifier,
-        private readonly array $attributes,
-        private readonly ?int $ttl,
+        private string $identifier,
+        private array $attributes,
+        private ?int $ttl,
     ) {}
 
     public function getIdentifier(): string

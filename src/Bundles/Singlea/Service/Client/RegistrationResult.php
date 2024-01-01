@@ -7,12 +7,12 @@ namespace SingleA\Bundles\Singlea\Service\Client;
 
 use Symfony\Component\Uid\UuidV6;
 
-final class RegistrationResult
+final readonly class RegistrationResult
 {
     public function __construct(
-        private readonly UuidV6 $clientId,
-        private readonly string $secret,
-        private readonly array $output,
+        private UuidV6 $clientId,
+        private string $secret,
+        private array $output,
     ) {}
 
     public function getClientId(): UuidV6

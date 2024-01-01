@@ -12,14 +12,14 @@ use SingleA\Bundles\Jwt\FeatureConfig\JwtTokenizerConfig;
 use SingleA\Contracts\Tokenization\TokenizerConfigInterface;
 use SingleA\Contracts\Tokenization\TokenizerInterface;
 
-final class JwtTokenizer implements TokenizerInterface
+final readonly class JwtTokenizer implements TokenizerInterface
 {
     private Signature\Serializer\CompactSerializer $jwsSerializer;
 
     public function __construct(
-        private readonly string $issuer,
-        private readonly JWSBuilderFactory $jwsBuilderFactory,
-        private readonly NestedTokenBuilderFactory $nestedTokenBuilderFactory,
+        private string $issuer,
+        private JWSBuilderFactory $jwsBuilderFactory,
+        private NestedTokenBuilderFactory $nestedTokenBuilderFactory,
     ) {
         $this->jwsSerializer = new Signature\Serializer\CompactSerializer();
     }

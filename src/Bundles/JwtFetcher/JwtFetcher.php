@@ -17,16 +17,16 @@ use SingleA\Contracts\PayloadFetcher\FetcherConfigInterface;
 use SingleA\Contracts\PayloadFetcher\FetcherInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-final class JwtFetcher implements FetcherInterface
+final readonly class JwtFetcher implements FetcherInterface
 {
     private Signature\Serializer\CompactSerializer $jwsSerializer;
 
     public function __construct(
-        private readonly HttpClientInterface $httpClient,
-        private readonly JWSBuilderFactory $jwsBuilderFactory,
-        private readonly NestedTokenBuilderFactory $nestedTokenBuilderFactory,
-        private readonly JWSLoaderFactory $jwsLoaderFactory,
-        private readonly NestedTokenLoaderFactory $nestedTokenLoaderFactory,
+        private HttpClientInterface $httpClient,
+        private JWSBuilderFactory $jwsBuilderFactory,
+        private NestedTokenBuilderFactory $nestedTokenBuilderFactory,
+        private JWSLoaderFactory $jwsLoaderFactory,
+        private NestedTokenLoaderFactory $nestedTokenLoaderFactory,
     ) {
         $this->jwsSerializer = new Signature\Serializer\CompactSerializer();
     }

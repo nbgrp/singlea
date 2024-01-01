@@ -14,7 +14,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 class Configuration implements ConfigurationInterface
 {
     /**
-     * @suppress PhanPossiblyNonClassMethodCall, PhanPossiblyUndeclaredMethod
+     * @suppress PhanPossiblyUndeclaredMethod
      */
     public function getConfigTreeBuilder(): TreeBuilder
     {

@@ -20,13 +20,13 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 
 #[AsController]
-final class Token
+final readonly class Token
 {
     /**
      * @param iterable<TokenizerInterface> $tokenizers
      */
     public function __construct(
-        private readonly iterable $tokenizers,
+        private iterable $tokenizers,
     ) {}
 
     public function __invoke(

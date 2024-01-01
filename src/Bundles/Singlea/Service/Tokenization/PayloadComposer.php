@@ -12,15 +12,15 @@ use SingleA\Contracts\PayloadFetcher\FetcherInterface;
 use SingleA\Contracts\Tokenization\TokenizerConfigInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-final class PayloadComposer implements PayloadComposerInterface
+final readonly class PayloadComposer implements PayloadComposerInterface
 {
     /**
      * @param iterable<FetcherInterface> $payloadFetchers
      */
     public function __construct(
-        private readonly iterable $payloadFetchers,
-        private readonly EventDispatcherInterface $eventDispatcher,
-        private readonly ?LoggerInterface $logger = null,
+        private iterable $payloadFetchers,
+        private EventDispatcherInterface $eventDispatcher,
+        private ?LoggerInterface $logger = null,
     ) {}
 
     public function compose(

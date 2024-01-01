@@ -10,7 +10,7 @@ use SingleA\Bundles\Singlea\FeatureConfig\Signature\SignatureConfigInterface;
 use Symfony\Component\ErrorHandler\ErrorHandler;
 use Symfony\Component\HttpFoundation\Request;
 
-final class SignatureService implements SignatureServiceInterface
+final readonly class SignatureService implements SignatureServiceInterface
 {
     public const REQUEST_RECEIVED_AT = '_rra';
 
@@ -22,11 +22,11 @@ final class SignatureService implements SignatureServiceInterface
      * @param array<string> $extraExcludeParameters
      */
     public function __construct(
-        private readonly int $requestTtl,
-        private readonly string $timestampQueryParameter,
-        private readonly string $signatureQueryParameter,
-        private readonly array $extraExcludeParameters = [],
-        private readonly ?LoggerInterface $logger = null,
+        private int $requestTtl,
+        private string $timestampQueryParameter,
+        private string $signatureQueryParameter,
+        private array $extraExcludeParameters = [],
+        private ?LoggerInterface $logger = null,
     ) {}
 
     public function check(Request $request, SignatureConfigInterface $config): void

@@ -18,10 +18,10 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
  *
  * @see ClientListener
  */
-final class FeatureConfigResolver implements ValueResolverInterface
+final readonly class FeatureConfigResolver implements ValueResolverInterface
 {
     public function __construct(
-        private readonly ConfigRetrieverInterface $configRetriever,
+        private ConfigRetrieverInterface $configRetriever,
     ) {}
 
     public function resolve(Request $request, ArgumentMetadata $argument): array

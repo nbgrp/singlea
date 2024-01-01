@@ -16,11 +16,11 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
-final class ExceptionListener
+final readonly class ExceptionListener
 {
     public function __construct(
-        private readonly bool $debug,
-        private readonly RequestStack $requestStack,
+        private bool $debug,
+        private RequestStack $requestStack,
     ) {}
 
     #[AsEventListener(KernelEvents::EXCEPTION, priority: 10)]

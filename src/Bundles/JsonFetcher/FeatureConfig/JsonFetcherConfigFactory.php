@@ -7,10 +7,10 @@ namespace SingleA\Bundles\JsonFetcher\FeatureConfig;
 
 use SingleA\Contracts\PayloadFetcher\FetcherConfigFactoryInterface;
 
-final class JsonFetcherConfigFactory implements FetcherConfigFactoryInterface
+final readonly class JsonFetcherConfigFactory implements FetcherConfigFactoryInterface
 {
     public function __construct(
-        private readonly bool $httpsOnly,
+        private bool $httpsOnly,
     ) {}
 
     public function getConfigClass(): string

@@ -8,13 +8,13 @@ namespace SingleA\Bundles\Singlea\FeatureConfig;
 use SingleA\Contracts\FeatureConfig\FeatureConfigInterface;
 use SingleA\Contracts\Persistence\FeatureConfigManagerInterface;
 
-final class ConfigRetriever implements ConfigRetrieverInterface
+final readonly class ConfigRetriever implements ConfigRetrieverInterface
 {
     /**
      * @param iterable<FeatureConfigManagerInterface> $configManagers
      */
     public function __construct(
-        private readonly iterable $configManagers,
+        private iterable $configManagers,
     ) {}
 
     public function exists(string $configInterface, string $clientId): bool

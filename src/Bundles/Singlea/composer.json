@@ -15,7 +15,7 @@
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "ext-filter": "*",
         "ext-hash": "*",
         "ext-json": "*",
@@ -32,21 +32,21 @@
         "psr/log": "^3",
         "symfony/cache-contracts": "^3",
         "symfony/cache-implementation": "^3",
-        "symfony/config": "^6.4",
-        "symfony/console": "^6.4",
-        "symfony/dependency-injection": "^6.4",
-        "symfony/error-handler": "^6.4",
-        "symfony/event-dispatcher": "^6.4",
+        "symfony/config": "^7",
+        "symfony/console": "^7",
+        "symfony/dependency-injection": "^7",
+        "symfony/error-handler": "^7",
+        "symfony/event-dispatcher": "^7",
         "symfony/event-dispatcher-contracts": "^3",
-        "symfony/http-foundation": "^6.4",
-        "symfony/http-kernel": "^6.4",
-        "symfony/security-bundle": "^6.4",
-        "symfony/security-core": "^6.4",
-        "symfony/security-http": "^6.4",
-        "symfony/uid": "^6.4"
+        "symfony/http-foundation": "^7",
+        "symfony/http-kernel": "^7",
+        "symfony/security-bundle": "^7",
+        "symfony/security-core": "^7",
+        "symfony/security-http": "^7",
+        "symfony/uid": "^7"
     },
     "require-dev": {
-        "symfony/expression-language": "^6.4"
+        "symfony/expression-language": "^7"
     },
     "autoload": {
         "psr-4": {

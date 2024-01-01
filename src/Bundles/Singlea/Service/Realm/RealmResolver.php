@@ -8,10 +8,10 @@ namespace SingleA\Bundles\Singlea\Service\Realm;
 use Symfony\Bundle\SecurityBundle\Security\FirewallMap;
 use Symfony\Component\HttpFoundation\Request;
 
-final class RealmResolver implements RealmResolverInterface
+final readonly class RealmResolver implements RealmResolverInterface
 {
     public function __construct(
-        private readonly FirewallMap $firewallMap,
+        private FirewallMap $firewallMap,
     ) {}
 
     public function resolve(Request $request): string

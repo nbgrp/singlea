@@ -9,5 +9,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
  * @final
+ *
+ * @psalm-suppress MissingConstructor
  */
 class SingleaJsonFetcherBundle extends Bundle {}

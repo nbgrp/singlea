@@ -10,15 +10,15 @@ use Psr\Log\LoggerInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
-final class UserAttributesManager implements UserAttributesManagerInterface
+final readonly class UserAttributesManager implements UserAttributesManagerInterface
 {
     /**
      * @param array<string, CacheItemPoolInterface&TagAwareCacheInterface> $pools
      */
     public function __construct(
-        private readonly array $pools,
-        private readonly UserAttributesMarshallerInterface $marshaller,
-        private readonly ?LoggerInterface $logger = null,
+        private array $pools,
+        private UserAttributesMarshallerInterface $marshaller,
+        private ?LoggerInterface $logger = null,
     ) {}
 
     public function exists(string $realm, string $ticket): bool
@@ -109,10 +109,7 @@ final class UserAttributesManager implements UserAttributesManagerInterface
         return true;
     }
 
-    /**
-     * @return CacheItemPoolInterface&TagAwareCacheInterface
-     */
-    public function getPool(string $realm)
+    public function getPool(string $realm): CacheItemPoolInterface&TagAwareCacheInterface
     {
         return $this->pools[$realm] ?? throw new \OutOfRangeException('There is no cache pool in realm "'.$realm.'".');
     }

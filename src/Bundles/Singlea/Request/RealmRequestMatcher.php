@@ -9,10 +9,10 @@ use SingleA\Bundles\Singlea\EventListener\RealmListener;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestMatcherInterface;
 
-final class RealmRequestMatcher implements RequestMatcherInterface
+final readonly class RealmRequestMatcher implements RequestMatcherInterface
 {
     public function __construct(
-        private readonly string $realm,
+        private string $realm,
     ) {}
 
     /**

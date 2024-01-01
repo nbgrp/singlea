@@ -17,7 +17,7 @@
         }
     ],
     "require": {
-        "php": "^8.1"
+        "php": "^8.2"
     },
     "replace": {
         "nbgrp/singlea-extra-payload-fetcher-contracts": "self.version",

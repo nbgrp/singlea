@@ -14,16 +14,16 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Uid\UuidV6;
 
-final class ClientListener
+final readonly class ClientListener
 {
     public const CLIENT_ID_ATTRIBUTE = '__client_id';
     public const SECRET_ATTRIBUTE = '__secret';
 
     public function __construct(
-        private readonly string $clientIdQueryParameterName,
-        private readonly string $secretQueryParameterName,
-        private readonly ClientManagerInterface $clientManager,
-        private readonly ?LoggerInterface $logger = null,
+        private string $clientIdQueryParameterName,
+        private string $secretQueryParameterName,
+        private ClientManagerInterface $clientManager,
+        private ?LoggerInterface $logger = null,
     ) {}
 
     #[AsEventListener(KernelEvents::REQUEST, priority: 31)]

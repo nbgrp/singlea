@@ -9,13 +9,13 @@ use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-final class RealmListener
+final readonly class RealmListener
 {
     public const REALM_ATTRIBUTE = '_singlea_realm';
 
     public function __construct(
-        private readonly string $realmQueryParameter,
-        private readonly string $defaultRealm,
+        private string $realmQueryParameter,
+        private string $defaultRealm,
     ) {}
 
     #[AsEventListener(KernelEvents::REQUEST, priority: 65)]

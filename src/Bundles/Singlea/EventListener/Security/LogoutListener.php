@@ -13,16 +13,16 @@ use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\Security\Http\Event\LogoutEvent;
 
-final class LogoutListener
+final readonly class LogoutListener
 {
     public function __construct(
-        private readonly string $ticketCookieName,
-        private readonly string $ticketDomain,
-        private readonly string $ticketSameSite,
-        private readonly AuthenticationServiceInterface $authenticationService,
-        private readonly RealmResolverInterface $realmResolver,
-        private readonly UserAttributesManagerInterface $userAttributesManager,
-        private readonly ?LoggerInterface $logger = null,
+        private string $ticketCookieName,
+        private string $ticketDomain,
+        private string $ticketSameSite,
+        private AuthenticationServiceInterface $authenticationService,
+        private RealmResolverInterface $realmResolver,
+        private UserAttributesManagerInterface $userAttributesManager,
+        private ?LoggerInterface $logger = null,
     ) {}
 
     #[AsEventListener(LogoutEvent::class, priority: 65)]

@@ -15,13 +15,13 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-final class AuthenticationService implements AuthenticationServiceInterface
+final readonly class AuthenticationService implements AuthenticationServiceInterface
 {
     public function __construct(
-        private readonly string $redirectUriQueryParameter,
-        private readonly RealmResolverInterface $realmResolver,
-        private readonly UserAttributesManagerInterface $userAttributesManager,
-        private readonly EventDispatcherInterface $eventDispatcher,
+        private string $redirectUriQueryParameter,
+        private RealmResolverInterface $realmResolver,
+        private UserAttributesManagerInterface $userAttributesManager,
+        private EventDispatcherInterface $eventDispatcher,
     ) {}
 
     public function needLogout(TokenInterface $token, Request $request): bool

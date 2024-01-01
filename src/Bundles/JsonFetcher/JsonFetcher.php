@@ -10,10 +10,10 @@ use SingleA\Contracts\PayloadFetcher\FetcherConfigInterface;
 use SingleA\Contracts\PayloadFetcher\FetcherInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-final class JsonFetcher implements FetcherInterface
+final readonly class JsonFetcher implements FetcherInterface
 {
     public function __construct(
-        private readonly HttpClientInterface $httpClient,
+        private HttpClientInterface $httpClient,
     ) {}
 
     public function supports(FetcherConfigInterface|string $config): bool

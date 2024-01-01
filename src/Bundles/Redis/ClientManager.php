@@ -8,12 +8,12 @@ namespace SingleA\Bundles\Redis;
 use Psr\Log\LoggerInterface;
 use SingleA\Contracts\Persistence\ClientManagerInterface;
 
-final class ClientManager implements ClientManagerInterface
+final readonly class ClientManager implements ClientManagerInterface
 {
     public function __construct(
-        private readonly string $key,
-        private readonly \Predis\ClientInterface|\Redis|\RedisCluster|\Relay\Relay $redis,
-        private readonly ?LoggerInterface $logger = null,
+        private string $key,
+        private \Predis\ClientInterface|\Redis|\RedisCluster|\Relay\Relay $redis,
+        private ?LoggerInterface $logger = null,
     ) {}
 
     public function exists(string $id, bool $touch = true): bool

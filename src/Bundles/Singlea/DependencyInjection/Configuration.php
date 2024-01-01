@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Cookie;
 class Configuration implements ConfigurationInterface
 {
     /**
-     * @suppress PhanPossiblyNonClassMethodCall, PhanPossiblyUndeclaredMethod
+     * @suppress PhanPossiblyUndeclaredMethod
      */
     public function getConfigTreeBuilder(): TreeBuilder
     {

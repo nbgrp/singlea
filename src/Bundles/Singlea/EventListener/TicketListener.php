@@ -11,13 +11,13 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-final class TicketListener
+final readonly class TicketListener
 {
     public const TICKET_ATTRIBUTE = '__ticket';
 
     public function __construct(
-        private readonly string $ticketHeader,
-        private readonly ?LoggerInterface $logger = null,
+        private string $ticketHeader,
+        private ?LoggerInterface $logger = null,
     ) {}
 
     #[AsEventListener(KernelEvents::REQUEST, priority: 30)]
