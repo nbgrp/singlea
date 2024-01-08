@@ -1,0 +1,1488 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Symfony bundle based authentication service providing truly Single Sign-On">
+      
+      
+      
+        <link rel="canonical" href="https://nbgrp.github.io/singlea/how-it-works/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../features/about/">
+      
+      
+      <link rel="icon" href="../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
+    
+    
+      
+        <title>How It Works - SingleA</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.50c56a3b.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"PT Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#how-it-works" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="SingleA" class="md-header__button md-logo" aria-label="SingleA" data-md-component="logo">
+      
+  <img src="../assets/singlea_logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SingleA
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              How It Works
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/nbgrp/singlea" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nbgrp/singlea
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+    
+  
+  How It Works
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../features/about/" class="md-tabs__link">
+          
+  
+  Features
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../bundles/singlea/" class="md-tabs__link">
+          
+  
+  Bundles
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../client/concept/" class="md-tabs__link">
+          
+  
+  Client
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../security/" class="md-tabs__link">
+        
+  
+    
+  
+  Security
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../singleauth/" class="md-tabs__link">
+        
+  
+    
+  
+  SingleAuth
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="SingleA" class="md-nav__button md-logo" aria-label="SingleA" data-md-component="logo">
+      
+  <img src="../assets/singlea_logo.png" alt="logo">
+
+    </a>
+    SingleA
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/nbgrp/singlea" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nbgrp/singlea
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    How It Works
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    How It Works
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#preparation-of-the-singlea-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparation of the SingleA Instance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Preparation of the SingleA Instance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-necessary-bundles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install Necessary Bundles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-bundles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configure Bundles
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#client-registration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Client Registration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Client Registration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#registrant-restriction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Registrant Restriction
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#user-request-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Request Processing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="User Request Processing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request-from-unauthorized-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      Request from Unauthorized User
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-from-already-authorized-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      Request from Already Authorized User
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Request from Already Authorized User">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jwt-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      JWT Creation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#client-restriction-and-signatureticket-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Client Restriction and Signature/Ticket Validation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sequence-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence Diagram
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-more" class="md-nav__link">
+    <span class="md-ellipsis">
+      Read More
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Features
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/contracts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contracts
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/signature/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Request Signature
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/tokenization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User Tokens
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/payload-fetcher/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Payload Fetcher
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Bundles
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Bundles
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bundles/singlea/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SingleA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bundles/jwt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JWT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bundles/json-fetcher/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JSON Fetcher
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bundles/jwt-fetcher/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JWT Fetcher
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bundles/redis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Redis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Client
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Client
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../client/concept/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Concept
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../client/nginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nginx
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Security
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../singleauth/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SingleAuth
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="how-it-works">How It Works</h1>
+<div class="admonition info">
+<p>The below describes a usage of an official set of SingleA bundles included in the SingleA
+project. Here described a complete way of user token creation including the secured
+<a href="../features/payload-fetcher/">Payload Feature</a> usage. Step-by-step it will be shown how SingleA
+works and indicated what and when can be done more simply.</p>
+</div>
+<h2 id="preparation-of-the-singlea-instance">Preparation of the SingleA Instance</h2>
+<h3 id="install-necessary-bundles">Install Necessary Bundles</h3>
+<p>The SingleA installation consists of 2 parts:</p>
+<ul>
+<li>installing the <code>nbgrp/singlea-bundle</code> package which is the core component;</li>
+<li>and installing required and optional packages (bundles).</li>
+</ul>
+<p>SingleA use a modular, <a href="../features/contracts/">contracts based</a> approach. The SingleA bundle demands
+provision of the <code>nbgrp/singlea-persistence-contracts</code> and <code>nbgrp/singlea-tokenization-contracts</code>
+implementations. If you do not have your own implementations of these contracts, you can use
+<code>nbgrp/singlea-redis-bundle</code> and <code>nbgrp/singlea-jwt-bundle</code>. The bundles implement
+the <a href="../features/payload-fetcher/">Payload Fetcher</a> feature are optional.</p>
+<p>To provide a complete set of SingleA features which may be provided out-of-box with secured
+implementation of Payload Fetcher, assume the following list of bundles was installed:</p>
+<ul>
+<li><code>nbgrp/singlea-bundle</code></li>
+<li><code>nbgrp/singlea-redis-bundle</code></li>
+<li><code>nbgrp/singlea-jwt-bundle</code></li>
+<li><code>nbgrp/singlea-jwt-fetcher-bundle</code></li>
+</ul>
+<div class="admonition note">
+<p>Instead of <code>nbgrp/singlea-jwt-fetcher-bundle</code> you can use <code>nbgrp/singlea-json-fetcher-bundle</code>,
+but in that case the request and response for additional payload data will contains unprotected
+JSON object. With usage of <code>singlea-jwt-fetcher-bundle</code> the data transmitting with help of JOSE
+as signed and (if necessary) in encrypted form.</p>
+</div>
+<h3 id="configure-bundles">Configure Bundles</h3>
+<p>A detailed description of each bundle configuration can be found on separate pages in the
+<a href="../bundles/singlea/">Bundles</a> section. Here only should be noted that the SingleA bundle includes the settings
+for:</p>
+<ul>
+<li>encryption keys for client features configs and user attributes,</li>
+<li>restrictions by IP addresses for registration and general requests,</li>
+<li>a <a href="../singleauth/#ticket">ticket</a> cookie creation,</li>
+<li>and many others.</li>
+</ul>
+<p>The SingleA project was created following <a href="https://12factor.net/">the Twelve-Factor App</a>
+methodology, so environment variables should be used to pass configuration values, if it is
+possible.</p>
+<h2 id="client-registration">Client Registration</h2>
+<p>To be able to interact with a previously installed and configured SingleA instance, you need to
+register your applications. For the description below we will assume that there are 2 client
+applications with domains <em><strong>app1</strong>.domain.org</em> and <em><strong>app2</strong>.domain.org</em>. Both of them must be
+registered by the POST request to the <code>/client/register</code> endpoint (which can be changed if
+necessary). Assume that both of the applications will use
+the <a href="../features/signature/">Request Signature</a>, <a href="../features/tokenization/">Tokenization</a>
+and <a href="../features/payload-fetcher/">Payload Fetcher</a> features.</p>
+<p>The registration requests must contain JSON with the following keys and data.</p>
+<ul>
+<li><code>signature</code> (Request Signature) — the name of the message digest algorithm (which supported by the
+  PHP OpenSSL extension,
+  see <a href="https://www.php.net/manual/en/openssl.signature-algos.php">Signature Algorithms</a>; e.g. "
+  SHA256") and the signature public key in PEM format (which will be used to verify the signature of
+  the requests to the SingleA server).</li>
+<li><code>token</code> (Tokenization) — JWT creation settings, in particular the JWT lifetime, a list of user
+  claims, JWS and JWE settings (see <a href="../bundles/jwt/">JWT bundle documentation</a> for more details).</li>
+<li><code>payload</code> (Payload Fetcher) — additional payload fetching settings.
+  Since <code>singlea-jwt-fetcher-bundle</code> is used, it is allowed to use fetch request data signing and
+  encrypting. Thus, the <code>payload</code> settings are similar to the <code>token</code> settings, but can contain JWS
+  and JWE settings for both the payload fetch request data and the corresponding response data.</li>
+</ul>
+<p>As a response to the registration request, a JSON will be received, which contains the created
+<strong>client id</strong> and <strong>secret</strong>, JWK formatted public keys for validation of the user JWT and JWT from
+the payload fetch request, and the JWK formatted public key of the recipient of the payload fetch
+request for whom it must be encrypted.</p>
+<h3 id="registrant-restriction">Registrant Restriction</h3>
+<p>It is possible to restrict who are able to make registration requests using an <code>allow_if</code> option of
+a <code>security.access_control</code> rule in a <code>config/packages/security.yaml</code> (the registration request
+route is <code>/client/register</code> by default). Use the <code>is_valid_registration_ip()</code> and
+<code>is_valid_registration_ticket()</code> expressions for this. As described in the
+<a href="https://symfony.com/doc/current/security/access_control.html#matching-access-control-by-ip">Symfony documentation page</a>
+about <code>security.access_control</code>, it is necessary to add one more rule to prevent a request
+processing according another rule, e.g.:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>- { path: ^/client/register, allow_if: &quot;is_valid_registration_ip()&quot; }
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>- { path: ^/client/register, roles: ROLE_NO_ACCESS }
+</code></pre></div>
+<div class="admonition hint">
+<p>The second rule may be omitted, if <code>security.access_control</code> rules do not contain other rules
+which will allow a registration request processing.</p>
+</div>
+<p>Trusted IP addresses and subnetworks should be specified in the SingleA bundle settings
+(<code>singlea.client.trusted_registrars</code>) as CSV formatted string. Similar to the trusted proxies
+settings it is possible to specify the <code>REMOTE_ADDR</code> value to allow request from any host.</p>
+<p>To allow registration using a <a href="../bundles/singlea/#registration-ticket">registration ticket</a>,
+it is necessary to use the <code>is_valid_registration_ticket()</code> expression function and to implement the
+<code>\SingleA\Bundles\Singlea\Service\Client\RegistrationTicketManagerInterface</code> (an implementation must
+be able to autowire by an interface name).</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>All these expressions can be used mutually with <code>or</code>/<code>and</code> logical operators. In particular,
+registration requests can be restricted by the IP address/subnet or by the registration ticket
+using the expression "<code>is_valid_registration_ip() or is_valid_registration_ticket()</code>".</p>
+</div>
+<h2 id="user-request-processing">User Request Processing</h2>
+<p>To show a complete way of the user request processing towards a client application using SingleA
+server, it will be considered the following scenario: at first, not logged-in user interacts with
+the first client application (app1.domain.org), and then interacts with the second one
+(app2.domain.org). It will show how the user <a href="../singleauth/#ticket">ticket</a> used by each of them.</p>
+<p>Client applications can interact with the SingleA server in any available way, but if they work
+behind a nginx web server, it is the easiest way to use
+the <a href="../client/nginx/">SingleA Lua client for nginx</a>. It is a lightweight Lua script which need a
+nginx server compiled with LuaJIT support and a few additional libraries (see link above for more
+details).</p>
+<p>The below description will suppose that the client applications are behind the nginx server + the
+SingleA Lua client, which has the following 4 methods:</p>
+<ul>
+<li><code>login()</code> — check the ticket cookie existence in the user request and validate the user session on
+  the SingleA server side (if the cookie exists), and redirect the user to login on the SingleA
+  server if the user has no cookie or the session validation failed;</li>
+<li><code>logout()</code> — redirect the user to the SingleA server for logout;</li>
+<li><code>validate()</code> — validate the user session on the SingleA server side;</li>
+<li><code>token(header_name)</code> — receive the user token from the SingleA server (or from nginx cache, if
+  exists) and add it into an HTTP header, which name passed in the <code>header_name</code> argument (or
+  "Authorization", if not).</li>
+</ul>
+<p>All methods, except <code>logout</code>, return an instance of the SingleA client and can be used in a call
+chain format. Moreover, there are cases when the client application does not need to receive a user
+token or to validate a user session (just returning an error when trying to receive a token for
+unauthorized user). The following description assumes that the <code>login</code> and <code>token</code> methods are
+chained and a token always is requested for an authorized user.</p>
+<h3 id="request-from-unauthorized-user">Request from Unauthorized User</h3>
+<p>On the very first request, the user has not yet authenticated on the SingleA server side, therefore
+a ticket cookie does not exist. During the request processing the SingleA client checks it and
+redirects the user to the SingleA server for a login. The redirect (login) location contains:</p>
+<ul>
+<li><code>client_id</code> and <code>secret</code> — which were received at registration;</li>
+<li><code>redirect_uri</code> — a URI where the user should be redirected to after a successful login;</li>
+<li><code>signature</code> — the <a href="../features/signature/">request signature</a> which prevent the <code>redirect_uri</code>
+  forgery during the request transmission;</li>
+<li><code>timestamp</code> — the request timestamp which is the mandatory signature component that helps to
+  prevent attacks to the SingleA server by valid requests.</li>
+</ul>
+<div class="admonition info">
+<p>On every request processing the SingleA server verifies the client id and secret, and checks
+that the client exists.</p>
+</div>
+<p>To verify the request signature it is necessary to use the <code>is_valid_signature()</code> expression in an
+<code>allow_if</code> option of a <code>security.access_control</code> rule (<code>config/packages/security.yaml</code>). Use it for
+the routes that you want to protect with a signature. Protect all SingleA routes is the best way,
+for this reason the SingleA Lua client adds signature on every interaction: for login and logout
+redirect URLs, user session validation requests and user token receive requests.</p>
+<p>The passed signature check happens by the following algorithm.</p>
+<ul>
+<li>Check that the request lifetime has not expired.</li>
+<li>Make an array with GET parameters which must be used as a signature base.</li>
+<li>Concatenate values from the array with a <code>.</code> (dot) into a string.</li>
+<li>Check that the passed in the request signature is valid for the resulting string by
+  the <code>openssl_verify</code> function (with help of the public key and the message digest algorithm
+  specified at registration).</li>
+</ul>
+<p>See more detailed description of the <a href="../features/signature/">signature verification algorithm</a>. In
+particular: how to offset the difference in the SingleA server and the client sides system time, how
+to exclude unnecessary GET parameters from the signature base array, and why the user login
+interactive duration has no meaning.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>If the user is not authenticated, an invalid signature will lead to a redirect to a login page
+and not to an HTTP error "Forbidden 403".</p>
+</div>
+<div class="admonition note">
+<p>The <code>/login</code> route must have the <code>is_fully_authenticated()</code> expression (in addition to the
+<code>is_valid_signature()</code> expression for a request signature verification) in an <code>allow_if</code> option
+of a <code>security.access_control</code> rule for a correct behavior.</p>
+</div>
+<div class="admonition caution">
+<p>As noted in the case of the <a href="#registrant-restriction">registrant restriction</a>, it is important
+to add an additional rule to prevent an invalid request processing if there is a rule that
+allows access for anonymous users. Multiple routes may be united in one rule using a regular
+expression:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>- { path: ^/(login|validate|token), roles: ROLE_NO_ACCESS }
+</code></pre></div></p>
+</div>
+<p>Between successful signature verification and the user redirect to authentication the initial
+request URI will be saved into the session for further use.</p>
+<p>As a result of successful authentication, a set of handlers is called, which:</p>
+<ul>
+<li>generate a unique ticket value;</li>
+<li>make the user attributes set using the <code>\SingleA\Bundles\Singlea\Event\UserAttributesEvent</code>, which
+  will be stored into a firewall (realm) based cache pool tagged by the user identifier;</li>
+<li>if the SingleA bundle parameter <code>singlea.authentication.sticky_session</code> is set to <code>true</code> and the
+  user attributes already stored in the cache pool, the lifetime of them will be increased (as a
+  result of deletion and re-saving the user attributes);</li>
+<li>the user redirection to the original <code>redirect_uri</code>.</li>
+</ul>
+<p>It needs to be explained about increasing the lifetime of the cache item with user attributes and
+why it is important. The user attributes are storing in the cache pool only during the
+<code>\Symfony\Component\Security\Http\Event\LoginSuccessEvent</code> handling and are not if the user already
+has logged in.</p>
+<div class="admonition info">
+<p>Other actions process in any way, including if the user already authorized. For this reason, if
+you use <a href="../bundles/singlea/#sticky-sessions">sticky sessions</a>, during an authorization request
+the user attributes will be saved twice.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The key of the cache item with user attributes is generated based on the ticket value and
+the realm — the name of the firewall that used for the request processing. Read more about
+<a href="../bundles/singlea/#realms">realms</a> to understand what it is and when you may need it.</p>
+</div>
+<p>If the authenticated user attributes were removed from the cache pool (because expired, were
+manually removed or by some event listener), the user will be logged out and will be redirected to
+the <code>redirect_uri</code> (from where should be redirected to the login endpoint again because the ticket
+cookie was removed as a result of the logout).</p>
+<h3 id="request-from-already-authorized-user">Request from Already Authorized User</h3>
+<p>Above was described a request processing scenario when the user is not authorized and the request do
+not contain ticket cookie. But after a successful login the user will receive this cookie and (if
+the SingleA bundle was configured correctly) it will be available to the SingleA client.</p>
+<p>If the client application domain (we use app1.domain.org and app2.domain.org) matches the ticket
+cookie <code>Domain</code> argument (<code>domain.org</code> in our example) the ticket value is available for the SingleA
+client and the user token (JWT) can be received from the SingleA server via a GET request to
+the <code>/token</code> route. The ticket value must be specified in the request as an HTTP header "X-Ticket"
+(or any other configured in the SingleA bundle <code>singlea.ticket.header</code> parameter). The user token
+can be received only for the users whose attributes exist in the cache.</p>
+<div class="admonition note">
+<p>In addition to the <code>login()</code> method of the SingleA Lua client, the <code>validate()</code> method can be
+used to check the user session on the SingleA server side. It needs the ticket cookie to be
+available.</p>
+</div>
+<p>The request to receive the user token will be made only in a case when the token is not contained in
+a nginx cache (Lua dictionary, more details see below). If the token exists in the cache, it will be
+taken from there. In any way the token will be appended as an HTTP header <code>Authorization</code> (or other
+if the custom header name specified in the <code>header_name</code> argument for the <code>token()</code> client method)
+in the original user request to the client application. In the end the original request passed to
+the client application for further processing.</p>
+<p>The JWT generation should be described in more detail, especially because in this example we use the
+<code>nbgrp/singlea-jwt-fetcher-bundle</code> package for receiving additional payload data.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The client application can be registered without passing settings for the user token generation
+(under the <code>token</code> key). If so the token receiving request will lead to an HTTP error "Forbidden
+403".</p>
+</div>
+<h4 id="jwt-creation">JWT Creation</h4>
+<ol>
+<li>Extract from the user attributes to an array the user claims, which was specified in
+   the <code>token.claims</code> parameter in the client registration request. This is the basic payload.</li>
+<li>Make an HTTP request, to receive additional payload data, to the external endpoint specified in
+   the <code>payload.endpoint</code> parameter at the registration:<ol>
+<li>build a JWT with payload which contains the user attributes according the user claims
+   specified in the <code>payload.claims</code> parameter in the client registration request;</li>
+<li>the JWT is signed with the private key generated for the client during the client
+   registration, and is encrypted with the public key from the <code>payload.request.jwe.jwk</code>
+   parameter specified in the client registration request;</li>
+<li>the request with the JWT as a request body is sending to the external endpoint;</li>
+<li>the request processing on the endpoint side is out of scope of this description, but it
+   should be noted that the response must contain a JWT with a payload, which contains data that
+   should be merged with the basic payload;</li>
+<li>the response JWT must be signed with the key, which is paired with the specified in
+   the <code>payload.response.jws.jwk</code> parameter in the client registration request, and must be
+   encrypted with the public key which was received in the client registration response in
+   the <code>payload.response.jwe.jwk</code> parameter (if the response JWT encryption is configured for
+   the client application).</li>
+</ol>
+</li>
+</ol>
+<p>The JWT can have a lifetime (an <code>exp</code> claim). Since this is configurable by the <code>token.ttl</code>
+parameter in the client registration request, if it was set, the same value will be duplicated into
+an HTTP header <code>Cache-Control: max-age</code>. Afterwards, the SingleA client lookup for this header and,
+if it is found, caches the received token for the specified time. Read more about caching user
+tokens on the nginx side from the Lua script in the <a href="../client/nginx/">SingleA Lua client</a>
+description.</p>
+<h3 id="client-restriction-and-signatureticket-validation">Client Restriction and Signature/Ticket Validation</h3>
+<p>In the same way as in the case of
+host <a href="#registrant-restriction">restriction who is allowed to make registration request</a>, the client
+requests to the <code>/validate</code> and <code>/token</code> endpoints can be restricted by an IP address or a subnet.
+To do this it is necessary to configure the <code>singlea.client.trusted_clients</code> parameter of the
+SingleA bundle with a CSV formatted string with IP addresses/subnets (remember about
+the <code>REMOTE_ADDR</code> value to allow the request processing from any host). After that you must add the
+<code>is_valid_client_ip()</code> expression into an <code>allow_if</code> option of a <code>security.access_control</code> rule with
+a corresponding path.</p>
+<p>To activate the request signature validation and the ticket validation it is necessary to use the
+<code>is_valid_signature()</code> and <code>is_valid_ticket()</code> expressions in the same way. Remember about union a
+few expressions by the <code>and</code> operator:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>- { path: ^/(validate|token), allow_if: &quot;is_valid_signature() and is_valid_ticket() and is_valid_client_ip()&quot; }
+</code></pre></div>
+<div class="admonition caution">
+<p>As noted in the case of the <a href="#registrant-restriction">registrant restriction</a>, it is important
+to add an additional rule to prevent an invalid request processing if there is a rule that
+allows access for anonymous users. Multiple routes may be united in one rule using a regular
+expression:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>- { path: ^/(login|validate|token), roles: ROLE_NO_ACCESS }
+</code></pre></div></p>
+</div>
+<h2 id="sequence-diagram">Sequence Diagram</h2>
+<pre class="mermaid"><code>%%{init: {
+    "sequence": { "useMaxWidth": false }
+}}%%
+sequenceDiagram
+    actor User as User / Browser
+    participant App as SingleA client / App
+    participant SingleA as SingleA server
+    participant Payload as Payload Endpoint
+
+    opt App1
+        User-&gt;&gt;+App: Request to app1.domain.org
+        Note over User,App: Request does not&lt;br&gt;contain ticket cookie
+        App-&gt;&gt;App: Check ticket cookie
+        App-&gt;&gt;-User: Redirect user to&lt;br&gt;the SingleA server&lt;br&gt;for authentication
+        Note over User,App: Redirect response contains&lt;br&gt;URI where the user should be&lt;br&gt;redirected after successful login,&lt;br&gt;signature to protect this URI
+
+        User-&gt;&gt;+SingleA: Authentication request with redirect URI,&lt;br&gt;signature, timestamp, client id and secret
+        Note over User,SingleA: Authentication process
+        Note over SingleA: Make user session on the SingleA server side&lt;br&gt;Generate ticket value and store user attributes in a cache&lt;br&gt;Set ticket cookie into response headers
+        SingleA-&gt;&gt;-User: Redirect to redirect URI from authentication request
+
+        User-&gt;&gt;+App: Initial request (app1.domain.org)
+        App-&gt;&gt;App: Check ticket cookie
+        App-&gt;&gt;+SingleA: Validate user session
+        Note over SingleA: Check user attributes existence
+        SingleA--&gt;&gt;-App: OK 200
+        App-&gt;&gt;+SingleA: Get user token
+        Note over SingleA: Compose basic JWT payload
+        SingleA-&gt;&gt;+Payload: Get additional&lt;br&gt;payload data
+        Payload-&gt;&gt;-SingleA: Data
+        Note over SingleA: Merge payload data (with replacement)&lt;br&gt;Add a signature and encrypt the JWT
+        SingleA--&gt;&gt;-App: JWT
+        App-&gt;&gt;App: Add JWT to original request
+        App-&gt;&gt;App: Process request&lt;br&gt;by client application
+        App-&gt;&gt;-User: Response
+    end
+
+    opt App2
+        User-&gt;&gt;+App: Request to app2.domain.org
+        App-&gt;&gt;App: Check ticket cookie
+        App-&gt;&gt;+SingleA: Validate user session
+        Note over SingleA: Check user attributes existence
+        SingleA--&gt;&gt;-App: OK 200
+        App-&gt;&gt;+SingleA: Get user token
+        Note over SingleA: Compose basic JWT payload
+        SingleA-&gt;&gt;+Payload: Get additional&lt;br&gt;payload data
+        Payload-&gt;&gt;-SingleA: Data
+        Note over SingleA: Merge payload data (with replacement)&lt;br&gt;Add a signature and encrypt the JWT
+        SingleA--&gt;&gt;-App: JWT
+        App-&gt;&gt;App: Add JWT to original request
+        App-&gt;&gt;App: Process request&lt;br&gt;by client application
+        App-&gt;&gt;-User: Response
+    end</code></pre>
+<h2 id="read-more">Read More</h2>
+<ul>
+<li>About <a href="../bundles/singlea/#ticket">tickets</a>: what is it and what role does it play in SingleA.</li>
+<li>How to set up and use multiple user providers and authenticators
+  via <a href="../bundles/singlea/#realms">realms</a>.</li>
+<li>About the <a href="../bundles/singlea/#lifetimes-user-attributes-tickets-tokens">lifetime configuring</a>.</li>
+<li>How <a href="../security/">SingleA Security</a> works (and what is the problem of client registration).</li>
+<li>About the <a href="../client/concept/">SingleA client</a>.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2021-2024 nb:group
+    </div>
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/nbgrp" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://gitter.im/nbgrp/singlea" target="_blank" rel="noopener" title="gitter.im" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M66.4 322.5H16V0h50.4v322.5zM166.9 76.1h-50.4V512h50.4V76.1zm100.6 0h-50.4V512h50.4V76.1zM368 76h-50.4v247H368V76z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.annotate", "search.share", "search.highlight", "navigation.instant", "navigation.sections", "navigation.tabs", "navigation.top", "toc.integrate"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+    
+  </body>
+</html>

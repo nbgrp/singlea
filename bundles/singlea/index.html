@@ -1,0 +1,1837 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Symfony bundle based authentication service providing truly Single Sign-On">
+      
+      
+      
+        <link rel="canonical" href="https://nbgrp.github.io/singlea/bundles/singlea/">
+      
+      
+        <link rel="prev" href="../../features/payload-fetcher/">
+      
+      
+        <link rel="next" href="../jwt/">
+      
+      
+      <link rel="icon" href="../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
+    
+    
+      
+        <title>SingleA - SingleA</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.50c56a3b.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"PT Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#singlea-bundle" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="SingleA" class="md-header__button md-logo" aria-label="SingleA" data-md-component="logo">
+      
+  <img src="../../assets/singlea_logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SingleA
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SingleA
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/nbgrp/singlea" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nbgrp/singlea
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../how-it-works/" class="md-tabs__link">
+        
+  
+    
+  
+  How It Works
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../features/about/" class="md-tabs__link">
+          
+  
+  Features
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  Bundles
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../client/concept/" class="md-tabs__link">
+          
+  
+  Client
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../security/" class="md-tabs__link">
+        
+  
+    
+  
+  Security
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../singleauth/" class="md-tabs__link">
+        
+  
+    
+  
+  SingleAuth
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="SingleA" class="md-nav__button md-logo" aria-label="SingleA" data-md-component="logo">
+      
+  <img src="../../assets/singlea_logo.png" alt="logo">
+
+    </a>
+    SingleA
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/nbgrp/singlea" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nbgrp/singlea
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-it-works/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How It Works
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Features
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../features/about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../features/contracts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contracts
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../features/signature/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Request Signature
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../features/tokenization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User Tokens
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../features/payload-fetcher/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Payload Fetcher
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Bundles
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Bundles
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    SingleA
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    SingleA
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#symfony-flex" class="md-nav__link">
+    <span class="md-ellipsis">
+      Symfony Flex
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enable-the-bundle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable the Bundle
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#routes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Routes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trusted-ip-addresses-subnets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trusted IP addresses / subnets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sodium-encryption-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sodium encryption keys
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#client-registration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Client Registration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Client Registration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Request Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Details
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#user-tokens" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Tokens
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Attributes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="User Attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cache-pool-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cache pool management
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ticket" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ticket
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lifetimes-user-attributes-tickets-tokens" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lifetimes: User Attributes, Tickets, Tokens
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#realms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Realms
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sticky-sessions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sticky Sessions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#events" class="md-nav__link">
+    <span class="md-ellipsis">
+      Events
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Events">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loginevent" class="md-nav__link">
+    <span class="md-ellipsis">
+      LoginEvent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#userattributesevent" class="md-nav__link">
+    <span class="md-ellipsis">
+      UserAttributesEvent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#payloadcomposeevent" class="md-nav__link">
+    <span class="md-ellipsis">
+      PayloadComposeEvent
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#customization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Customization
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#access-control-expression" class="md-nav__link">
+    <span class="md-ellipsis">
+      Access Control Expression
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Access Control Expression">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#registration-ticket" class="md-nav__link">
+    <span class="md-ellipsis">
+      Registration Ticket
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encryption" class="md-nav__link">
+    <span class="md-ellipsis">
+      Encryption
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Encryption">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client-feature-configs-encryption" class="md-nav__link">
+    <span class="md-ellipsis">
+      Client Feature Configs Encryption
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-attributes-encryption" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Attributes Encryption
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jwt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JWT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../json-fetcher/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JSON Fetcher
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jwt-fetcher/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JWT Fetcher
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../redis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Redis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Client
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Client
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../client/concept/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Concept
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../client/nginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nginx
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../security/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Security
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../singleauth/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SingleAuth
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="singlea-bundle">SingleA Bundle</h1>
+<h2 id="overview">Overview</h2>
+<p>The SingleA bundle is the core bundle in the SingleA project that implements the SingleAuth
+framework features. Besides, this bundle provides additional opportunities which significantly
+increase security of the SingleA usage and make it reliable authentication service.</p>
+<p>The common overview of the SingleA workflow you can find on the <a href="../../how-it-works/">How It Works</a>
+page.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>You need to configure at least one tag aware cache pool with name "singlea.cache" to avoid an error
+at auto-scripts running after the bundle install. You can configure all necessary cache pools at
+once. See for details on the <a href="#cache-pool-management">Cache Pool Management</a> section below.</p>
+<h2 id="installation">Installation</h2>
+<h3 id="symfony-flex">Symfony Flex</h3>
+<p>If you use Symfony Flex, you can add an endpoint for access nb:group's recipes, which makes it
+possible to apply the default bundle configuration automatically when install the bundle:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>composer config --json extra.symfony.endpoint &#39;[&quot;https://api.github.com/repos/nbgrp/recipes/contents/index.json&quot;, &quot;flex://defaults&quot;]&#39;
+</code></pre></div>
+<p>If you wish (or you already have some value of the <code>extra.symfony.endpoint</code> option), you can do the
+same by updating your <code>composer.json</code> directly:</p>
+<div class="highlight"><span class="filename">composer.json</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;acme/singlea&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ACME SingleA&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nt">&quot;extra&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">        </span><span class="nt">&quot;symfony&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">            </span><span class="nt">&quot;endpoint&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">                </span><span class="s2">&quot;https://api.github.com/repos/nbgrp/recipes/contents/index.json&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">                </span><span class="s2">&quot;flex://defaults&quot;</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">            </span><span class="p">]</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="p">}</span>
+</code></pre></div>
+<p>Then you can install the bundle using Composer:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>composer require nbgrp/singlea-bundle
+</code></pre></div>
+<p>Also, you need to install the <a href="https://symfony.com/doc/current/components/cache.html">Symfony Cache</a>
+component (or another else the <code>symfony/cache-contracts</code> implementation) that is used to
+store <a href="#user-attributes">user attributes</a> (see below).</p>
+<h3 id="enable-the-bundle">Enable the Bundle</h3>
+<p>If you use Symfony Flex, it enables the bundle automatically. Otherwise, to enable the bundle add
+the following code:</p>
+<div class="highlight"><span class="filename">config/bundles.php</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="x">return [</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="x">    // ...</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="x">    SingleA\Bundles\Singlea\SingleaBundle::class =&gt; [&#39;all&#39; =&gt; true],</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="x">];</span>
+</code></pre></div>
+<h2 id="configuration">Configuration</h2>
+<p>Configuration of the SingleA bundle consists of the following groups of parameters.</p>
+<ul>
+<li><code>client</code> — settings for processing in correct way general SingleA requests and the client
+  registration requests:<ul>
+<li><code>id_query_parameter</code> (default: "client_id") — the name of the GET parameter that contains the
+  client id.</li>
+<li><code>secret_query_parameter</code> (default: "secret") — the name of the GET parameter that contains the
+  client secret.</li>
+<li><code>trusted_clients</code> — the CSV with the trusted IP addresses / subnets from which general client
+  request (user session validation and user token generation) allowed (see
+  details <a href="#trusted-ip-addresses--subnets">below</a>).</li>
+<li><code>trusted_registrars</code> — the CSV with the trusted IP addresses / subnets from which registration
+  requests allowed (see details <a href="#trusted-ip-addresses--subnets">below</a>).</li>
+<li><code>registration_ticket_header</code> (default: "X-Registration-Ticket") — the name of the HTTP header
+  that can contain the <a href="#registration-ticket">registration ticket</a> value.</li>
+</ul>
+</li>
+<li><code>ticket</code> — settings related to user <a href="#ticket">tickets</a>:<ul>
+<li><code>cookie_name</code> (default: "tkt") — the name of the cookie that is set in the response for the
+  login or logout request and contains the ticket value.</li>
+<li><code>domain</code> (<strong>required</strong>) — the value of the <code>Domain</code> attribute of the ticket cookie. It must be
+  the common (parent) domain for all the client applications using the same SingleA server and
+  for the SingleA server itself (e.g. if the client applications have domains <code>app1.domain.org</code>
+  and <code>app2.domain.org</code>, and the SingleA server has domain <code>sso.domain.org</code>,
+  the <code>singlea.ticket.domain</code> parameter should be equal to <code>domain.org</code>).</li>
+<li><code>samesite</code> (default: "lax") — the ticket cookie <code>SameSite</code> attribute value.</li>
+<li><code>ttl</code> (default: 3600) — the ticket lifetime in seconds.</li>
+<li><code>header</code> (default: "X-Ticket") — the name of the HTTP header in the client requests that
+  contains the ticket value.</li>
+</ul>
+</li>
+<li><code>authentication</code> — settings related to the authentication functions (login and logout):<ul>
+<li><code>sticky_session</code> (default: false) — whether the SingleA user session should
+  be <a href="#sticky-sessions">sticky</a> or not.</li>
+<li><code>redirect_uri_query_parameter</code> (default: "redirect_uri") — the name of the GET parameter,
+  which contains the URI to which the user should be redirected after a successful login or
+  logout.</li>
+</ul>
+</li>
+<li><code>signature</code> — settings related to the <a href="../../features/signature/">Request Signature</a> feature:<ul>
+<li><code>request_ttl</code> (default: 60) — the client request timeout in seconds: maximum amount of time
+  that can elapse between the client request initiation and this request processing by the
+  SingleA server.</li>
+<li><code>signature_query_parameter</code> (default: "sg") — the name of the GET parameter that contains the
+  value of the request signature.</li>
+<li><code>timestamp_query_parameter</code> (default: "ts") — the name of the GET parameter that contains the
+  value of the request initiation timestamp.</li>
+<li><code>extra_exclude_query_parameters</code> — a list of GET parameter names to be excluded from request
+  signature validation (e.g. some technical or marketing parameters).</li>
+</ul>
+</li>
+<li><code>encryption</code> — settings for <a href="#client-feature-configs-encryption">client feature configs</a>
+  and <a href="#user-attributes-encryption">user attributes</a> encryption:<ul>
+<li><code>client_keys</code> (<strong>required</strong>) — a list of the sodium 256-bit keys that using to encrypt/decrypt
+  client feature configs (read
+  about <a href="#client-feature-configs-encryption">client feature configs encryption</a> below).</li>
+<li><code>user_keys</code> (<strong>required</strong>) — a list of the sodium 256-bit keys that using to encrypt/decrypt
+  user attributes (read about <a href="#user-attributes-encryption">user attributes encryption</a> below).</li>
+</ul>
+</li>
+<li><code>realm</code> — settings of the <a href="#realms">Realms</a>:<ul>
+<li><code>default</code> (default: "main") — the realm to use if the current request does not contain the GET
+  parameter with an explicit realm value.</li>
+<li><code>query_parameter</code> (default: "realm") — the name of the GET parameter that can contain the
+  necessary realm name.</li>
+</ul>
+</li>
+<li><code>marshaller</code> and <code>user_attributes</code> — groups consisting of the only <code>use_igbinary</code> parameter which
+  setting to use or not the <a href="https://www.php.net/manual/en/book.igbinary.php">igbinary</a> extension
+  for serialization of client feature configs and user attributes. By default, if the igbinary
+  extension is available and the extension version is greater than 3.2.2, the igbinary functions
+  will be used for serialization.</li>
+</ul>
+<h3 id="routes">Routes</h3>
+<p>Update your routes configuration:</p>
+<div class="highlight"><span class="filename">config/routes.yaml</span><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">singlea</span><span class="p">:</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="nt">resource</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;@SingleaBundle/Resources/config/routes.php&#39;</span>
+</code></pre></div>
+<h3 id="trusted-ip-addresses-subnets">Trusted IP addresses / subnets</h3>
+<p>The values of the <code>singlea.client.trusted_clients</code> and <code>singlea.client.trusted_registrars</code>
+parameters can contain comma-separated list of IP addresses or subnets from which appropriate
+requests are allowed. Also, it is possible to use the <code>REMOTE_ADDR</code> value to allow request from any
+host. This approach was inspired by Symfony's <code>framework.trusted_proxies</code>
+parameter (see an article
+<a href="https://symfony.com/doc/current/deployment/proxies.html">How to Configure Symfony to Work behind a Load Balancer or a Reverse Proxy</a>
+from Symfony documentation).</p>
+<h3 id="sodium-encryption-keys">Sodium encryption keys</h3>
+<p>It is possible to use together the Symfony build-in environment variable processor <code>csv</code> and SingleA
+custom processor <code>base64-array</code> to pass the CSV-encoded list of base64-encoded sodium keys
+(generated by the <code>sodium_crypto_secretbox_keygen()</code> function) to the <code>singlea.encryption.*</code>
+parameters:</p>
+<div class="highlight"><span class="filename">config/packages/singlea.yaml</span><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">singlea</span><span class="p">:</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="c1"># ...</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="nt">encryption</span><span class="p">:</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">        </span><span class="nt">client_keys</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;%env(base64-array:csv:CLIENT_KEYS)%&#39;</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">        </span><span class="nt">user_keys</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;%env(base64-array:csv:USER_KEYS)%&#39;</span>
+</code></pre></div>
+<h2 id="client-registration">Client Registration</h2>
+<h3 id="request-parameters">Request Parameters</h3>
+<p>The SingleA bundle uses <code>signature</code> as the name (key) of an object with configuration of the Request
+Signature feature in the client registration request, which includes the following parameters:</p>
+<ul>
+<li><code>md-alg</code> (required) — the name of
+  the <a href="https://www.php.net/manual/en/openssl.signature-algos.php">signature algorithm</a> to be used to
+  sign requests. The value should contain the available constant name without
+  the <code>OPENSSL_ALGO_</code> prefix (e.g. "SHA256").</li>
+<li><code>key</code> (required) — the public key in PEM format to be used to verify the signature of the request
+  being processed.</li>
+<li><code>skew</code> (optional) — the difference between the server and the client system time in seconds (the
+  server time minus the client time).</li>
+</ul>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p p-Indicator">{</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="c1"># ...</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="s">&quot;signature&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">{</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">        </span><span class="s">&quot;md-alg&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;SHA256&quot;</span><span class="p p-Indicator">,</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">        </span><span class="s">&quot;key&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;MI...&quot;</span><span class="p p-Indicator">,</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">        </span><span class="s">&quot;skew&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">7200</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="p p-Indicator">}</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="p p-Indicator">}</span>
+</code></pre></div>
+<h3 id="output">Output</h3>
+<p>The SingleA bundle adds the generated client id and secret to the client registration output.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p p-Indicator">{</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="c1"># ...</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="s">&quot;client&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">{</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">        </span><span class="s">&quot;id&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;...&quot;</span><span class="p p-Indicator">,</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">        </span><span class="s">&quot;secret&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;...&quot;</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="p p-Indicator">}</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="p p-Indicator">}</span>
+</code></pre></div>
+<h2 id="details">Details</h2>
+<p>Let's take a closer look at some of SingleA's capabilities.</p>
+<h3 id="user-tokens">User Tokens</h3>
+<p>When you are building multiple applications with the same authentication point, often the question
+of access to user data significantly increase the complexity of development and even becomes a
+headache. The special case of such applications are microservices.</p>
+<p>The more applications there are, the more relevant become the following questions:</p>
+<ul>
+<li>How to pass into the application the only necessary user data (and do not pass redundant data)?</li>
+<li>How to transmit them safely?</li>
+<li>How to add a new application with the minimal cost of time and without involving additional
+  specialists?</li>
+<li>How to achieve all this without performance penalty as increase the number of applications?</li>
+</ul>
+<p>SingleA offers User Tokens as an answer for all of these questions. The user token is a unique
+string that allows to get user data on the client application side. Meanwhile, a different token is
+generated for each application and each of them provides only the data necessary for this
+application. The simplest and commonly used way is to use
+JWT (<a href="https://tools.ietf.org/html/rfc7519">JSON Web Token</a>), which allows passing user data encoded
+directly in the token. This type of user tokens will be described below.</p>
+<div class="admonition note">
+<p>Besides, you can create your own implementation of
+the <a href="../../features/tokenization/">Tokenization Feature</a>, which will generate tokens by your
+logic. For example, as a token you can use a unique key that allows a client application to get
+user data from some shared storage where the SingelA server puts the data during the token
+generation request.</p>
+</div>
+<p>The SingleA project includes the <a href="../jwt/">JWT bundle</a> (package <code>nbgrp/singlea-jwt</code>) for generating
+user tokens in the JWT format. It allows transmitting user data as a part of the JWT payload using
+of mandatory signature (<a href="https://www.rfc-editor.org/rfc/rfc7515.html">RFC 7515</a>: "JSON Web Signature
+(JWS)") to prevent data forgery and optional encryption
+(<a href="https://www.rfc-editor.org/rfc/rfc7516.html">RFC 7516</a>: "JSON Web Encryption (JWE)") to prevent
+sensitive data leaks.</p>
+<p>The token can have a lifetime that allows proxy servers and the client application to cache it. This
+leads to reduce the SingleA server load and solve the performance problem. It is especially actual
+when the Payload Fetcher feature is used (see below).</p>
+<p>When registering a client, the <code>token</code> parameters set can contain a user claims list — names of
+<a href="#user-attributes">user attributes</a> which must be included in the token payload (see
+<a href="../jwt/#request-parameters">Client Registration &gt; Request Parameters</a> for more details about the
+<code>token</code> parameters). But there are cases when this data is not enough, and it is necessary to add
+some extra data that is known only to an external service (e.g. data based on some business-specific
+logic). In this case it is possible to use the <a href="../../features/payload-fetcher/">Payload Fetcher</a>
+feature, which allows the SingleA server to send an additional HTTP request to an external service
+with transmitting there a set of user attributes and getting as a response additional data that
+should be merged into a final token payload.</p>
+<p>The SingleA project contains 2 implementations of the Payload Fetcher feature:</p>
+<ul>
+<li><a href="../json-fetcher/">JSON Fetcher</a> — getting user data via simple POST request with transmitting data
+  without any protection (as clear text). It is acceptable when you are absolutely sure of the
+  security of the communication channel between the SingleA server and the service to which the
+  request will be sent.</li>
+<li><a href="../jwt-fetcher/">JWT Fetcher</a> — data transmitting as a part of a JWT payload with using mandatory
+  signature (JWS) and optional encryption (both of request and response data).</li>
+</ul>
+<h3 id="user-attributes">User Attributes</h3>
+<p>The user properties that is using to compose user token payload or a data set which is sending to an
+external service to retrieve an extra payload data, are named User Attributes in SingleA terms. It
+is a key-value structure, where the "key" is a user claim and the "value" is a scalar or an array
+that is fetched or calculated at the <code>SingleA\Bundles\Singlea\Event\UserAttributesEvent</code> handling,
+which is raised at the <code>Symfony\Component\Security\Http\Event\LoginSuccessEvent</code> handling.</p>
+<p>User attributes are stored as a tagged Symfony Cache items. This is due to the following reasons.</p>
+<ol>
+<li>SingleA is not intend persistence of any user data, only temporary caching for the user session
+   lifetime. The data must be "forgotten" by the SingleA server after the cache item expired or if
+   the user was logged out. For this reason the user session lifetime is equal to the cache item
+   lifetime that controlled by the Symfony Cache settings
+   (see below about the <a href="#cache-pool-management">cache pool management</a>).</li>
+<li>The Symfony Cache component provides a convenient way to encrypt cache data and a reach set of
+   supported
+   <a href="https://symfony.com/doc/current/components/cache.html#available-cache-adapters">cache adapters</a>.</li>
+<li>With help of cache tags, it is possible to forcibly log the user out using the
+   command <code>user:logout &lt;identifier&gt;</code>.</li>
+</ol>
+<div class="admonition caution">
+<p class="admonition-title">Redis and tags</p>
+<p>Keep in mind that the rows for outdated cache items in tags hash sets will not be removed by
+the command <code>cache:pool:prune</code>. You need to erase them by yourself.</p>
+<p>Besides, you need to allocate enough memory for cache items (read about
+<a href="https://redis.io/docs/reference/optimization/memory-optimization/#memory-allocation">memory allocation</a>
+and <a href="https://redis.io/docs/manual/eviction/">key eviction</a> in the Redis documentation).</p>
+</div>
+<p>User data is stored in the cache in encrypted form. The user attributes values encrypting using
+the <code>sodium_crypto_secretbox()</code> function, which takes as arguments the first key from the parameter
+<code>singlea.encryption.user_keys</code> and <a href="#ticket">user ticket</a> (which will be considered in detail
+below). Unlike a use of the service <code>Symfony\Component\Cache\Marshaller\SodiumMarshaller</code> for
+<a href="https://symfony.com/doc/current/cache.html#encrypting-the-cache">Encrypting the Cache</a>, this way
+allows encrypting user data simultaneously with a rotatable sodium keys and a personal "secret" that
+known the only user.</p>
+<div class="admonition note">
+<p>The remaining keys from the parameter are used to decrypt previously stored values. Read
+about these keys <a href="#sodium-encryption-keys">above</a>.</p>
+</div>
+<h4 id="cache-pool-management">Cache pool management</h4>
+<p>As it was written above, the user session lifetime is equal to the lifetime of the cache item that
+keeps user attributes. But which cache pool is used to store this cache item?</p>
+<p>SingleA uses a separate pool for user attributes for each <a href="#realms">Realm</a> (what is the Realm will
+be considered below). You can configure each pool explicitly: use the
+pattern <code>singlea.cache.[realm]</code> to name cache pools.</p>
+<p>The cache pool for each realm that was not configured explicitly will be created based on the
+special cache pool named <code>singlea.cache</code> that should be configured in this case (when there is any
+realm without an explicitly configured cache pool).</p>
+<div class="admonition attention">
+<p>It is necessary to use tag aware cache adapters for cache pools that will be used to store user
+attributes, because tags is used to tag cache items with the user's identifier and make able to
+forcibly log the user out by the command <code>user:logout &lt;identifier&gt;</code>.</p>
+</div>
+<p>The cache item lifetime (which was written about a little above) is configured by
+the <code>default_lifetime</code> cache pool parameter.</p>
+<div class="admonition abstract">
+<p>User attributes are common for each client application so there is no meaning to set cache item
+lifetime in any other way, e.g. using the <code>Psr\Cache\CacheItemInterface::expiresAt</code> method.</p>
+</div>
+<h3 id="ticket">Ticket</h3>
+<p>The Ticket is a unique string that is generated at the user successful authentication (at
+the <code>Symfony\Component\Security\Http\Event\LoginSuccessEvent</code> handling). The ticket resembles a user
+session identifier: it is a 192-bit random string that is used as an argument <code>nonce</code> in
+the <code>sodium_crypto_secretbox()</code> and <code>sodium_crypto_secretbox_open()</code> functions. Also, in a pair with
+the current realm (the firewall name as it described below) the ticket acts as a key for access to
+the cache item that keeps attributes of the user.</p>
+<p>The ticket value is transmitted to the user as a cookie and must be accessible for a client
+application (or a <a href="../../client/concept/">SingleA client</a>). To achieve this goal, the <code>Domain</code> cookie
+attribute should be set to a domain that is common for all client applications and the SingleA
+server. For example, if applications work with domains <code>app1.domain.org</code> and <code>app2.domain.org</code>, and
+the SingleA server works with a domain <code>sso.domain.org</code>, the ticket cookie <code>Domain</code> attribute should
+be equal to <code>domain.org</code>.</p>
+<p>Besides, if the client application handle "non-same-origin" requests, it is necessary to set
+a <code>none</code> as a value of the <code>singlea.ticket.samesite</code> parameter.</p>
+<p>!!! caution: ""</p>
+<div class="highlight"><pre><span></span><code>In this case all the client applications and the SingleA instance should work over the HTTPS
+protocol, because the ticket cookie must have the `Secure` attribute.
+</code></pre></div>
+<p>Only the user knows the ticket value (it does not store on the SingleA side), so there is no point
+in stealing data from the cache storage. But even if some user's attributes were compromised, it
+does not make able to compromise any other user attributes. Coupled with rotatable encryption keys
+on the SingleA server side (which the best way to keep in an isolated secrets storage), tickets
+provide a reliable protection of user data.</p>
+<h3 id="lifetimes-user-attributes-tickets-tokens">Lifetimes: User Attributes, Tickets, Tokens</h3>
+<p><code>User Attributes TTL &gt; Ticket TTL &gt; Token TTL</code></p>
+<p>The expression above reflects the next idea: configure the ticket lifetime less than the user
+attributes lifetime and greater than the token lifetime. When the token expires, the ticket acts as
+a refresh token and makes able to request new token. When the ticket expires, the user will be
+redirected to a logging in and, if a Symfony (PHP) session is still alive and the user attributes
+were not expired, the ticket will be regenerated and the user will be redirected back without any
+interactive login process.</p>
+<div class="admonition note">
+<p>Even if the PHP session was expired, it does not matter for intercommunication between the
+client application (or the SingleA client) and the SingleA server, because only the cache item
+with user attributes is necessary for client request processing.</p>
+</div>
+<h3 id="realms">Realms</h3>
+<p>The Realm is an authentication point on the SingleA server side. Actually it is a Symfony firewall.
+The user or client request can include a GET parameter that determines which realm (firewall) should
+be used for the request processing. This makes it possible to choose the necessary user provider.
+Thanks to the session fixation strategy <code>SessionAuthenticationStrategy::MIGRATE</code> (see
+the <a href="https://symfony.com/doc/current/reference/configuration/security.html#session-fixation-strategy">Symfony documentation</a>
+about the <code>security.session_fixation_strategy</code> parameter) it is possible to be authenticated via
+multiple firewalls at the same time. Since user attributes store in a cache item which key based on
+the realm and ticket values, the user attributes received from different user providers are
+independent and can contain different values.</p>
+<p>To select the appropriate realm, the best way to use the <code>request_matcher</code> firewall field in the
+security settings and the special <code>SingleA\Bundles\Singlea\Request\RealmRequestMatcher</code> service in
+the following way:</p>
+<div class="highlight"><span class="filename">config/packages/security.yaml</span><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nt">security</span><span class="p">:</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="c1"># ...</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="nt">firewalls</span><span class="p">:</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">        </span><span class="nt">main</span><span class="p">:</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">            </span><span class="c1"># Use the service FQCN and the firewall name separated by a dot</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">            </span><span class="nt">request_matcher</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SingleA\Bundles\Singlea\Request\RealmRequestMatcher.main</span>
+</code></pre></div>
+<p>If you prefer native PHP configuration format, you can do the same in the following way:</p>
+<div class="highlight"><span class="filename">config/packages/security.php</span><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="cp">&lt;?php</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="k">use</span> <span class="nx">SingleA\Bundles\Singlea\Request\RealmRequestMatcher</span><span class="p">;</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="k">use</span> <span class="nx">Symfony\Config\SecurityConfig</span><span class="p">;</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="k">return</span> <span class="k">static</span> <span class="k">function</span> <span class="p">(</span><span class="nx">SecurityConfig</span> <span class="nv">$config</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span> <span class="p">{</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>    <span class="c1">// ...</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    <span class="nv">$mainFirewall</span> <span class="o">=</span> <span class="nv">$config</span><span class="o">-&gt;</span><span class="na">firewall</span><span class="p">(</span><span class="s1">&#39;main&#39;</span><span class="p">);</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>    <span class="nv">$mainFirewall</span><span class="o">-&gt;</span><span class="na">requestMatcher</span><span class="p">(</span><span class="nx">RealmRequestMatcher</span><span class="o">::</span><span class="na">for</span><span class="p">(</span><span class="s1">&#39;main&#39;</span><span class="p">));</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="p">}</span>
+</code></pre></div>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>Thanks to the realms it is possible to organize an access to your corporate application for
+users from an external Identity Provider service (e.g. Active Directory of your business
+partner) without the need to create accounts for them in your corporate Identity Provider
+service or setup their proxying.</p>
+</div>
+<h3 id="sticky-sessions">Sticky Sessions</h3>
+<p>As mentioned above, the user session lifetime is equal to the lifetime of the cache item that keeps
+user attributes. When this cache item expires, the user will be forced to log in again (because this
+is the only way to compose user attributes). Even if the PHP session was not expired, it will be
+invalidated and the user will be logged out forcibly.</p>
+<p>But since the default behavior in the Symfony framework assumes to prolong the session lifetime when
+you interact with it, there is the <code>singlea.authentication.sticky_session</code> parameter
+(default: <code>false</code>) that makes it possible to prolong the lifetime of the cache item that keeps user
+attributes when the user logging in (even if the user already was authenticated).</p>
+<div class="admonition caution">
+<p>General request to the SingleA server do not prolong the lifetime of the cache item with user
+attributes in contrast with the PHP session lifetime, which is increased using the Symfony
+framework.</p>
+</div>
+<div class="admonition note">
+<p>Using of Sticky Sessions may lead to the case when user attributes is not updated for a long
+time because they are reloaded at the successful user login (at
+the <code>Symfony\Component\Security\Http\Event\LoginSuccessEvent</code> handling).</p>
+</div>
+<div class="admonition note">
+<p>Regardless of the use of Sticky Sessions, after the ticket cookie expires the user will be
+redirected to log in.</p>
+</div>
+<h2 id="events">Events</h2>
+<p>There are several events that can be used to customize the behavior of the SingleA server.</p>
+<h3 id="loginevent">LoginEvent</h3>
+<div class="admonition example">
+<p>FCQN: <code>SingleA\Bundles\Singlea\Event\LoginEvent</code></p>
+</div>
+<p>This event is instantiated in the <code>Login</code> controller (<code>/login</code>) and used for a Response creation and
+any additional actions. In particular, the build-in <code>LoginEvent</code> listener adds a ticket cookie in
+the Response and prolongs the cache item that keeps user attributes (if
+the <a href="#sticky-sessions">Sticky Sessions</a> is used).</p>
+<h3 id="userattributesevent">UserAttributesEvent</h3>
+<div class="admonition example">
+<p>FCQN: <code>SingleA\Bundles\Singlea\Event\UserAttributesEvent</code></p>
+</div>
+<p>As mentioned above, this event is instantiated when the user logged in successfully and is used to
+compose user attributes. You need to create your own <code>UserAttributesEvent</code> listener or subscriber,
+otherwise user attributes will be empty.</p>
+<div class="admonition tip">
+<p>This is applicable if you are not going to use the SingleA instance for a user tokens generation
+(only for authentication and user session validation), or if you are going to fetch the whole
+token payload from an external service using the
+<a href="../../features/payload-fetcher/">Payload Fetcher</a> without passing user attributes.</p>
+</div>
+<p>You can use the <code>SingleA\Bundles\Singlea\Service\Realm\RealmResolver</code> service to determine the
+current realm (firewall name).</p>
+<h3 id="payloadcomposeevent">PayloadComposeEvent</h3>
+<div class="admonition example">
+<p>FCQN: <code>SingleA\Bundles\Singlea\Event\PayloadComposeEvent</code></p>
+</div>
+<p>This event allows you to modify basic user token payload (before a fetch additional payload from an
+external service, if it is used by the client). In some cases this approach can replace the Payload
+Fetcher use.</p>
+<h2 id="customization">Customization</h2>
+<p>The most SingleA classes declared as <code>final</code>, so they cannot be extended explicitly.</p>
+<p>SingleA customization is able in two ways.</p>
+<ul>
+<li>By using a
+  <a href="https://symfony.com/doc/current/service_container/service_decoration.html">service decoration</a>.</li>
+<li>You can implement the necessary service interface and override it in
+  the <a href="https://symfony.com/doc/current/components/dependency_injection.html">service container</a>
+  configuration (<code>config/services.yaml</code>).</li>
+</ul>
+<h2 id="security">Security</h2>
+<p>SingleA security is given special attention, because often due to security issues attackers gain
+access to user data. You can read more about the used security methods on
+the <a href="../../security/">SingleA Security</a> section (and also about the "Achilles heel" of SingleA and
+what you should protect yourself).</p>
+<p>SingleA protective equipment can be divided into 2 groups: mandatory, which managed by the SingleA
+configuration, and optional, the use of which is up to you. Let's take a closer look at them below.</p>
+<h3 id="access-control-expression">Access Control Expression</h3>
+<p>SingleA includes a security Expression Language Provider that adds the following functions. They can
+be used in an <code>allow_if</code> option (read more
+about <a href="https://symfony.com/doc/current/security/access_control.html#securing-by-an-expression">Securing by an Expression</a>)
+of a <code>security.access_control</code> rule.</p>
+<ul>
+<li><code>is_valid_signature()</code> — check whether the current request has a valid signature.
+  The <a href="../../features/signature/">Request Signature</a> feature should be enabled for a client,
+  otherwise the check will not be performed and validation will be considered passed.</li>
+<li><code>is_valid_ticket()</code> — check whether the current request has an HTTP header with a valid ticket.</li>
+</ul>
+<div class="admonition important">
+<p>Here the ticket validity do not consider an existence of user attributes that relate to the
+ticket. The ticket consider as valid if it exists and has a valid format.</p>
+</div>
+<ul>
+<li><code>is_valid_client_ip()</code> — check whether the current request IP address is allowed according to the
+  parameter <code>singlea.client.trusted_clients</code> (see details <a href="#trusted-ip-addresses--subnets">above</a>).</li>
+<li><code>is_valid_registration_ip()</code> — check whether the current request IP address is allowed according
+  to the parameter <code>singlea.client.trusted_registrars</code> (see
+  details <a href="#trusted-ip-addresses--subnets">above</a>).</li>
+<li><code>is_valid_registration_ticket()</code> — check whether the current request has an HTTP header with a
+  valid <a href="#registration-ticket">registration ticket</a>.</li>
+</ul>
+<h4 id="registration-ticket">Registration Ticket</h4>
+<p>In addition to the ability to restrict access to the registration route (controller) by the request
+sender IP address (or subnet), SingleA make it possible to use Registration Tickets — strings that
+should be passed via an HTTP header and verified by the service that implements
+the <code>SingleA\Bundles\Singlea\Service\Client\RegistrationTicketManagerInterface</code>.</p>
+<p>The <code>is_valid_registration_ticket()</code> expression language function, as any other, can be used
+together with other functions using logical operations <code>or</code>/<code>and</code>. For example, to restrict a
+registration request by an IP address/subnet <strong>or</strong> registration ticket, you can use the following
+expression:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>is_valid_registration_ip() or is_valid_registration_ticket()
+</code></pre></div>
+<h3 id="encryption">Encryption</h3>
+<p>As described above, SingleA stores client feature configs and user attributes in encrypted form. In
+both cases, sets of rotatable keys are used together with secrets (client <strong>secret</strong> and user
+<strong>ticket</strong>) that are known for the client or user only.</p>
+<h4 id="client-feature-configs-encryption">Client Feature Configs Encryption</h4>
+<p>For client feature configs encryption used keys, which is generated by the
+<code>sodium_crypto_secretbox_keygen()</code> function and a client secret (that is known for the client only).
+The keys are more convenient to keep as a comma-separated base64-encoded list in an environment
+variable that can be passed in the parameter <code>singlea.encryption.client_keys</code> using the
+<code>%env(base64-array:csv:CLIENT_KEYS)%</code> expression (if the environment variable called <code>CLIENT_KEYS</code>).</p>
+<p>The first key from the list always used for encryption. The remaining keys (with the first too) are
+used in turn when decrypting the stored value. Therefore, a new key should always be added at the
+beginning of the list.</p>
+<h4 id="user-attributes-encryption">User Attributes Encryption</h4>
+<p>The principle of user attributes encryption is the same as
+described <a href="#client-feature-configs-encryption">above</a> for client feature configs, with only
+difference that the keys present in the <code>singlea.encryption.user_keys</code> parameter and as a secret is
+used user ticket (which is transmitted via a cookie and is known for the user only). Then the ticket
+must be passed to the SingleA server via an HTTP header of a client request.</p>
+<div class="admonition tip">
+<p>The Symfony Cache component allows you to use the service
+<code>Symfony\Component\Cache\Marshaller\SodiumMarshaller</code> for
+<a href="https://symfony.com/doc/current/cache.html#encrypting-the-cache">cache items encryption</a>. This
+approach cannot replace SingleA requirement for user attributes encryption, but it will be
+useful if you are going to store in the cache some other sensitive data except user attributes.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2021-2024 nb:group
+    </div>
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/nbgrp" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://gitter.im/nbgrp/singlea" target="_blank" rel="noopener" title="gitter.im" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M66.4 322.5H16V0h50.4v322.5zM166.9 76.1h-50.4V512h50.4V76.1zm100.6 0h-50.4V512h50.4V76.1zM368 76h-50.4v247H368V76z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.annotate", "search.share", "search.highlight", "navigation.instant", "navigation.sections", "navigation.tabs", "navigation.top", "toc.integrate"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+    
+  </body>
+</html>
