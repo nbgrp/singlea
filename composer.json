@@ -23,7 +23,7 @@
         "nbgrp/singlea-contracts": "^1",
         "psr/cache": "^3",
         "psr/log": "^3",
-        "snc/redis-bundle": "^3.6 || ^4",
+        "snc/redis-bundle": "^4.5",
         "symfony/cache": "^6.4",
         "symfony/cache-contracts": "^3",
         "symfony/config": "^6.4",
@@ -43,10 +43,11 @@
         "symfony/security-core": "^6.4",
         "symfony/security-http": "^6.4",
         "symfony/uid": "^6.4",
-        "web-token/jwt-framework": "^3.0.7"
+        "web-token/jwt-framework": "^3.2"
     },
     "require-dev": {
-        "predis/predis": "^1",
+        "ext-redis": "*",
+        "predis/predis": "^2",
         "psr/event-dispatcher": "^1",
         "psr/event-dispatcher-implementation": "1.0",
         "roave/security-advisories": "dev-latest",

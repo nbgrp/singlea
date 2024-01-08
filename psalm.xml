@@ -34,6 +34,7 @@
 
     <stubs>
         <file name=".psalm/stubs/igbinary.phpstub" />
+        <file name=".psalm/stubs/predis.phpstub" />
     </stubs>
 
     <plugins>

@@ -15,3 +15,8 @@ parameters:
 
   checkGenericClassInNonGenericObjectType: false
   checkMissingIterableValueType: false
+
+  ignoreErrors:
+    -
+      message: '#Call to an undefined method Predis#'
+      path: src/Bundles/Redis/*

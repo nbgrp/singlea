@@ -29,7 +29,7 @@ final class ClientManagerTest extends TestCase
         $redis = $this->createMock(\Redis::class);
         $redis
             ->expects(self::once())
-            ->method('hexists')
+            ->method('hExists')
             ->with($key, $id)
             ->willReturn($exists)
         ;
@@ -39,7 +39,7 @@ final class ClientManagerTest extends TestCase
         if ($touch) {
             $redis
                 ->expects(self::once())
-                ->method('hset')
+                ->method('hSet')
                 ->with($key, $id, self::stringContains(substr((string) time(), 0, -2)))
             ;
 
@@ -50,7 +50,7 @@ final class ClientManagerTest extends TestCase
         } else {
             $redis
                 ->expects(self::never())
-                ->method('hset')
+                ->method('hSet')
             ;
 
             $logger
@@ -93,7 +93,7 @@ final class ClientManagerTest extends TestCase
         $redis = $this->createMock(\Redis::class);
         $redis
             ->expects(self::once())
-            ->method('hget')
+            ->method('hGet')
             ->with($key, $id)
             ->willReturn(false)
         ;
@@ -114,7 +114,7 @@ final class ClientManagerTest extends TestCase
         $redis = $this->createMock(\Redis::class);
         $redis
             ->expects(self::once())
-            ->method('hget')
+            ->method('hGet')
             ->with($key, $id)
             ->willReturn('1609495200')
         ;
@@ -180,7 +180,7 @@ final class ClientManagerTest extends TestCase
         $redis = $this->createMock(\Redis::class);
         $redis
             ->expects(self::once())
-            ->method('hkeys')
+            ->method('hKeys')
             ->willReturn($keys)
         ;
 
@@ -207,7 +207,7 @@ final class ClientManagerTest extends TestCase
                 $redis = $this->createMock(\Redis::class);
                 $redis
                     ->expects(self::once())
-                    ->method('hdel')
+                    ->method('hDel')
                     ->with('key', '1', '2')
                     ->willReturn(2)
                 ;
@@ -232,7 +232,7 @@ final class ClientManagerTest extends TestCase
                 $redis = $this->createMock(\Redis::class);
                 $redis
                     ->expects(self::once())
-                    ->method('hdel')
+                    ->method('hDel')
                     ->with('key', '1', '2')
                     ->willReturn(0)
                 ;
@@ -257,7 +257,7 @@ final class ClientManagerTest extends TestCase
                 $redis = $this->createMock(\Redis::class);
                 $redis
                     ->expects(self::never())
-                    ->method('hdel')
+                    ->method('hDel')
                 ;
 
                 return $redis;

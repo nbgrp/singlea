@@ -46,40 +46,76 @@ final class AddFeatureConfigManagersPassTest extends TestCase
 
         $redisClient = $this->createMock(\Redis::class);
         $redisClient
-            ->expects(self::exactly(2))
-            ->method('hexists')
-            ->withConsecutive(
-                [self::equalTo('signature'), self::equalTo('id1')],
-                [self::equalTo('tokenizer'), self::equalTo('id2')],
-            )
-            ->willReturnOnConsecutiveCalls(
-                true,
-                false,
-            )
+            ->expects($matcher = self::exactly(2))
+            ->method('hExists')
+            ->willReturnCallback(static function (string $key, string $keyHash) use ($matcher): bool {
+                switch ($matcher->getInvocationCount()) {
+                    case 1:
+                        self::assertSame('signature', $key);
+                        self::assertSame('id1', $keyHash);
+
+                        return true;
+
+                    case 2:
+                        self::assertSame('tokenizer', $key);
+                        self::assertSame('id2', $keyHash);
+
+                        return false;
+
+                    default:
+                        throw new \RuntimeException('Unexpected');
+                }
+            })
         ;
         $redisClient
-            ->expects(self::exactly(2))
-            ->method('hset')
-            ->withConsecutive(
-                [self::equalTo('signature'), self::equalTo('id1'), self::equalTo('encrypted-signature-config-marshalled-with-signature-secret')],
-                [self::equalTo('tokenizer'), self::equalTo('id2'), self::equalTo('encrypted-tokenizer-config-marshalled-with-tokenizer-secret')],
-            )
+            ->expects($matcher = self::exactly(2))
+            ->method('hSet')
+            ->willReturnCallback(static function (string $key, string $keyHash, mixed $value) use ($matcher): int {
+                switch ($matcher->getInvocationCount()) {
+                    case 1:
+                        self::assertSame('signature', $key);
+                        self::assertSame('id1', $keyHash);
+                        self::assertSame('encrypted-signature-config-marshalled-with-signature-secret', $value);
+
+                        return 1;
+
+                    case 2:
+                        self::assertSame('tokenizer', $key);
+                        self::assertSame('id2', $keyHash);
+                        self::assertSame('encrypted-tokenizer-config-marshalled-with-tokenizer-secret', $value);
+
+                        return 1;
+
+                    default:
+                        throw new \RuntimeException('Unexpected');
+                }
+            })
         ;
         $redisClient
-            ->expects(self::exactly(2))
-            ->method('hget')
-            ->withConsecutive(
-                ['signature', 'id1'],
-                ['tokenizer', 'id2'],
-            )
-            ->willReturnOnConsecutiveCalls(
-                'encrypted-signature-config-marshalled-with-signature-secret',
-                false,
-            )
+            ->expects($matcher = self::exactly(2))
+            ->method('hGet')
+            ->willReturnCallback(static function (string $key, string $keyHash) use ($matcher): false|string {
+                switch ($matcher->getInvocationCount()) {
+                    case 1:
+                        self::assertSame('signature', $key);
+                        self::assertSame('id1', $keyHash);
+
+                        return 'encrypted-signature-config-marshalled-with-signature-secret';
+
+                    case 2:
+                        self::assertSame('tokenizer', $key);
+                        self::assertSame('id2', $keyHash);
+
+                        return false;
+
+                    default:
+                        throw new \RuntimeException('Unexpected');
+                }
+            })
         ;
         $redisClient
             ->expects(self::once())
-            ->method('hdel')
+            ->method('hDel')
             ->with('signature', 'id1', 'id2')
             ->willReturn(1)
         ;
@@ -127,13 +163,26 @@ final class AddFeatureConfigManagersPassTest extends TestCase
 
         $encryptor = $this->createMock(FeatureConfigEncryptorInterface::class);
         $encryptor
-            ->expects(self::exactly(2))
+            ->expects($matcher = self::exactly(2))
             ->method('encrypt')
-            ->withConsecutive(
-                ['signature-config-marshalled', 'signature-secret'],
-                ['tokenizer-config-marshalled', 'tokenizer-secret'],
-            )
-            ->willReturnCallback(static fn (string $marshalled, string $secret): string => 'encrypted-'.$marshalled.'-with-'.$secret)
+            ->willReturnCallback(static function (string $value, string $secret) use ($matcher): string {
+                switch ($matcher->getInvocationCount()) {
+                    case 1:
+                        self::assertSame('signature-config-marshalled', $value);
+                        self::assertSame('signature-secret', $secret);
+                        break;
+
+                    case 2:
+                        self::assertSame('tokenizer-config-marshalled', $value);
+                        self::assertSame('tokenizer-secret', $secret);
+                        break;
+
+                    default:
+                        throw new \RuntimeException('Unexpected');
+                }
+
+                return 'encrypted-'.$value.'-with-'.$secret;
+            })
         ;
         $encryptor
             ->expects(self::once())

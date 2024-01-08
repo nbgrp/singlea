@@ -25,21 +25,19 @@ grumphp:
     phpmd:
       ruleset: [ 'phpmd-ruleset' ]
       whitelist_patterns: [ '/^src\/(.*)/' ]
-      exclude:
-        - 'src/Bundles/*/Tests'
 
     phpmnd:
       directory: 'src'
-      exclude_name:
-        - 'Configuration.php'
-        - 'JwtFetcherConfigFactory.php'
-        - 'JwtTokenizerConfigFactory.php'
-      exclude:
-        - 'Bundles/*/Tests'
+      exclude_path:
+        - 'Bundles/Jwt/FeatureConfig/JwtTokenizerConfigFactory.php'
+        - 'Bundles/JwtFetcher/FeatureConfig/JwtFetcherConfigFactory.php'
+        - 'Bundles/Redis/Tests/DependencyInjection/Compiler/AddFeatureConfigManagersPassTest.php'
+        - 'Bundles/Singlea/Tests/Command/Client/PurgeTest.php'
 
     phpstan:
       use_grumphp_paths: false
 
-    psalm: ~
+    psalm:
+      no_cache: true
 
     securitychecker_local: ~

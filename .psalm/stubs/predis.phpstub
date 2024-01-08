@@ -1,0 +1,528 @@
+<?php
+
+namespace Predis {
+    interface ClientInterface
+    {
+        /**
+         * @return Command\FactoryInterface
+         */
+        public function getCommandFactory();
+        /**
+         * @return Configuration\OptionsInterface
+         */
+        public function getOptions();
+        public function connect();
+        public function disconnect();
+        /**
+         * @return Connection\ConnectionInterface
+         */
+        public function getConnection();
+        /**
+         * @param string $method
+         * @param array $arguments
+         *
+         * @return Command\CommandInterface
+         */
+        public function createCommand($method, $arguments = array());
+        /**
+         * @param Command\CommandInterface $command
+         *
+         * @return mixed
+         */
+        public function executeCommand(\Predis\Command\CommandInterface $command);
+        /**
+         * @param string $method
+         * @param array $arguments
+         *
+         * @return mixed
+         */
+        public function __call($method, $arguments);
+
+        public function copy(string $source, string $destination, int $db = -1, bool $replace = false): int;
+        public function del(string[]|string $keyOrKeys, string ...$keys = null): int;
+        public function dump(string $key): string|null;
+        public function exists(string $key): int;
+        public function expire(string $key, int $seconds, string $expireOption = ''): int;
+        public function expireat(string $key, int $timestamp, string $expireOption = ''): int;
+        public function expiretime(string $key): int;
+        public function keys(string $pattern): array;
+        public function move(string $key, int $db): int;
+        public function object($subcommand, string $key): mixed;
+        public function persist(string $key): int;
+        public function pexpire(string $key, int $milliseconds): int;
+        public function pexpireat(string $key, int $timestamp): int;
+        public function pttl(string $key): int;
+        public function randomkey(): string|null;
+        public function rename(string $key, string $target): mixed;
+        public function renamenx(string $key, string $target): int;
+        public function scan($cursor, array $options = null): array;
+        public function sort(string $key, array $options = null): array;
+        public function sort_ro(string $key, ?string $byPattern = null, ?LimitOffsetCount $limit = null, array $getPatterns = [], ?string $sorting = null, bool $alpha = false): array;
+        public function ttl(string $key): int;
+        public function type(string $key): mixed;
+        public function append(string $key, $value): int;
+        public function bfadd(string $key, $item): int;
+        public function bfexists(string $key, $item): int;
+        public function bfinfo(string $key, string $modifier = ''): array;
+        public function bfinsert(string $key, int $capacity = -1, float $error = -1, int $expansion = -1, bool $noCreate = false, bool $nonScaling = false, string ...$item): array;
+        public function bfloadchunk(string $key, int $iterator, $data): Status;
+        public function bfmadd(string $key, ...$item): array;
+        public function bfmexists(string $key, ...$item): array;
+        public function bfreserve(string $key, float $errorRate, int $capacity, int $expansion = -1, bool $nonScaling = false): Status;
+        public function bfscandump(string $key, int $iterator): array;
+        public function bitcount(string $key, $start = null, $end = null, string $index = 'byte'): int;
+        public function bitop($operation, $destkey, $key): int;
+        public function bitfield(string $key, $subcommand, ...$subcommandArg): array|null;
+        public function bitpos(string $key, $bit, $start = null, $end = null, string $index = 'byte'): int;
+        public function blmpop(int $timeout, array $keys, string $modifier = 'left', int $count = 1): array;
+        public function bzpopmax(array $keys, int $timeout): array;
+        public function bzpopmin(array $keys, int $timeout): array;
+        public function bzmpop(int $timeout, array $keys, string $modifier = 'min', int $count = 1): array;
+        public function cfadd(string $key, $item): int;
+        public function cfaddnx(string $key, $item): int;
+        public function cfcount(string $key, $item): int;
+        public function cfdel(string $key, $item): int;
+        public function cfexists(string $key, $item): int;
+        public function cfloadchunk(string $key, int $iterator, $data): Status;
+        public function cfmexists(string $key, ...$item): int;
+        public function cfinfo(string $key): array;
+        public function cfinsert(string $key, int $capacity = -1, bool $noCreate = false, string ...$item): array;
+        public function cfinsertnx(string $key, int $capacity = -1, bool $noCreate = false, string ...$item): array;
+        public function cfreserve(string $key, int $capacity, int $bucketSize = -1, int $maxIterations = -1, int $expansion = -1): Status;
+        public function cfscandump(string $key, int $iterator): array;
+        public function cmsincrby(string $key, string|int...$itemIncrementDictionary): array;
+        public function cmsinfo(string $key): array;
+        public function cmsinitbydim(string $key, int $width, int $depth): Status;
+        public function cmsinitbyprob(string $key, float $errorRate, float $probability): Status;
+        public function cmsmerge(string $destination, array $sources, array $weights = []): Status;
+        public function cmsquery(string $key, string ...$item): array;
+        public function decr(string $key): int;
+        public function decrby(string $key, int $decrement): int;
+        public function failover(?To $to = null, bool $abort = false, int $timeout = -1): Status;
+        public function fcall(string $function, array $keys, ...$args): mixed;
+        public function fcall_ro(string $function, array $keys, ...$args): mixed;
+        public function ftaggregate(string $index, string $query, ?AggregateArguments $arguments = null): array;
+        public function ftaliasadd(string $alias, string $index): Status;
+        public function ftaliasdel(string $alias): Status;
+        public function ftaliasupdate(string $alias, string $index): Status;
+        public function ftalter(string $index, FieldInterface[] $schema, ?AlterArguments $arguments = null): Status;
+        public function ftcreate(string $index, FieldInterface[] $schema, ?CreateArguments $arguments = null): Status;
+        public function ftdictadd(string $dict, ...$term): int;
+        public function ftdictdel(string $dict, ...$term): int;
+        public function ftdictdump(string $dict): array;
+        public function ftdropindex(string $index, ?DropArguments $arguments = null): Status;
+        public function ftexplain(string $index, string $query, ?ExplainArguments $arguments = null): string;
+        public function ftinfo(string $index): array;
+        public function ftprofile(string $index, ProfileArguments $arguments): array;
+        public function ftsearch(string $index, string $query, ?SearchArguments $arguments = null): array;
+        public function ftspellcheck(string $index, string $query, ?SearchArguments $arguments = null): array;
+        public function ftsugadd(string $key, string $string, float $score, ?SugAddArguments $arguments = null): int;
+        public function ftsugdel(string $key, string $string): int;
+        public function ftsugget(string $key, string $prefix, ?SugGetArguments $arguments = null): array;
+        public function ftsuglen(string $key): int;
+        public function ftsyndump(string $index): array;
+        public function ftsynupdate(string $index, string $synonymGroupId, ?SynUpdateArguments $arguments = null, string ...$terms): Status;
+        public function fttagvals(string $index, string $fieldName): array;
+        public function get(string $key): string|null;
+        public function getbit(string $key, $offset): int;
+        public function getex(string $key, $modifier = '', $value = false): int|null;
+        public function getrange(string $key, $start, $end): string;
+        public function getdel(string $key): string;
+        public function getset(string $key, $value): string|null;
+        public function incr(string $key): int;
+        public function incrby(string $key, int $increment): int;
+        public function incrbyfloat(string $key, int|float $increment): string;
+        public function mget(string[]|string $keyOrKeys, string ...$keys = null): array;
+        public function mset(array $dictionary): mixed;
+        public function msetnx(array $dictionary): int;
+        public function psetex(string $key, $milliseconds, $value): Status;
+        public function set(string $key, $value, $expireResolution = null, $expireTTL = null, $flag = null): Status;
+        public function setbit(string $key, $offset, $value): int;
+        public function setex(string $key, $seconds, $value): Status;
+        public function setnx(string $key, $value): int;
+        public function setrange(string $key, $offset, $value): int;
+        public function strlen(string $key): int;
+        public function hdel(string $key, array $fields): int;
+        public function hexists(string $key, string $field): int;
+        public function hget(string $key, string $field): string|null;
+        public function hgetall(string $key): array;
+        public function hincrby(string $key, string $field, int $increment): int;
+        public function hincrbyfloat(string $key, string $field, int|float $increment): string;
+        public function hkeys(string $key): array;
+        public function hlen(string $key): int;
+        public function hmget(string $key, array $fields): array;
+        public function hmset(string $key, array $dictionary): mixed;
+        public function hrandfield(string $key, int $count = 1, bool $withValues = false): array;
+        public function hscan(string $key, $cursor, array $options = null): array;
+        public function hset(string $key, string $field, string $value): int;
+        public function hsetnx(string $key, string $field, string $value): int;
+        public function hvals(string $key): array;
+        public function hstrlen(string $key, string $field): int;
+        public function jsonarrappend(string $key, string $path = '$', ...$value): array;
+        public function jsonarrindex(string $key, string $path, string $value, int $start = 0, int $stop = 0): array;
+        public function jsonarrinsert(string $key, string $path, int $index, string ...$value): array;
+        public function jsonarrlen(string $key, string $path = '$'): array;
+        public function jsonarrpop(string $key, string $path = '$', int $index = -1): array;
+        public function jsonclear(string $key, string $path = '$'): int;
+        public function jsonarrtrim(string $key, string $path, int $start, int $stop): array;
+        public function jsondel(string $key, string $path = '$'): int;
+        public function jsonforget(string $key, string $path = '$'): int;
+        public function jsonget(string $key, string $indent = '', string $newline = '', string $space = '', string ...$paths): string;
+        public function jsonnumincrby(string $key, string $path, int $value): string;
+        public function jsonmerge(string $key, string $path, string $value): Status;
+        public function jsonmget(array $keys, string $path): array;
+        public function jsonmset(string ...$keyPathValue): Status;
+        public function jsonobjkeys(string $key, string $path = '$'): array;
+        public function jsonobjlen(string $key, string $path = '$'): array;
+        public function jsonresp(string $key, string $path = '$'): array;
+        public function jsonset(string $key, string $path, string $value, ?string $subcommand = null): string;
+        public function jsonstrappend(string $key, string $path, string $value): array;
+        public function jsonstrlen(string $key, string $path = '$'): array;
+        public function jsontoggle(string $key, string $path): array;
+        public function jsontype(string $key, string $path = '$'): array;
+        public function blmove(string $source, string $destination, string $where, string $to, int $timeout): string;
+        public function blpop(array|string $keys, int|float $timeout): array|null;
+        public function brpop(array|string $keys, int|float $timeout): array|null;
+        public function brpoplpush(string $source, string $destination, int|float $timeout): string|null;
+        public function lcs(string $key1, string $key2, bool $len = false, bool $idx = false, int $minMatchLen = 0, bool $withMatchLen = false): mixed;
+        public function lindex(string $key, int $index): string|null;
+        public function linsert(string $key, $whence, $pivot, $value): int;
+        public function llen(string $key): int;
+        public function lmove(string $source, string $destination, string $where, string $to): string;
+        public function lmpop(array $keys, string $modifier = 'left', int $count = 1): array|null;
+        public function lpop(string $key): string|null;
+        public function lpush(string $key, array $values): int;
+        public function lpushx(string $key, array $values): int;
+        public function lrange(string $key, int $start, int $stop): string[];
+        public function lrem(string $key, int $count, string $value): int;
+        public function lset(string $key, int $index, string $value): mixed;
+        public function ltrim(string $key, int $start, int $stop): mixed;
+        public function rpop(string $key): string|null;
+        public function rpoplpush(string $source, string $destination): string|null;
+        public function rpush(string $key, array $values): int;
+        public function rpushx(string $key, array $values): int;
+        public function sadd(string $key, array $members): int;
+        public function scard(string $key): int;
+        public function sdiff(array|string $keys): string[];
+        public function sdiffstore(string $destination, array|string $keys): int;
+        public function sinter(array|string $keys): string[];
+        public function sintercard(array $keys, int $limit = 0): int;
+        public function sinterstore(string $destination, array|string $keys): int;
+        public function sismember(string $key, string $member): int;
+        public function smembers(string $key): string[];
+        public function smismember(string $key, string ...$members): array;
+        public function smove(string $source, string $destination, string $member): int;
+        public function spop(string $key, int $count = null): string|array|null;
+        public function srandmember(string $key, int $count = null): string|null;
+        public function srem(string $key, array|string $member): int;
+        public function sscan(string $key, int $cursor, array $options = null): array;
+        public function sunion(array|string $keys): string[];
+        public function sunionstore(string $destination, array|string $keys): int;
+        public function touch(string[]|string $keyOrKeys, string ...$keys = null): int;
+        public function tdigestadd(string $key, float ...$value): Status;
+        public function tdigestbyrank(string $key, int ...$rank): array;
+        public function tdigestbyrevrank(string $key, int ...$reverseRank): array;
+        public function tdigestcdf(string $key, int ...$value): array;
+        public function tdigestcreate(string $key, int $compression = 0): Status;
+        public function tdigestinfo(string $key): array;
+        public function tdigestmax(string $key): string;
+        public function tdigestmerge(string $destinationKey, array $sourceKeys, int $compression = 0, bool $override = false): Status;
+        public function tdigestquantile(string $key, float ...$quantile): string[];
+        public function tdigestmin(string $key): string;
+        public function tdigestrank(string $key, float ...$value): array;
+        public function tdigestreset(string $key): Status;
+        public function tdigestrevrank(string $key, float ...$value): array;
+        public function tdigesttrimmed_mean(string $key, float $lowCutQuantile, float $highCutQuantile): string;
+        public function topkadd(string $key, ...$items): array;
+        public function topkincrby(string $key, ...$itemIncrement): array;
+        public function topkinfo(string $key): array;
+        public function topklist(string $key, bool $withCount = false): array;
+        public function topkquery(string $key, ...$items): array;
+        public function topkreserve(string $key, int $topK, int $width = 8, int $depth = 7, float $decay = 0.9): Status;
+        public function tsadd(string $key, int $timestamp, float $value, ?AddArguments $arguments = null): int;
+        public function tsalter(string $key, ?TSAlterArguments $arguments = null): Status;
+        public function tscreate(string $key, ?TSCreateArguments $arguments = null): Status;
+        public function tscreaterule(string $sourceKey, string $destKey, string $aggregator, int $bucketDuration, int $alignTimestamp = 0): Status;
+        public function tsdecrby(string $key, float $value, ?DecrByArguments $arguments = null): int;
+        public function tsdel(string $key, int $fromTimestamp, int $toTimestamp): int;
+        public function tsdeleterule(string $sourceKey, string $destKey): Status;
+        public function tsget(string $key, GetArguments $arguments = null): array;
+        public function tsincrby(string $key, float $value, ?IncrByArguments $arguments = null): int;
+        public function tsinfo(string $key, ?InfoArguments $arguments = null): array;
+        public function tsmadd(mixed ...$keyTimestampValue): array;
+        public function tsmget(MGetArguments $arguments, string ...$filterExpression): array;
+        public function tsmrange($fromTimestamp, $toTimestamp, MRangeArguments $arguments): array;
+        public function tsmrevrange($fromTimestamp, $toTimestamp, MRangeArguments $arguments): array;
+        public function tsqueryindex(string ...$filterExpression): array;
+        public function tsrange(string $key, $fromTimestamp, $toTimestamp, ?RangeArguments $arguments = null): array;
+        public function tsrevrange(string $key, $fromTimestamp, $toTimestamp, ?RangeArguments $arguments = null): array;
+        public function xadd(string $key, array $dictionary, string $id = '*', array $options = null): string;
+        public function xdel(string $key, string ...$id): int;
+        public function xlen(string $key): int;
+        public function xrevrange(string $key, string $end, string $start, ?int $count = null): array;
+        public function xrange(string $key, string $start, string $end, ?int $count = null): array;
+        public function xtrim(string $key, array|string $strategy, string $threshold, array $options = null): string;
+        public function zadd(string $key, array $membersAndScoresDictionary): int;
+        public function zcard(string $key): int;
+        public function zcount(string $key, int|string $min, int|string $max): string;
+        public function zdiff(array $keys, bool $withScores = false): array;
+        public function zdiffstore(string $destination, array $keys): int;
+        public function zincrby(string $key, int $increment, string $member): string;
+        public function zintercard(array $keys, int $limit = 0): int;
+        public function zinterstore(string $destination, array $keys, int[] $weights = [], string $aggregate = 'sum'): int;
+        public function zinter(array $keys, int[] $weights = [], string $aggregate = 'sum', bool $withScores = false): array;
+        public function zmpop(array $keys, string $modifier = 'min', int $count = 1): array;
+        public function zmscore(string $key, string ...$member): array;
+        public function zpopmin(string $key, int $count = 1): array;
+        public function zpopmax(string $key, int $count = 1): array;
+        public function zrandmember(string $key, int $count = 1, bool $withScores = false): mixed;
+        public function zrange(string $key, int|string $start, int|string $stop, array $options = null): array;
+        public function zrangebyscore(string $key, int|string $min, int|string $max, array $options = null): array;
+        public function zrangestore(string $destination, string $source, int|string $min, int|string $max, string|bool $by = false, bool $reversed = false, bool $limit = false, int $offset = 0, int $count = 0): int;
+        public function zrank(string $key, string $member): int|null;
+        public function zrem(string $key, string ...$member): int;
+        public function zremrangebyrank(string $key, int|string $start, int|string $stop): int;
+        public function zremrangebyscore(string $key, int|string $min, int|string $max): int;
+        public function zrevrange(string $key, int|string $start, int|string $stop, array $options = null): array;
+        public function zrevrangebyscore(string $key, int|string $max, int|string $min, array $options = null): array;
+        public function zrevrank(string $key, string $member): int|null;
+        public function zunion(array $keys, int[] $weights = [], string $aggregate = 'sum', bool $withScores = false): array;
+        public function zunionstore(string $destination, array $keys, int[] $weights = [], string $aggregate = 'sum'): int;
+        public function zscore(string $key, string $member): string|null;
+        public function zscan(string $key, int $cursor, array $options = null): array;
+        public function zrangebylex(string $key, string $start, string $stop, array $options = null): array;
+        public function zrevrangebylex(string $key, string $start, string $stop, array $options = null): array;
+        public function zremrangebylex(string $key, string $min, string $max): int;
+        public function zlexcount(string $key, string $min, string $max): int;
+        public function pexpiretime(string $key): int;
+        public function pfadd(string $key, array $elements): int;
+        public function pfmerge(string $destinationKey, array|string $sourceKeys): mixed;
+        public function pfcount(string[]|string $keyOrKeys, string ...$keys = null): int;
+        public function pubsub($subcommand, $argument): mixed;
+        public function publish($channel, $message): int;
+        public function discard(): mixed;
+        public function exec(): array|null;
+        public function multi(): mixed;
+        public function unwatch(): mixed;
+        public function waitaof(int $numLocal, int $numReplicas, int $timeout): array;
+        public function watch(string $key): mixed;
+        public function eval(string $script, int $numkeys, string ...$keyOrArg = null): mixed;
+        public function eval_ro(string $script, array $keys, ...$argument): mixed;
+        public function evalsha(string $script, int $numkeys, string ...$keyOrArg = null): mixed;
+        public function evalsha_ro(string $sha1, array $keys, ...$argument): mixed;
+        public function script($subcommand, $argument = null): mixed;
+        public function shutdown(bool $noSave = null, bool $now = false, bool $force = false, bool $abort = false): Status;
+        public function auth(string $password): mixed;
+        public function echo(string $message): string;
+        public function ping(string $message = null): mixed;
+        public function select(int $database): mixed;
+        public function bgrewriteaof(): mixed;
+        public function bgsave(): mixed;
+        public function client($subcommand, $argument = null): mixed;
+        public function config($subcommand, $argument = null): mixed;
+        public function dbsize(): int;
+        public function flushall(): mixed;
+        public function flushdb(): mixed;
+        public function info($section = null): array;
+        public function lastsave(): int;
+        public function save(): mixed;
+        public function slaveof(string $host, int $port): mixed;
+        public function slowlog($subcommand, $argument = null): mixed;
+        public function time(): array;
+        public function command(): array;
+        public function geoadd(string $key, $longitude, $latitude, $member): int;
+        public function geohash(string $key, array $members): array;
+        public function geopos(string $key, array $members): array;
+        public function geodist(string $key, $member1, $member2, $unit = null): string|null;
+        public function georadius(string $key, $longitude, $latitude, $radius, $unit, array $options = null): array;
+        public function georadiusbymember(string $key, $member, $radius, $unit, array $options = null): array;
+        public function geosearch(string $key, FromInterface $from, ByInterface $by, ?string $sorting = null, int $count = -1, bool $any = false, bool $withCoord = false, bool $withDist = false, bool $withHash = false): array;
+        public function geosearchstore(string $destination, string $source, FromInterface $from, ByInterface $by, ?string $sorting = null, int $count = -1, bool $any = false, bool $storeDist = false): int;
+    }
+}
+namespace Predis\Command {
+    interface CommandInterface
+    {
+        /**
+         * @return string
+         */
+        public function getId();
+        /**
+         * @param int $slot
+         */
+        public function setSlot($slot);
+        /**
+         * @return int|null
+         */
+        public function getSlot();
+        /**
+         * @param array $arguments
+         */
+        public function setArguments(array $arguments);
+        /**
+         * @param array $arguments
+         */
+        public function setRawArguments(array $arguments);
+        /**
+         * @return array
+         */
+        public function getArguments();
+        /**
+         * @param int $index
+         *
+         * @return mixed|null
+         */
+        public function getArgument($index);
+        /**
+         * @param array|null|string $data
+         *
+         * @return mixed
+         */
+        public function parseResponse($data);
+    }
+    interface FactoryInterface
+    {
+        /**
+         * @param string $commandIDs
+         *
+         * @return bool
+         */
+        public function supports(string ...$commandIDs) : bool;
+        /**
+         * @param string $commandID
+         * @param array $arguments
+         *
+         * @return CommandInterface
+         */
+        public function create(string $commandID, array $arguments = array()) : \Predis\Command\CommandInterface;
+    }
+}
+namespace Predis\Command\Processor {
+    interface ProcessorInterface
+    {
+        /**
+         * @param \Predis\Command\CommandInterface $command
+         */
+        public function process(\Predis\Command\CommandInterface $command);
+    }
+}
+namespace Predis\Configuration {
+    interface OptionsInterface
+    {
+        /**
+         * @param string $option
+         *
+         * @return mixed|null
+         */
+        public function getDefault($option);
+        /**
+         * @param string $option
+         *
+         * @return bool
+         */
+        public function defined($option);
+        /**
+         * @param string $option
+         *
+         * @return bool
+         */
+        public function __isset($option);
+        /**
+         * @param string $option
+         *
+         * @return mixed|null
+         */
+        public function __get($option);
+    }
+}
+namespace Predis\Connection {
+    interface ConnectionInterface
+    {
+        public function connect();
+        public function disconnect();
+        /**
+         * @return bool
+         */
+        public function isConnected();
+        /**
+         * @param \Predis\Command\CommandInterface $command
+         */
+        public function writeRequest(\Predis\Command\CommandInterface $command);
+        /**
+         * @param \Predis\Command\CommandInterface $command
+         *
+         * @return mixed
+         */
+        public function readResponse(\Predis\Command\CommandInterface $command);
+        /**
+         * @param \Predis\Command\CommandInterface $command
+         *
+         * @return mixed
+         */
+        public function executeCommand(\Predis\Command\CommandInterface $command);
+    }
+    interface FactoryInterface
+    {
+        /**
+         * @param string $scheme
+         * @param mixed $initializer
+         */
+        public function define($scheme, $initializer);
+        /**
+         * @param string $scheme
+         */
+        public function undefine($scheme);
+        /**
+         * @param mixed $parameters
+         *
+         * @return NodeConnectionInterface
+         */
+        public function create($parameters);
+    }
+    interface NodeConnectionInterface extends \Predis\Connection\ConnectionInterface
+    {
+        /**
+         * @return string
+         */
+        public function __toString();
+        /**
+         * @return mixed
+         */
+        public function getResource();
+        /**
+         * @return ParametersInterface
+         */
+        public function getParameters();
+        /**
+         * @param \Predis\Command\CommandInterface $command
+         */
+        public function addConnectCommand(\Predis\Command\CommandInterface $command);
+        /**
+         * @return mixed
+         */
+        public function read();
+    }
+    interface ParametersInterface
+    {
+        /**
+         * @param string $parameter
+         *
+         * @return bool
+         */
+        public function __isset($parameter);
+        /**
+         * @param string $parameter
+         *
+         * @return mixed|null
+         */
+        public function __get($parameter);
+        /**
+         * @return string
+         */
+        public function __toString();
+        /**
+         * @return array
+         */
+        public function toArray();
+    }
+}

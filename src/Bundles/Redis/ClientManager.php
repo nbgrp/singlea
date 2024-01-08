@@ -12,13 +12,13 @@ final class ClientManager implements ClientManagerInterface
 {
     public function __construct(
         private readonly string $key,
-        private readonly \Predis\ClientInterface|\Redis|\RedisCluster $redis,
+        private readonly \Predis\ClientInterface|\Redis|\RedisCluster|\Relay\Relay $redis,
         private readonly ?LoggerInterface $logger = null,
     ) {}
 
     public function exists(string $id, bool $touch = true): bool
     {
-        $exists = (bool) $this->redis->hexists($this->key, $id);
+        $exists = (bool) $this->redis->hExists($this->key, $id);
         if ($exists && $touch) {
             $this->touch($id);
         }
@@ -29,7 +29,7 @@ final class ClientManager implements ClientManagerInterface
     public function touch(string $id): void
     {
         try {
-            $this->redis->hset($this->key, $id, (string) time());
+            $this->redis->hSet($this->key, $id, (string) time());
         } finally {
             $this->logger?->debug('Key "'.$this->key.'": client '.$id.' touched.');
         }
@@ -37,7 +37,7 @@ final class ClientManager implements ClientManagerInterface
 
     public function getLastAccess(string $id): \DateTimeImmutable
     {
-        $timestamp = $this->redis->hget($this->key, $id);
+        $timestamp = $this->redis->hGet($this->key, $id);
         if (!is_numeric($timestamp)) {
             throw new \InvalidArgumentException('Unknown id specified: '.$id);
         }
@@ -50,27 +50,25 @@ final class ClientManager implements ClientManagerInterface
         $inactiveIds = null;
         $error = null;
 
+        $script = <<<'LUA'
+            local last_access = redis.call('hgetall', KEYS[1])
+            local ids = {}
+
+            for i = 1, #last_access, 2 do
+               if last_access[i + 1] <= KEYS[2] then
+                  ids[#ids + 1] = last_access[i]
+               end
+            end
+
+            return ids
+            LUA;
+        $args = [$this->key, (string) $datetime->getTimestamp()];
+
         try {
-            /** @psalm-suppress MixedAssignment */
-            $inactiveIds = $this->redis->eval(
-                <<<'LUA'
-                    local last_access = redis.call('hgetall', KEYS[1])
-                    local ids = {}
-
-                    for i = 1, #last_access, 2 do
-                       if last_access[i + 1] <= KEYS[2] then
-                          ids[#ids + 1] = last_access[i]
-                       end
-                    end
-
-                    return ids
-                    LUA,
-                [
-                    $this->key,
-                    $datetime->getTimestamp(),
-                ],
-                2,
-            );
+            /** @psalm-suppress InvalidArgument, MixedAssignment */
+            $inactiveIds = $this->redis instanceof \Predis\ClientInterface
+                ? $this->redis->eval($script, \count($args), ...$args)
+                : $this->redis->eval($script, $args, \count($args));
         } catch (\Throwable $exception) {
             $error = $exception->getMessage();
         }
@@ -91,7 +89,7 @@ final class ClientManager implements ClientManagerInterface
 
     public function findOldest(): ?string
     {
-        $ids = $this->redis->hkeys($this->key);
+        $ids = $this->redis->hKeys($this->key);
 
         if (!\is_array($ids) || empty($ids)) {
             return null;
@@ -102,6 +100,9 @@ final class ClientManager implements ClientManagerInterface
         return (string) reset($ids);
     }
 
+    /**
+     * @psalm-suppress InvalidArgument, MixedAssignment
+     */
     public function remove(string ...$ids): int
     {
         if (empty($ids)) {
@@ -109,8 +110,14 @@ final class ClientManager implements ClientManagerInterface
         }
 
         try {
-            /** @psalm-suppress InvalidArgument, InvalidCast */
-            return (int) $this->redis->hdel($this->key, ...$ids); // @phan-suppress-current-line PhanParamTooManyUnpack, PhanTypeMismatchArgumentProbablyReal
+            if ($this->redis instanceof \Predis\ClientInterface) {
+                /** @psalm-suppress RedundantCast */
+                return (int) $this->redis->hDel($this->key, $ids);
+            }
+
+            $result = $this->redis->hDel($this->key, ...$ids);
+
+            return \is_int($result) ? $result : 0;
         } finally {
             $this->logger?->debug('Key "'.$this->key.'": clients removed: '.implode(', ', $ids).'.');
         }
@@ -119,7 +126,8 @@ final class ClientManager implements ClientManagerInterface
     private function getRedisLastError(): ?string
     {
         $error = null;
-        if ($this->redis instanceof \Redis || $this->redis instanceof \RedisCluster) {
+        if ($this->redis instanceof \Redis || $this->redis instanceof \RedisCluster || $this->redis instanceof \Relay\Relay) {
+            /** @var string|null $error */
             $error = $this->redis->getLastError();
             $this->redis->clearLastError();
         }
