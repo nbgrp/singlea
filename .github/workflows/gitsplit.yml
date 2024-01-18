@@ -16,7 +16,7 @@ jobs:
         run: git clone https://github.com/nbgrp/singlea ${{ github.workspace }} && cd ${{ github.workspace }}
 
       - name: Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: /cache
           key: ${{ runner.os }}-gitcache
